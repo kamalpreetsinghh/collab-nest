@@ -34,7 +34,7 @@ export const authOptions: NextAuthOptions = {
   },
   theme: {
     colorScheme: "light",
-    logo: "/logo.png",
+    logo: "/logo.svg",
   },
   callbacks: {
     async session({ session }) {
@@ -55,8 +55,6 @@ export const authOptions: NextAuthOptions = {
         console.log("Error retrieving user details", error);
         return session;
       }
-
-      return session;
     },
     async signIn({ user }: { user: AdapterUser | User }) {
       try {

@@ -10,7 +10,7 @@ import Button from "./Button";
 
 import { categoryFilters } from "@/constants";
 import { FormState, ProjectInterface, SessionInterface } from "@/common.types";
-import { createNewProject, fetchToken } from "@/lib/actions";
+import { createNewProject, fetchToken, updateProject } from "@/lib/actions";
 
 type ProjectFormProps = {
   type: string;
@@ -59,13 +59,23 @@ const ProjectForm = ({ type, session, project }: ProjectFormProps) => {
     setIsSubmitting(true);
 
     const { token } = await fetchToken();
+
     try {
       if (type === "create") {
         await createNewProject(form, session?.user?.id, token);
+
+        router.push("/");
+      } else if (type === "edit") {
+        await updateProject(form, project?.id as string, token);
+
         router.push("/");
       }
     } catch (error) {
-      console.log(error);
+      alert(
+        `Failed to ${
+          type === "create" ? "create" : "edit"
+        } a project. Try again!`
+      );
     } finally {
       setIsSubmitting(false);
     }

@@ -1,4 +1,4 @@
-import { ProjectForm } from "@/common.types";
+import { ProjectForm, UserProfile } from "@/common.types";
 import {
   createProjectMutation,
   createUserMutation,
@@ -7,6 +7,7 @@ import {
   getProjectsOfUserQuery,
   getUserQuery,
   projectsQuery,
+  updateUserMutation,
   updateProjectMutation,
 } from "@/graphql";
 import { GraphQLClient } from "graphql-request";
@@ -153,4 +154,15 @@ export const deleteProject = (id: string, token: string) => {
   client.setHeader("Authorization", `Bearer ${token}`);
 
   return makeGraphQLRequest(deleteProjectMutation, { id });
+};
+
+export const updateUserProfile = (userProfile: UserProfile, token: string) => {
+  client.setHeader("Authorization", `Bearer ${token}`);
+
+  const variables = {
+    id: userProfile.id,
+    input: userProfile,
+  };
+
+  return makeGraphQLRequest(updateUserMutation, variables);
 };

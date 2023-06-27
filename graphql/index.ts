@@ -140,3 +140,13 @@ export const getProjectsOfUserQuery = `
     }
   }
 `;
+
+export const updateUserMutation = `
+	mutation UpdateUser($id: ID!, $input: UserUpdateInput!) {
+		userUpdate(by: { id: $id }, input: $input) {
+			user {
+        id
+      }
+		}
+	}
+`;

@@ -150,7 +150,9 @@ const ProjectForm = ({ type, session, project }: ProjectFormProps) => {
               : `${type === "create" ? "Create" : "Edit"}`
           }
           type="submit"
-          leftIcon={isSubmitting ? "" : "/plus.svg"}
+          leftIcon={
+            isSubmitting ? "" : `${type === "create" ? "/plus.svg" : ""}`
+          }
           isSubmitting={isSubmitting}
         />
       </div>

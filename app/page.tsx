@@ -1,6 +1,7 @@
-import { ProjectInterface } from "@/common.types";
+import Categories from "@/components/Categories";
 import ProjectCard from "@/components/ProjectCard";
 import { getAllProjects } from "@/lib/actions";
+import { ProjectInterface } from "@/common.types";
 
 type ProjectSearch = {
   projectSearch: {
@@ -14,14 +15,22 @@ type ProjectSearch = {
   };
 };
 
-const Home = async () => {
-  const data = (await getAllProjects()) as ProjectSearch;
+type SearchParams = {
+  category?: string;
+};
+
+type HomeProps = {
+  searchParams: SearchParams;
+};
+
+const Home = async ({ searchParams: { category } }: HomeProps) => {
+  const data = (await getAllProjects(category)) as ProjectSearch;
   const projects = data?.projectSearch?.edges || [];
 
   if (projects.length === 0) {
     return (
       <section className="flexStart flex-col paddings">
-        <h1>Categories</h1>
+        <Categories />
 
         <p className="no-result-text text-center">
           No projects found, go create some first.
@@ -32,7 +41,7 @@ const Home = async () => {
 
   return (
     <section className="flexStart flex-col paddings mb-16">
-      <h1>Categories</h1>
+      <Categories />
       <section className="projects-grid">
         {projects.map(({ node }: { node: ProjectInterface }) => (
           <ProjectCard

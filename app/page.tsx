@@ -2,6 +2,7 @@ import Categories from "@/components/Categories";
 import ProjectCard from "@/components/ProjectCard";
 import { getAllProjects } from "@/lib/actions";
 import { ProjectInterface } from "@/common.types";
+import Pagination from "@/components/Pagination";
 
 type ProjectSearch = {
   projectSearch: {
@@ -17,15 +18,17 @@ type ProjectSearch = {
 
 type SearchParams = {
   category?: string;
+  endcursor?: string;
 };
 
 type HomeProps = {
   searchParams: SearchParams;
 };
 
-const Home = async ({ searchParams: { category } }: HomeProps) => {
-  const data = (await getAllProjects(category)) as ProjectSearch;
+const Home = async ({ searchParams: { category, endcursor } }: HomeProps) => {
+  const data = (await getAllProjects(category, endcursor)) as ProjectSearch;
   const projects = data?.projectSearch?.edges || [];
+  const pagination = data?.projectSearch?.pageInfo;
 
   if (projects.length === 0) {
     return (
@@ -56,7 +59,12 @@ const Home = async ({ searchParams: { category } }: HomeProps) => {
         ))}
       </section>
 
-      <h1>Pagination</h1>
+      <Pagination
+        startCursor={pagination?.startCursor}
+        endCursor={pagination?.endCursor}
+        hasPreviousPage={pagination?.hasPreviousPage}
+        hasNextPage={pagination?.hasNextPage}
+      />
     </section>
   );
 };

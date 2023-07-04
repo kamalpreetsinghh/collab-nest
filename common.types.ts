@@ -32,7 +32,7 @@ export interface UserProfile {
   description: string | null;
   avatarUrl: string;
   githubUrl: string | null;
-  linkedinUrl: string | null;
+  linkedInUrl: string | null;
   projects: {
     edges: { node: ProjectInterface }[];
     pageInfo: {
@@ -42,6 +42,12 @@ export interface UserProfile {
       endCursor: string;
     };
   };
+}
+
+export interface UpdateProfile {
+  description: string;
+  githubUrl: string;
+  linkedInUrl: string;
 }
 
 export interface SessionInterface extends Session {

@@ -77,9 +77,8 @@ const Footer = () => {
       </div>
       <div className="flexBetween footer_copyright">
         <p>@ 2023 Flexibbble. All rights reserved</p>
-        <p className="text-gray">
-          <span className="text-black font-semibold">10,779</span> projects
-          submitted
+        <p>
+          <span className="font-semibold">10,779</span> projects submitted
         </p>
       </div>
     </footer>

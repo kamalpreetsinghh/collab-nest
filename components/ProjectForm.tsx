@@ -108,6 +108,7 @@ const ProjectForm = ({ type, session, project }: ProjectFormProps) => {
         title="Title"
         state={form.title}
         placeholder="Flexibbble"
+        isRequired
         setState={(value) => handleStateChange("title", value)}
       />
 
@@ -124,6 +125,7 @@ const ProjectForm = ({ type, session, project }: ProjectFormProps) => {
         title="Website URL"
         state={form.liveSiteUrl}
         placeholder="https://mywebsite.com"
+        isRequired
         setState={(value) => handleStateChange("liveSiteUrl", value)}
       />
 
@@ -132,6 +134,7 @@ const ProjectForm = ({ type, session, project }: ProjectFormProps) => {
         title="GitHub URL"
         state={form.githubUrl}
         placeholder="https://github.com/myusername"
+        isRequired
         setState={(value) => handleStateChange("githubUrl", value)}
       />
 

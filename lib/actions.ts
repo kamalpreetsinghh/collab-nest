@@ -1,4 +1,4 @@
-import { ProjectForm, UserProfile } from "@/common.types";
+import { ProjectForm, UpdateProfile, UserProfile } from "@/common.types";
 import {
   createProjectMutation,
   createUserMutation,
@@ -156,11 +156,15 @@ export const deleteProject = (id: string, token: string) => {
   return makeGraphQLRequest(deleteProjectMutation, { id });
 };
 
-export const updateUserProfile = (userProfile: UserProfile, token: string) => {
+export const updateUserProfile = (
+  userProfile: UpdateProfile,
+  userId: string,
+  token: string
+) => {
   client.setHeader("Authorization", `Bearer ${token}`);
 
   const variables = {
-    id: userProfile.id,
+    id: userId,
     input: userProfile,
   };
 

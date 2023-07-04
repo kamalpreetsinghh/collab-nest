@@ -7,6 +7,7 @@ import { getCurrentUser } from "@/lib/session";
 import AuthProviders from "./AuthProviders";
 import ProfileMenu from "./ProfileMenu";
 import Button from "./Button";
+import ToggleSwitch from "./ToggleSwitch";
 
 const Navbar = async () => {
   const session = await getCurrentUser();
@@ -15,9 +16,14 @@ const Navbar = async () => {
     <nav className="flexBetween navbar">
       <div className="flex-1 flexStart gap-10">
         <Link href="/">
-          <Image src="/logo.svg" width={115} height={43} alt="Flexibbble" />
+          <Image
+            src="/logo-purple.svg"
+            width={115}
+            height={43}
+            alt="Flexibbble"
+          />
         </Link>
-        <ul className="xl:flex hidden text-small gap-7">
+        <ul className="xl:flex hidden text-sm font-medium gap-7">
           {NavLinks.map((link) => (
             <Link href={link.href} key={link.key}>
               {link.text}
@@ -26,6 +32,12 @@ const Navbar = async () => {
         </ul>
       </div>
       <div className="flexCenter gap-4">
+        <div className="flexCenter mx-4">
+          <ToggleSwitch />
+          <div>
+            <Image src="/theme.svg" width={25} height={25} alt="Theme" />
+          </div>
+        </div>
         {session?.user ? (
           <>
             <ProfileMenu session={session} />

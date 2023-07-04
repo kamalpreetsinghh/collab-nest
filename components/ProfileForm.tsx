@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import FormField from "./FormField";
 import Button from "./Button";
 import { fetchToken, updateUserProfile } from "@/lib/actions";
-import { UserProfile } from "@/common.types";
+import { UpdateProfile, UserProfile } from "@/common.types";
 
 type ProfileFormProps = {
   user: UserProfile;
@@ -25,7 +25,7 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
   const [form, setForm] = useState<FormState>({
     description: user?.description || "",
     githubUrl: user?.githubUrl || "",
-    linkedInUrl: user?.linkedinUrl || "",
+    linkedInUrl: user?.linkedInUrl || "",
   });
 
   const handleStateChange = (fieldName: keyof FormState, value: string) => {
@@ -41,15 +41,14 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
 
     try {
       const updatedUserProfile = {
-        ...user,
         description: form.description,
         githubUrl: form.githubUrl,
         linkedInUrl: form.linkedInUrl,
-      } as UserProfile;
+      } as UpdateProfile;
 
       console.log(updatedUserProfile);
 
-      await updateUserProfile(updatedUserProfile, token);
+      await updateUserProfile(updatedUserProfile, user?.id, token);
 
       router.push(`/profile/${user?.id}`);
     } catch (error) {

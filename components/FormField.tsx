@@ -4,6 +4,7 @@ type FormFieldProps = {
   state: string;
   placeholder: string;
   isTextArea?: boolean;
+  isRequired?: boolean;
   setState: (value: string) => void;
 };
 
@@ -13,15 +14,17 @@ const FormField = ({
   state,
   placeholder,
   isTextArea,
+  isRequired = false,
   setState,
 }: FormFieldProps) => {
   return (
     <div className="flexStart flex-col w-full gap-4">
-      <label className="w-full text-gray-100">{title}</label>
+      <label className="w-full">{title}</label>
 
       {isTextArea ? (
         <textarea
           placeholder={placeholder}
+          required={isRequired}
           value={state}
           className="form_field-input"
           onChange={(e) => setState(e.target.value)}
@@ -30,7 +33,7 @@ const FormField = ({
         <input
           type={type || "text"}
           placeholder={placeholder}
-          required
+          required={isRequired}
           value={state}
           className="form_field-input"
           onChange={(e) => setState(e.target.value)}

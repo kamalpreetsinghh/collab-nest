@@ -96,7 +96,7 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
       </section>
 
       <section className="flexCenter w-full gap-8 mt-28">
-        <span className="w-full h-0.5 bg-light-white-200" />
+        <span className="w-full h-0.5 border border-nav-border" />
         <Link href={renderLink()} className="min-w-[82px] h-[82px]">
           <Image
             src={projectDetails?.createdBy?.avatarUrl}
@@ -106,7 +106,7 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
             alt="profile image"
           />
         </Link>
-        <span className="w-full h-0.5 bg-light-white-200" />
+        <span className="w-full h-0.5 border border-nav-border" />
       </section>
 
       <RelatedProjects

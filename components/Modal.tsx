@@ -10,7 +10,7 @@ export default function Modal({ children }: { children: ReactNode }) {
   const router = useRouter();
 
   const onDismiss = useCallback(() => {
-    router.push("/");
+    router.back();
   }, [router]);
 
   const handleClick = useCallback(

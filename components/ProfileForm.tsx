@@ -16,6 +16,7 @@ type FormState = {
   description: string;
   githubUrl: string;
   linkedInUrl: string;
+  websiteUrl: string;
 };
 
 const ProfileForm = ({ user }: ProfileFormProps) => {
@@ -26,6 +27,7 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
     description: user?.description || "",
     githubUrl: user?.githubUrl || "",
     linkedInUrl: user?.linkedInUrl || "",
+    websiteUrl: user?.websiteUrl || "",
   });
 
   const handleStateChange = (fieldName: keyof FormState, value: string) => {
@@ -34,25 +36,26 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     setIsSubmitting(true);
 
     const { token } = await fetchToken();
 
     try {
       const updatedUserProfile = {
-        description: form.description,
-        githubUrl: form.githubUrl,
-        linkedInUrl: form.linkedInUrl,
+        description: form.description ? form.description : null,
+        githubUrl: form.githubUrl ? form.githubUrl : null,
+        linkedInUrl: form.linkedInUrl ? form.linkedInUrl : null,
+        websiteUrl: form.websiteUrl ? form.websiteUrl : null,
       } as UpdateProfile;
 
+      console.log(user);
       console.log(updatedUserProfile);
 
       await updateUserProfile(updatedUserProfile, user?.id, token);
 
       router.push(`/profile/${user?.id}`);
     } catch (error) {
-      alert("Failed to update user profile. Try again!");
+      alert("You have been signed out. Please log in again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -70,7 +73,15 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
 
       <FormField
         type="url"
-        title="Github Url"
+        title="Website URL"
+        state={form.websiteUrl}
+        placeholder="https://mywebsite.com"
+        setState={(value) => handleStateChange("websiteUrl", value)}
+      />
+
+      <FormField
+        type="url"
+        title="Github URL"
         state={form.githubUrl}
         placeholder="https://github.com/myusername"
         setState={(value) => handleStateChange("githubUrl", value)}

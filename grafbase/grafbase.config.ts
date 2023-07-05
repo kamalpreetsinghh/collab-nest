@@ -9,6 +9,7 @@ const User = g
     description: g.string().optional(),
     githubUrl: g.url().optional(),
     linkedInUrl: g.url().optional(),
+    websiteUrl: g.url().optional(),
     projects: g
       .relation(() => Project)
       .list()

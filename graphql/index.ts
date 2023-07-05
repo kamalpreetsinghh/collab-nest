@@ -2,13 +2,14 @@ export const createUserMutation = `
 	mutation CreateUser($input: UserCreateInput!) {
 		userCreate(input: $input) {
 			user {
+        id
 				name
 				email
 				avatarUrl
 				description
 				githubUrl
 				linkedInUrl
-				id
+        websiteUrl
 			}
 		}
 	}
@@ -22,6 +23,7 @@ export const createProjectMutation = `
 				title
 				description
 				createdBy {
+          id
 					email
 					name
 				}
@@ -38,6 +40,7 @@ export const updateProjectMutation = `
 				title
 				description
 				createdBy {
+          id
 					email
 					name
 				}
@@ -64,6 +67,7 @@ export const getUserQuery = `
       description
       githubUrl
       linkedInUrl
+      websiteUrl
     }
   }
 `;
@@ -79,12 +83,12 @@ export const projectsQuery = `
       }
       edges {
         node {
-          title
-          githubUrl
-          description
-          liveSiteUrl
           id
+          title
+          description
           image
+          githubUrl          
+          liveSiteUrl
           category
           createdBy {
             id
@@ -105,8 +109,8 @@ export const getProjectByIdQuery = `
       title
       description
       image
-      liveSiteUrl
       githubUrl
+      liveSiteUrl
       category
       createdBy {
         id
@@ -128,6 +132,7 @@ export const getProjectsOfUserQuery = `
       avatarUrl
       githubUrl
       linkedInUrl
+      websiteUrl
       projects(last: $last) {
         edges {
           node {

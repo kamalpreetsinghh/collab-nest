@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
 
 cloudinary.config({
@@ -7,10 +7,10 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET,
 });
 
-export async function POST(request: Request) {
-  const { path } = await request.json();
+export const POST = async (request: NextRequest) => {
+  const { image } = await request.json();
 
-  if (!path) {
+  if (!image) {
     NextResponse.json({ message: "Image path is required" }, { status: 400 });
   }
 
@@ -22,7 +22,7 @@ export async function POST(request: Request) {
       transformation: [{ width: 1000, height: 752, crop: "scale" }],
     };
 
-    const result = await cloudinary.uploader.upload(path, options);
+    const result = await cloudinary.uploader.upload(image, options);
 
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
@@ -31,4 +31,4 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-}
+};

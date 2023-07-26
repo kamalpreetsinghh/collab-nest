@@ -35,12 +35,12 @@ export const fetchToken = async () => {
   }
 };
 
-export const uploadImage = async (imagePath: string) => {
+export const uploadImage = async (image: string) => {
   try {
     const response = await fetch(`${serverUrl}/api/upload`, {
       method: "POST",
       body: JSON.stringify({
-        path: imagePath,
+        image,
       }),
     });
     return response.json();

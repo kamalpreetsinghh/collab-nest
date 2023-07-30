@@ -9,7 +9,7 @@ import CustomMenu from "./CustomMenu";
 import Button from "./Button";
 
 import { categoryFilters } from "@/constants";
-import { FormState, ProjectInterface, SessionInterface } from "@/common.types";
+import { FormState, ProjectInterface } from "@/common.types";
 import { createNewProject, fetchToken, updateProject } from "@/lib/actions";
 
 type ProjectFormProps = {

@@ -25,10 +25,6 @@ type HomeProps = {
   searchParams: SearchParams;
 };
 
-export const dynamic = "force-dynamic";
-export const dynamicParams = true;
-export const revalidate = 0;
-
 const HomePage = async ({
   searchParams: { category, endcursor },
 }: HomeProps) => {

@@ -6,8 +6,6 @@ import ProjectForm from "@/components/ProjectForm";
 const CreateProject = async () => {
   const session = await getCurrentUser();
 
-  console.log(JSON.stringify(session));
-
   if (!session?.user) redirect("/");
 
   return (

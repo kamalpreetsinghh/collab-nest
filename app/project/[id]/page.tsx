@@ -9,7 +9,7 @@ import Modal from "@/components/Modal";
 import RelatedProjects from "@/components/RelatedProjects";
 import ProjectActions from "@/components/ProjectActions";
 
-const Project = async ({ params: { id } }: { params: { id: string } }) => {
+const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
   const session = await getCurrentUser();
 
   const result = (await getProjectDetails(id)) as {
@@ -117,4 +117,4 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
   );
 };
 
-export default Project;
+export default ProjectPage;

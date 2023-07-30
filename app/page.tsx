@@ -25,7 +25,13 @@ type HomeProps = {
   searchParams: SearchParams;
 };
 
-const Home = async ({ searchParams: { category, endcursor } }: HomeProps) => {
+export const dynamic = "force-dynamic";
+export const dynamicParams = true;
+export const revalidate = 0;
+
+const HomePage = async ({
+  searchParams: { category, endcursor },
+}: HomeProps) => {
   const data = (await getAllProjects(category, endcursor)) as ProjectSearch;
   const projects = data?.projectSearch?.edges || [];
   const pagination = data?.projectSearch?.pageInfo;
@@ -69,4 +75,4 @@ const Home = async ({ searchParams: { category, endcursor } }: HomeProps) => {
   );
 };
 
-export default Home;
+export default HomePage;

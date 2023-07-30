@@ -13,13 +13,14 @@ import { FormState, ProjectInterface, SessionInterface } from "@/common.types";
 import { createNewProject, fetchToken, updateProject } from "@/lib/actions";
 
 type ProjectFormProps = {
-  type: string;
-  session: SessionInterface;
+  type: "create" | "edit";
+  userId: string;
   project?: ProjectInterface;
 };
 
-const ProjectForm = ({ type, session, project }: ProjectFormProps) => {
+const ProjectForm = ({ type, userId, project }: ProjectFormProps) => {
   const router = useRouter();
+  console.log(userId);
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [form, setForm] = useState<FormState>({
@@ -62,15 +63,11 @@ const ProjectForm = ({ type, session, project }: ProjectFormProps) => {
 
     try {
       if (type === "create") {
-        const result = await createNewProject(form, session?.user?.id, token);
-        console.log(result);
-
-        router.push("/");
-      } else if (type === "edit") {
-        await updateProject(form, project?.id as string, token);
-
-        router.push("/");
+        await createNewProject(form, userId, token);
+      } else if (project?.id) {
+        await updateProject(form, project.id, token);
       }
+      router.push("/");
     } catch (error) {
       alert(
         `Failed to ${

@@ -26,10 +26,6 @@ const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL!;
 const client = new GraphQLClient(apiUrl);
 
 export const fetchToken = async () => {
-  console.log(
-    "URLURLURLURLURLURLURLURLURLURLURLURLURLURLURLURLURLURLURLURLURLURLURLURL"
-  );
-  console.log(serverUrl);
   try {
     const response = await fetch(`${serverUrl}/api/auth/token`);
     return response.json();

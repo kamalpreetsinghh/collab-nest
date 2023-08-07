@@ -2,6 +2,10 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ThemeProvider from "@/components/AppThemeProvider";
+import SessionProvider from "@/components/Provider";
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({ weight: "300", subsets: ["latin"] });
 
 export const metadata = {
   title: "Flexibbble",
@@ -15,11 +19,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body className={poppins.className}>
         <ThemeProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
+          <SessionProvider>
+            <div className="min-h-screen">
+              <Navbar />
+              <main>{children}</main>
+            </div>
+            <Footer />
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -2,6 +2,8 @@ import { getServerSession } from "next-auth/next";
 import { NextAuthOptions, User } from "next-auth";
 import { AdapterUser } from "next-auth/adapters";
 import GoogleProvider from "next-auth/providers/google";
+import GithubProvider from "next-auth/providers/github";
+import CredentialsProvider from "next-auth/providers/credentials";
 import jsonwebtoken from "jsonwebtoken";
 import { JWT } from "next-auth/jwt";
 import { SessionInterface, UserProfile } from "@/common.types";
@@ -12,6 +14,41 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
+    GithubProvider({
+      clientId: process.env.GITHUB_ID!,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+    }),
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {},
+      async authorize(credentials, req) {
+        const { email, password } = credentials as {
+          email: string;
+          password: string;
+        };
+
+        const user = await getUser(email);
+
+        if (!user) {
+          throw new Error("Email does not exist.");
+        }
+
+        // const validPassword = await bcryptjs.compare(password, user.password);
+
+        // // check if password is correct
+        // if (!validPassword) {
+        //   throw new Error("Incorrect Username or Password.");
+        // }
+
+        const loggedInUser = {
+          id: "hfjebhflkbhelk",
+          name: "Kamal Preet",
+          email: "kamalpreetsingh025@gmail.com",
+        };
+
+        return loggedInUser;
+      },
     }),
   ],
   jwt: {

@@ -3,11 +3,8 @@ import Link from "next/link";
 
 import { NavLinks } from "@/constants";
 import { getCurrentUser } from "@/lib/session";
-
-import AuthProviders from "./AuthProviders";
-import ProfileMenu from "./ProfileMenu";
-import Button from "./Button";
 import ToggleSwitch from "./ToggleSwitch";
+import SignInAndCreate from "./SignInAndCreate";
 
 const Navbar = async () => {
   const session = await getCurrentUser();
@@ -33,16 +30,7 @@ const Navbar = async () => {
             <Image src="/theme.svg" width={25} height={25} alt="Theme" />
           </div>
         </div>
-        {session?.user ? (
-          <>
-            <ProfileMenu session={session} />
-            <Link href="/create-project">
-              <Button title="Share work" />
-            </Link>
-          </>
-        ) : (
-          <AuthProviders />
-        )}
+        <SignInAndCreate session={session} />
       </div>
     </nav>
   );

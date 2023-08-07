@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 
 @tailwind base;
@@ -12,6 +11,7 @@
 }
 
 :root {
+  --primary-color: rgb(151, 71, 255);
   --background-color-light: white;
   --text-color-light: black;
   --footer-background-color-light: #fafafb;
@@ -46,7 +46,6 @@ html.light {
 }
 
 body {
-  font-family: Inter;
   background-color: var(--background-color);
   color: var(--text-color);
 }
@@ -282,4 +281,144 @@ input[type="checkbox"].toggle:checked + label::after {
 
 .font-pacifico {
   font-family: Pacifico;
+}
+
+.form-padding {
+  @apply sm:px-6 xl:px-24;
+}
+
+.purple_gradient {
+  @apply bg-gradient-to-r from-purple-500 via-indigo-600 to-blue-500 bg-clip-text text-transparent;
+}
+
+.head_text {
+  @apply mt-8 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.15];
+}
+
+.desc {
+  @apply mt-5 text-lg sm:text-xl max-w-2xl;
+}
+
+.button {
+  @apply transition-all text-center text-sm font-bold flex items-center justify-center;
+}
+
+.rounded-button {
+  @apply button;
+  @apply py-2 px-5 rounded-full text-white;
+}
+
+.form-button {
+  @apply transition-all text-center font-semibold flex items-center justify-center 
+  py-2 px-5 rounded-full text-white;
+  background-color: var(--primary-color);
+}
+
+.button:hover,
+.form-button:hover {
+  color: var(--background-color);
+  background-color: var(--text-color);
+}
+
+/* Spinner */
+
+.dot-spin {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: transparent;
+  color: transparent;
+  box-shadow: 0 -18px 0 0 var(--primary-color),
+    12.727926px -12.727926px 0 0 var(--primary-color),
+    18px 0 0 0 var(--primary-color),
+    12.727926px 12.727926px 0 0 rgba(152, 128, 255, 0),
+    0 18px 0 0 rgba(152, 128, 255, 0),
+    -12.727926px 12.727926px 0 0 rgba(152, 128, 255, 0),
+    -18px 0 0 0 rgba(152, 128, 255, 0),
+    -12.727926px -12.727926px 0 0 rgba(152, 128, 255, 0);
+  animation: dot-spin 1.5s infinite linear;
+}
+
+@keyframes dot-spin {
+  0%,
+  100% {
+    box-shadow: 0 -18px 0 0 var(--primary-color),
+      12.727926px -12.727926px 0 0 var(--primary-color),
+      18px 0 0 0 var(--primary-color),
+      12.727926px 12.727926px 0 -5px rgba(152, 128, 255, 0),
+      0 18px 0 -5px rgba(152, 128, 255, 0),
+      -12.727926px 12.727926px 0 -5px rgba(152, 128, 255, 0),
+      -18px 0 0 -5px rgba(152, 128, 255, 0),
+      -12.727926px -12.727926px 0 -5px rgba(152, 128, 255, 0);
+  }
+  12.5% {
+    box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0),
+      12.727926px -12.727926px 0 0 var(--primary-color),
+      18px 0 0 0 var(--primary-color),
+      12.727926px 12.727926px 0 0 var(--primary-color),
+      0 18px 0 -5px rgba(152, 128, 255, 0),
+      -12.727926px 12.727926px 0 -5px rgba(152, 128, 255, 0),
+      -18px 0 0 -5px rgba(152, 128, 255, 0),
+      -12.727926px -12.727926px 0 -5px rgba(152, 128, 255, 0);
+  }
+  25% {
+    box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0),
+      12.727926px -12.727926px 0 -5px rgba(152, 128, 255, 0),
+      18px 0 0 0 var(--primary-color),
+      12.727926px 12.727926px 0 0 var(--primary-color),
+      0 18px 0 0 var(--primary-color),
+      -12.727926px 12.727926px 0 -5px rgba(152, 128, 255, 0),
+      -18px 0 0 -5px rgba(152, 128, 255, 0),
+      -12.727926px -12.727926px 0 -5px rgba(152, 128, 255, 0);
+  }
+  37.5% {
+    box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0),
+      12.727926px -12.727926px 0 -5px rgba(152, 128, 255, 0),
+      18px 0 0 -5px rgba(152, 128, 255, 0),
+      12.727926px 12.727926px 0 0 var(--primary-color),
+      0 18px 0 0 var(--primary-color),
+      -12.727926px 12.727926px 0 0 var(--primary-color),
+      -18px 0 0 -5px rgba(152, 128, 255, 0),
+      -12.727926px -12.727926px 0 -5px rgba(152, 128, 255, 0);
+  }
+  50% {
+    box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0),
+      12.727926px -12.727926px 0 -5px rgba(152, 128, 255, 0),
+      18px 0 0 -5px rgba(152, 128, 255, 0),
+      12.727926px 12.727926px 0 -5px rgba(152, 128, 255, 0),
+      0 18px 0 0 var(--primary-color),
+      -12.727926px 12.727926px 0 0 var(--primary-color),
+      -18px 0 0 0 var(--primary-color),
+      -12.727926px -12.727926px 0 -5px rgba(152, 128, 255, 0);
+  }
+  62.5% {
+    box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0),
+      12.727926px -12.727926px 0 -5px rgba(152, 128, 255, 0),
+      18px 0 0 -5px rgba(152, 128, 255, 0),
+      12.727926px 12.727926px 0 -5px rgba(152, 128, 255, 0),
+      0 18px 0 -5px rgba(152, 128, 255, 0),
+      -12.727926px 12.727926px 0 0 var(--primary-color),
+      -18px 0 0 0 var(--primary-color),
+      -12.727926px -12.727926px 0 0 var(--primary-color);
+  }
+  75% {
+    box-shadow: 0 -18px 0 0 var(--primary-color),
+      12.727926px -12.727926px 0 -5px rgba(152, 128, 255, 0),
+      18px 0 0 -5px rgba(152, 128, 255, 0),
+      12.727926px 12.727926px 0 -5px rgba(152, 128, 255, 0),
+      0 18px 0 -5px rgba(152, 128, 255, 0),
+      -12.727926px 12.727926px 0 -5px rgba(152, 128, 255, 0),
+      -18px 0 0 0 var(--primary-color),
+      -12.727926px -12.727926px 0 0 var(--primary-color);
+  }
+  87.5% {
+    box-shadow: 0 -18px 0 0 var(--primary-color),
+      12.727926px -12.727926px 0 0 var(--primary-color),
+      18px 0 0 -5px rgba(152, 128, 255, 0),
+      12.727926px 12.727926px 0 -5px rgba(152, 128, 255, 0),
+      0 18px 0 -5px rgba(152, 128, 255, 0),
+      -12.727926px 12.727926px 0 -5px rgba(152, 128, 255, 0),
+      -18px 0 0 -5px rgba(152, 128, 255, 0),
+      -12.727926px -12.727926px 0 0 var(--primary-color);
+  }
 }

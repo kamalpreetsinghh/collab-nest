@@ -28,6 +28,10 @@ const serverUrl = isProduction
 const client = new GraphQLClient(apiUrl);
 
 export const fetchToken = async () => {
+  console.log(
+    "URLURLURLURLURLURLURLURLURLURLURLURLURLURLURLURLURLURLURLURLURLURLURLURL"
+  );
+  console.log(serverUrl);
   try {
     const response = await fetch(`${serverUrl}/api/auth/token`);
     return response.json();

@@ -5,7 +5,16 @@ import { ProjectInterface } from "@/common.types";
 import Pagination from "@/components/Pagination";
 
 type ProjectSearch = {
-  projectSearch: {
+  projectSearch?: {
+    edges: { node: ProjectInterface }[];
+    pageInfo: {
+      hasPreviousPage: boolean;
+      hasNextPage: boolean;
+      startCursor: string;
+      endCursor: string;
+    };
+  };
+  projectCollection?: {
     edges: { node: ProjectInterface }[];
     pageInfo: {
       hasPreviousPage: boolean;
@@ -33,8 +42,12 @@ const HomePage = async ({
     endcursor || null
   )) as ProjectSearch;
 
-  const projects = data?.projectSearch?.edges || [];
-  const pagination = data?.projectSearch?.pageInfo;
+  const projects =
+    (category ? data?.projectSearch?.edges : data?.projectCollection?.edges) ||
+    [];
+  const pagination = category
+    ? data?.projectSearch?.pageInfo
+    : data?.projectCollection?.pageInfo;
 
   if (projects.length === 0) {
     return (
@@ -64,13 +77,14 @@ const HomePage = async ({
           />
         ))}
       </section>
-
-      <Pagination
-        startCursor={pagination?.startCursor}
-        endCursor={pagination?.endCursor}
-        hasPreviousPage={pagination?.hasPreviousPage}
-        hasNextPage={pagination?.hasNextPage}
-      />
+      {pagination && (
+        <Pagination
+          startCursor={pagination?.startCursor}
+          endCursor={pagination?.endCursor}
+          hasPreviousPage={pagination?.hasPreviousPage}
+          hasNextPage={pagination?.hasNextPage}
+        />
+      )}
     </section>
   );
 };

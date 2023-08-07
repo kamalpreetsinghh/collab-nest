@@ -32,10 +32,10 @@ const ProjectCard = ({
   }, []);
 
   return (
-    <div className="flexCenter flex-col rounded-2xl w-full sm:w-[296px]">
+    <div className="flexCenter flex-col rounded-2xl w-full sm:w-[298px]">
       <Link
         href={`/project/${id}`}
-        className="flexCenter group relative w-full min-w-[288px] sm:w-[296px] h-56"
+        className="flexCenter group relative w-full h-60 sm:h-56"
       >
         <Image
           src={image}

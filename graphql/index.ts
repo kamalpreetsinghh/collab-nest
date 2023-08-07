@@ -72,7 +72,37 @@ export const getUserQuery = `
   }
 `;
 
-export const projectsQuery = `
+export const getAllProjectsQuery = `
+  query getAllProjects($endcursor: String) {
+    projectSearch(first: 8, after: $endcursor) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+      edges {
+        node {
+          title
+          githubUrl
+          description
+          liveSiteUrl
+          id
+          image
+          category
+          createdBy {
+            id
+            email
+            name
+            avatarUrl
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const getProjectsQuery = `
   query getProjects($category: String, $endCursor: String) {
     projectSearch(first: 8, after: $endCursor, filter: {category: {eq: $category}}) {
       pageInfo {

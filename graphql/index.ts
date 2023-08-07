@@ -74,7 +74,7 @@ export const getUserQuery = `
 
 export const getAllProjectsQuery = `
   query getAllProjects($endcursor: String) {
-    projectSearch(first: 8, after: $endcursor) {
+    projectCollection(first: 8, after: $endcursor) {
       pageInfo {
         hasNextPage
         hasPreviousPage

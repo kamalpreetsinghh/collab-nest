@@ -28,7 +28,11 @@ type HomeProps = {
 const HomePage = async ({
   searchParams: { category, endcursor },
 }: HomeProps) => {
-  const data = (await getAllProjects(category, endcursor)) as ProjectSearch;
+  const data = (await getAllProjects(
+    category || null,
+    endcursor || null
+  )) as ProjectSearch;
+
   const projects = data?.projectSearch?.edges || [];
   const pagination = data?.projectSearch?.pageInfo;
 

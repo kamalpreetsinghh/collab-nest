@@ -32,16 +32,17 @@ const ProjectCard = ({
   }, []);
 
   return (
-    <div className="flexCenter flex-col rounded-2xl drop-shadow-card">
+    <div className="flexCenter flex-col rounded-2xl w-full sm:w-[296px]">
       <Link
         href={`/project/${id}`}
-        className="flexCenter group relative w-full h-full"
+        className="flexCenter group relative w-full min-w-[288px] sm:w-[296px] h-56"
       >
         <Image
           src={image}
-          width={414}
-          height={314}
-          className="w-full h-full object-cover rounded-2xl"
+          fill
+          sizes="100vw"
+          style={{ objectFit: "cover" }}
+          className="rounded-2xl"
           alt="project image"
         />
 

@@ -1,13 +1,12 @@
 import { getServerSession } from "next-auth/next";
 import { NextAuthOptions, User } from "next-auth";
-import { AdapterUser } from "next-auth/adapters";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import jsonwebtoken from "jsonwebtoken";
 import { JWT } from "next-auth/jwt";
 import { SessionInterface, UserProfile } from "@/common.types";
-import { createUser, getUser } from "./actions";
+import { createUser, fetchToken, getUser, updateProfileImage } from "./actions";
 import bcryptjs from "bcryptjs";
 
 export const authOptions: NextAuthOptions = {
@@ -82,27 +81,48 @@ export const authOptions: NextAuthOptions = {
 
       try {
         const data = (await getUser(email)) as { user?: UserProfile };
-        const newSession = {
-          ...session,
-          user: {
-            ...session.user,
-            ...data?.user,
-          },
-        };
 
-        return newSession;
+        if (data && data.user) {
+          const user = data.user;
+          const newSession = {
+            ...session,
+            user: {
+              ...session.user,
+              id: user.id,
+              name: user.name,
+              image: user.image ? user.image : session.user.image,
+            },
+          };
+
+          return newSession;
+        }
+
+        return session;
       } catch (error) {
         console.log("Error retrieving user details", error);
         return session;
       }
     },
-    async signIn({ user }: { user: AdapterUser | User }) {
+    async signIn({ account, profile, user, credentials }) {
+      console.log("ACCOUNTACCOUNTACCOUNTACCOUNTACCOUNTACCOUNTACCOUNT");
+      console.log(account);
+      console.log("PROFILEPROFILEPROFILEPROFILEPROFILEPROFILEPROFILE");
+      console.log(profile);
+      console.log("USERUSERUSERUSERUSERUSERUSERUSERUSERUSERUSERUSER");
+      console.log(user);
+      console.log("CREDENTIALSCREDENTIALSCREDENTIALSCREDENTIALSCREDENTIALS");
+      console.log(credentials);
       try {
-        const userExists = (await getUser(user?.email as string)) as {
+        const data = (await getUser(user?.email as string)) as {
           user?: UserProfile;
         };
 
-        if (!userExists.user) {
+        if (data.user && !data.user.image && user?.image) {
+          const token = await fetchToken();
+          await updateProfileImage(data.user.id, user.image, token);
+        }
+
+        if (!data.user) {
           await createUser(user.name!, user.email!, user?.image || null);
         }
 
@@ -117,6 +137,6 @@ export const authOptions: NextAuthOptions = {
 };
 
 export async function getCurrentUser() {
-  const session = (await getServerSession(authOptions)) as SessionInterface;
+  const session = await getServerSession(authOptions);
   return session;
 }

@@ -215,6 +215,21 @@ export const updateUserProfile = (
   return makeGraphQLRequest(updateUserMutation, variables);
 };
 
+export const updateProfileImage = (
+  userId: string,
+  image: string,
+  token: string
+) => {
+  client.setHeader("Authorization", `Bearer ${token}`);
+
+  const variables = {
+    id: userId,
+    input: { image },
+  };
+
+  return makeGraphQLRequest(updateUserMutation, variables);
+};
+
 const createUsername = (name: string, usernames: string[]): string => {
   let username = name.trim().toLowerCase().replace(/\s/g, "");
 

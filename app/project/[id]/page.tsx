@@ -29,7 +29,7 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
         <div className="flex-1 items-start flex gap-5 w-full max-xs:flex-col">
           <Link href={renderLink()}>
             <Image
-              src={projectDetails?.createdBy?.avatarUrl}
+              src={projectDetails?.createdBy?.image}
               width={50}
               height={50}
               alt="profile"
@@ -99,7 +99,7 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
         <span className="w-full h-0.5 border border-nav-border" />
         <Link href={renderLink()} className="min-w-[82px] h-[82px]">
           <Image
-            src={projectDetails?.createdBy?.avatarUrl}
+            src={projectDetails?.createdBy?.image}
             className="rounded-full"
             width={82}
             height={82}

@@ -72,7 +72,7 @@ const HomePage = async ({
             image={node?.image}
             title={node?.title}
             name={node?.createdBy.name}
-            avatarUrl={node?.createdBy.avatarUrl}
+            userImage={node?.createdBy.image}
             userId={node?.createdBy.id}
           />
         ))}

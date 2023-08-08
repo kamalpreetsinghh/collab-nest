@@ -10,7 +10,7 @@ type ProjectCardProps = {
   image: string;
   title: string;
   name: string;
-  avatarUrl: string;
+  userImage?: string;
   userId: string;
 };
 const ProjectCard = ({
@@ -18,7 +18,7 @@ const ProjectCard = ({
   image,
   title,
   name,
-  avatarUrl,
+  userImage,
   userId,
 }: ProjectCardProps) => {
   const [randomLikes, setRandomLikes] = useState(0);
@@ -52,18 +52,20 @@ const ProjectCard = ({
       </Link>
 
       <div className="flexBetween w-full px-2 mt-3 font-semibold text-sm">
-        <Link href={`/profile/${userId}`}>
-          <div className="flexCenter gap-2">
-            <Image
-              src={avatarUrl}
-              width={24}
-              height={24}
-              className="rounded-full"
-              alt="profile image"
-            />
-            <p>{name}</p>
-          </div>
-        </Link>
+        {userImage && (
+          <Link href={`/profile/${userId}`}>
+            <div className="flexCenter gap-2">
+              <Image
+                src={userImage}
+                width={24}
+                height={24}
+                className="rounded-full"
+                alt="profile image"
+              />
+              <p>{name}</p>
+            </div>
+          </Link>
+        )}
 
         <div className="flexCenter gap-3">
           <div className="flexCenter gap-2">

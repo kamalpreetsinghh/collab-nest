@@ -13,7 +13,7 @@ const User = g
     linkedInUrl: g.url().optional(),
     websiteUrl: g.url().optional(),
     forgotPasswordToken: g.string().optional(),
-    forgotPasswordTokenExpiry: g.date().optional(),
+    forgotPasswordTokenExpiry: g.datetime().optional(),
     following: g
       .relation(() => User)
       .list()

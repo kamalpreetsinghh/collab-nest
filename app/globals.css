@@ -18,6 +18,7 @@
   --tab-selected-color-light: #f3f3f4;
   --divider-color-light: rgb(235 234 234);
   --form-background-color-light: #f2f4f5;
+  --text-grey-color-light: rgb(86, 86, 86);
 
   --background-color-dark: black;
   --text-color-dark: white;
@@ -25,6 +26,7 @@
   --tab-selected-color-dark: #161616;
   --divider-color-dark: #1e1e1e;
   --form-background-color-dark: #1c1c1c;
+  --text-grey-color-dark: rgb(156 163 175);
 }
 
 html.dark {
@@ -34,6 +36,7 @@ html.dark {
   --tab-selected-color: var(--tab-selected-color-dark);
   --divider-color: var(--divider-color-dark);
   --form-background-color: var(--form-background-color-dark);
+  --text-grey-color: var(--text-grey-color-dark);
 }
 
 html.light {
@@ -43,6 +46,7 @@ html.light {
   --tab-selected-color: var(--tab-selected-color-light);
   --divider-color: var(--divider-color-light);
   --form-background-color: var(--form-background-color-light);
+  --text-grey-color: var(--text-grey-color-light);
 }
 
 body {
@@ -281,6 +285,10 @@ input[type="checkbox"].toggle:checked + label::after {
 
 .font-pacifico {
   font-family: Pacifico;
+}
+
+.text-grey-color {
+  color: var(--text-grey-color);
 }
 
 .form-padding {

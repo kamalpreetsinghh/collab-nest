@@ -230,6 +230,21 @@ export const updateProfileImage = (
   return makeGraphQLRequest(updateUserMutation, variables);
 };
 
+export const updateForgetPasswordToken = (
+  userId: string,
+  forgotPasswordToken: string,
+  forgotPasswordTokenExpiry: Date
+) => {
+  client.setHeader("x-api-key", apiKey);
+
+  const variables = {
+    id: userId,
+    input: { forgotPasswordToken, forgotPasswordTokenExpiry },
+  };
+
+  return makeGraphQLRequest(updateUserMutation, variables);
+};
+
 const createUsername = (name: string, usernames: string[]): string => {
   let username = name.trim().toLowerCase().replace(/\s/g, "");
 

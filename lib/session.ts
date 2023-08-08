@@ -5,7 +5,7 @@ import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import jsonwebtoken from "jsonwebtoken";
 import { JWT } from "next-auth/jwt";
-import { SessionInterface, UserProfile } from "@/common.types";
+import { UserProfile } from "@/common.types";
 import { createUser, fetchToken, getUser, updateProfileImage } from "./actions";
 import bcryptjs from "bcryptjs";
 

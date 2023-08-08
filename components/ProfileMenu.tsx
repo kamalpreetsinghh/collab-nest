@@ -6,10 +6,10 @@ import Image from "next/image";
 import { signOut } from "next-auth/react";
 import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
+import { User } from "@/common.types";
+import UserNameIcon from "./UserNameIcon";
 
-import { SessionInterface } from "@/common.types";
-
-const ProfileMenu = ({ session }: { session: SessionInterface }) => {
+const ProfileMenu = ({ user }: { user: User }) => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -19,14 +19,18 @@ const ProfileMenu = ({ session }: { session: SessionInterface }) => {
           className="flexCenter"
           onMouseEnter={() => setOpenModal(true)}
         >
-          {session?.user?.image && (
-            <Image
-              src={session.user.image}
-              width={40}
-              height={40}
-              className="rounded-full"
-              alt="user profile image"
-            />
+          {user.image ? (
+            <div className="w-10 h-10 relative">
+              <Image
+                src={user.image}
+                className="rounded-full"
+                fill
+                style={{ objectFit: "cover" }}
+                alt="user profile image"
+              />
+            </div>
+          ) : (
+            <UserNameIcon name={user.name[0]} className="w-10 h-10 text-2xl" />
           )}
         </Menu.Button>
 
@@ -46,40 +50,38 @@ const ProfileMenu = ({ session }: { session: SessionInterface }) => {
             onMouseLeave={() => setOpenModal(false)}
           >
             <div className="flex flex-col items-center gap-y-4">
-              {session?.user?.image && (
-                <Image
-                  src={session?.user?.image}
-                  className="rounded-full"
-                  width={80}
-                  height={80}
-                  alt="profile Image"
+              {user.image ? (
+                <div className="w-20 h-20 relative">
+                  <Image
+                    src={user.image}
+                    className="rounded-full"
+                    fill
+                    style={{ objectFit: "cover" }}
+                    alt="profile Image"
+                  />
+                </div>
+              ) : (
+                <UserNameIcon
+                  name={user.name[0]}
+                  className="w-20 h-20 text-6xl"
                 />
               )}
-              <p className="font-semibold">{session?.user?.name}</p>
+              <p className="font-semibold">{user.name}</p>
             </div>
 
             <div className="flex flex-col gap-3 pt-10 items-start w-full">
               <Menu.Item>
-                <Link
-                  href={`/profile/${session?.user?.id}`}
-                  className="text-sm"
-                >
+                <Link href={`/profile/${user.id}`} className="text-sm">
                   Work Preferences
                 </Link>
               </Menu.Item>
               <Menu.Item>
-                <Link
-                  href={`/profile/${session?.user?.id}`}
-                  className="text-sm"
-                >
+                <Link href={`/profile/${user.id}`} className="text-sm">
                   Settings
                 </Link>
               </Menu.Item>
               <Menu.Item>
-                <Link
-                  href={`/profile/${session?.user?.id}`}
-                  className="text-sm"
-                >
+                <Link href={`/profile/${user.id}`} className="text-sm">
                   Profile
                 </Link>
               </Menu.Item>

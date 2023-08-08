@@ -5,11 +5,10 @@ import ProfileMenu from "./ProfileMenu";
 import Link from "next/link";
 import SignInButton from "./SignInButton";
 import { useSession } from "next-auth/react";
-import Button from "./Button";
-import { SessionInterface } from "@/common.types";
+import { Session } from "next-auth";
 
 type SignInAndCreateProps = {
-  session: SessionInterface;
+  session: Session | null;
 };
 
 const SignInAndCreate = ({ session }: SignInAndCreateProps) => {
@@ -20,9 +19,13 @@ const SignInAndCreate = ({ session }: SignInAndCreateProps) => {
       {(session && session?.user) ||
       clientSession.status === "authenticated" ? (
         <div className="flex gap-3 md:gap-6">
-          <ProfileMenu session={session} />
-          <Link href="/create-project">
-            <Button title="Share work" />
+          <ProfileMenu
+            user={
+              session && session?.user ? session.user : clientSession.data?.user
+            }
+          />
+          <Link className="flex items-center" href="/create-project">
+            <span className="rounded-navbar-button">Share Work</span>
           </Link>
         </div>
       ) : (

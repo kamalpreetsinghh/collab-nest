@@ -11,7 +11,7 @@ export const POST = async (request: NextRequest) => {
   const { image } = await request.json();
 
   if (!image) {
-    NextResponse.json({ message: "Image path is required" }, { status: 400 });
+    NextResponse.json({ message: "Image is required" }, { status: 400 });
   }
 
   try {
@@ -19,7 +19,7 @@ export const POST = async (request: NextRequest) => {
       use_filename: true,
       unique_filename: false,
       overwrite: true,
-      transformation: [{ width: 1000, height: 752, crop: "scale" }],
+      quality: "auto:eco",
     };
 
     const result = await cloudinary.uploader.upload(image, options);

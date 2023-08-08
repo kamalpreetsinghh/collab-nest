@@ -189,10 +189,22 @@ export const updateUserMutation = `
 
 export const getUsernamesWithSameName = `
   query GetUsernamesWithSameName($name: String! ) {
-    userSearch(first: 10, filter: { name: {eq: $name } }) {
+    userSearch(first: 10, filter: { name: { eq: $name }}) {
       edges {
         node {
           username
+        }
+      }
+    }
+  }
+`;
+
+export const getUserWithForgotPasswordToken = `
+  query GetUserWithForgotPasswordToken($token: String! ) {
+    userSearch(first: 10, filter: { forgotPasswordToken: { eq: $token }}) {
+      edges{
+        node{
+          id
         }
       }
     }

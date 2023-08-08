@@ -12,7 +12,7 @@ const User = g
     githubUrl: g.url().optional(),
     linkedInUrl: g.url().optional(),
     websiteUrl: g.url().optional(),
-    forgotPasswordToken: g.string().optional(),
+    forgotPasswordToken: g.string().optional().search(),
     forgotPasswordTokenExpiry: g.datetime().optional(),
     following: g
       .relation(() => User)

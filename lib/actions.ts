@@ -11,6 +11,7 @@ import {
   updateProjectMutation,
   getAllProjectsQuery,
   getUsernamesWithSameName,
+  getUserWithForgotPasswordToken,
 } from "@/graphql";
 import { GraphQLClient } from "graphql-request";
 import bcryptjs from "bcryptjs";
@@ -63,18 +64,28 @@ export const getUser = (email: string) => {
   return makeGraphQLRequest(getUserQuery, { email });
 };
 
-export const createUser = (
+export const createUser = async (
   name: string,
   email: string,
   image: string | null
 ) => {
   client.setHeader("x-api-key", apiKey);
 
+  const result: any = await makeGraphQLRequest(getUsernamesWithSameName, {
+    name,
+  });
+
+  const resultEdges = result.userSearch.edges;
+  const existingUsernames = resultEdges.map((edge: any) => edge.node.username);
+
+  const username = createUsername(name, existingUsernames);
+
   const variables = {
     input: {
       name,
       email,
       image,
+      username,
     },
   };
 
@@ -243,6 +254,35 @@ export const updateForgetPasswordToken = (
   };
 
   return makeGraphQLRequest(updateUserMutation, variables);
+};
+
+export const updateUserPassword = async (token: string, password: string) => {
+  client.setHeader("x-api-key", apiKey);
+
+  const result: any = await makeGraphQLRequest(getUserWithForgotPasswordToken, {
+    token,
+  });
+
+  const resultEdges = result.userSearch.edges;
+  const user = resultEdges.map((edge: any) => edge.node.id);
+  console.log(user);
+
+  if (result && user.length > 0) {
+    const userId = user[0];
+    const variables = {
+      id: userId,
+      input: {
+        password,
+        forgotPasswordToken: null,
+        forgotPasswordTokenExpiry: null,
+      },
+    };
+
+    await makeGraphQLRequest(updateUserMutation, variables);
+    return user;
+  }
+
+  return null;
 };
 
 const createUsername = (name: string, usernames: string[]): string => {

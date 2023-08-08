@@ -10,8 +10,10 @@ import {
   updateUserMutation,
   updateProjectMutation,
   getAllProjectsQuery,
+  getUsernamesWithSameName,
 } from "@/graphql";
 import { GraphQLClient } from "graphql-request";
+import bcryptjs from "bcryptjs";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -61,14 +63,50 @@ export const getUser = (email: string) => {
   return makeGraphQLRequest(getUserQuery, { email });
 };
 
-export const createUser = (name: string, email: string, avatarUrl: string) => {
+export const createUser = (
+  name: string,
+  email: string,
+  image: string | null
+) => {
   client.setHeader("x-api-key", apiKey);
 
   const variables = {
     input: {
-      name: name,
-      email: email,
-      avatarUrl: avatarUrl,
+      name,
+      email,
+      image,
+    },
+  };
+
+  return makeGraphQLRequest(createUserMutation, variables);
+};
+
+export const createUserWithCredentials = async (
+  name: string,
+  email: string,
+  password: string
+) => {
+  client.setHeader("x-api-key", apiKey);
+
+  // hash password
+  const salt = await bcryptjs.genSalt(10);
+  const hashedPassword = await bcryptjs.hash(password, salt);
+
+  const result: any = await makeGraphQLRequest(getUsernamesWithSameName, {
+    name,
+  });
+
+  const resultEdges = result.userSearch.edges;
+  const existingUsernames = resultEdges.map((edge: any) => edge.node.username);
+
+  const username = createUsername(name, existingUsernames);
+
+  const variables = {
+    input: {
+      name,
+      email,
+      password: hashedPassword,
+      username,
     },
   };
 
@@ -175,4 +213,15 @@ export const updateUserProfile = (
   };
 
   return makeGraphQLRequest(updateUserMutation, variables);
+};
+
+const createUsername = (name: string, usernames: string[]): string => {
+  let username = name.trim().toLowerCase().replace(/\s/g, "");
+
+  let count = 1;
+  while (usernames.includes(username)) {
+    username = `${username}${count}`;
+    count++;
+  }
+  return username;
 };

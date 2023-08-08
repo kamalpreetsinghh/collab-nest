@@ -3,13 +3,25 @@ import { g, auth, config } from "@grafbase/sdk";
 // @ts-ignore
 const User = g
   .model("User", {
-    name: g.string().length({ min: 2, max: 20 }),
+    name: g.string().length({ min: 2, max: 20 }).search(),
     email: g.string().unique(),
-    avatarUrl: g.url(),
+    username: g.string().unique(),
+    password: g.string().optional(),
+    image: g.string().optional(),
     description: g.string().optional(),
     githubUrl: g.url().optional(),
     linkedInUrl: g.url().optional(),
     websiteUrl: g.url().optional(),
+    forgotPasswordToken: g.string().optional(),
+    forgotPasswordTokenExpiry: g.date().optional(),
+    following: g
+      .relation(() => User)
+      .list()
+      .optional(),
+    followers: g
+      .relation(() => User)
+      .list()
+      .optional(),
     projects: g
       .relation(() => Project)
       .list()

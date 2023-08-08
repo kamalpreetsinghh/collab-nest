@@ -5,7 +5,7 @@ export const createUserMutation = `
         id
 				name
 				email
-				avatarUrl
+				image
 				description
 				githubUrl
 				linkedInUrl
@@ -63,11 +63,12 @@ export const getUserQuery = `
       id
       name
       email
-      avatarUrl
+      image
       description
       githubUrl
       linkedInUrl
       websiteUrl
+      password
     }
   }
 `;
@@ -94,7 +95,7 @@ export const getAllProjectsQuery = `
             id
             email
             name
-            avatarUrl
+            image
           }
         }
       }
@@ -124,7 +125,7 @@ export const getProjectsQuery = `
             id
             email
             name
-            avatarUrl
+            image
           }
         }
       }
@@ -146,7 +147,7 @@ export const getProjectByIdQuery = `
         id
         name
         email
-        avatarUrl
+        image
       }
     }
   }
@@ -159,7 +160,7 @@ export const getProjectsOfUserQuery = `
       name
       email
       description
-      avatarUrl
+      image
       githubUrl
       linkedInUrl
       websiteUrl
@@ -184,4 +185,16 @@ export const updateUserMutation = `
       }
 		}
 	}
+`;
+
+export const getUsernamesWithSameName = `
+  query GetUsernamesWithSameName($name: String! ) {
+    userSearch(first: 10, filter: { name: {eq: $name } }) {
+      edges {
+        node {
+          username
+        }
+      }
+    }
+  }
 `;

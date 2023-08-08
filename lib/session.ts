@@ -8,6 +8,7 @@ import jsonwebtoken from "jsonwebtoken";
 import { JWT } from "next-auth/jwt";
 import { SessionInterface, UserProfile } from "@/common.types";
 import { createUser, getUser } from "./actions";
+import bcryptjs from "bcryptjs";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -28,23 +29,25 @@ export const authOptions: NextAuthOptions = {
           password: string;
         };
 
-        const user = await getUser(email);
+        const data: any = await getUser(email);
 
-        if (!user) {
+        if (!data.user) {
           throw new Error("Email does not exist.");
         }
 
-        // const validPassword = await bcryptjs.compare(password, user.password);
+        const user = data.user;
 
-        // // check if password is correct
-        // if (!validPassword) {
-        //   throw new Error("Incorrect Username or Password.");
-        // }
+        const validPassword = await bcryptjs.compare(password, user.password);
+
+        // check if password is correct
+        if (!validPassword) {
+          throw new Error("Incorrect Username or Password.");
+        }
 
         const loggedInUser = {
-          id: "hfjebhflkbhelk",
-          name: "Kamal Preet",
-          email: "kamalpreetsingh025@gmail.com",
+          id: user.id,
+          name: user.name,
+          email: user.email,
         };
 
         return loggedInUser;
@@ -100,11 +103,7 @@ export const authOptions: NextAuthOptions = {
         };
 
         if (!userExists.user) {
-          await createUser(
-            user.name as string,
-            user.email as string,
-            user.image as string
-          );
+          await createUser(user.name!, user.email!, user?.image || null);
         }
 
         return true;

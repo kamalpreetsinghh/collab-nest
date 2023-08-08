@@ -30,7 +30,7 @@ const FormField = ({
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="flexStart flex-col w-full gap-4">
+    <div className="flex justify-start items-start flex-col w-full gap-4">
       {title && <label className="w-full">{title}</label>}
       {errorMessage && <span className=" text-red-600">{errorMessage}</span>}
 

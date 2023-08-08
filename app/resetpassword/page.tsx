@@ -7,6 +7,7 @@ import FormAndImage from "@/components/FormAndImage";
 import { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { errors, regex } from "@/constants";
+import Button from "@/components/Button";
 
 const ResetPasswordPage = () => {
   const [token, setToken] = useState("");
@@ -113,19 +114,12 @@ const ResetPasswordPage = () => {
               type="password"
             />
 
-            <button
-              className="form-button mt-4 mb-6"
+            <Button
               type="submit"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <div className="h-6 flex items-center justify-center">
-                  <span className="loader bottom-3"></span>
-                </div>
-              ) : (
-                "Reset Password"
-              )}
-            </button>
+              title="Reset Password"
+              isSubmitting={isLoading}
+              className="mt-2 mb-6"
+            />
           </form>
           <p className="flex justify-center">
             <Link className="text-grey-color" href="/signin">

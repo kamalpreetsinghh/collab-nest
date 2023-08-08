@@ -49,41 +49,42 @@ const HomePage = async ({
     ? data?.projectSearch?.pageInfo
     : data?.projectCollection?.pageInfo;
 
-  if (projects.length === 0) {
-    return (
-      <section className="flexStart flex-col paddings">
-        <Categories />
-
-        <p className="no-result-text text-center">
-          No projects found, go create some first.
-        </p>
-      </section>
-    );
-  }
-
   return (
     <section className="flexCenter flex-col paddings mb-16">
       <Categories />
-      <section className="projects-grid">
-        {projects.map(({ node }: { node: ProjectInterface }) => (
-          <ProjectCard
-            key={node?.id}
-            id={node?.id}
-            image={node?.image}
-            title={node?.title}
-            name={node?.createdBy.name}
-            userImage={node?.createdBy.image}
-            userId={node?.createdBy.id}
-          />
-        ))}
-      </section>
-      {pagination && (
-        <Pagination
-          startCursor={pagination?.startCursor}
-          endCursor={pagination?.endCursor}
-          hasPreviousPage={pagination?.hasPreviousPage}
-          hasNextPage={pagination?.hasNextPage}
-        />
+      {projects.length > 0 ? (
+        <>
+          <section className="projects-grid">
+            {projects.map(({ node }: { node: ProjectInterface }) => (
+              <ProjectCard
+                key={node?.id}
+                id={node?.id}
+                image={node?.image}
+                title={node?.title}
+                name={node?.createdBy.name}
+                userImage={node?.createdBy.image}
+                userId={node?.createdBy.id}
+              />
+            ))}
+          </section>
+          {pagination && (
+            <Pagination
+              startCursor={pagination?.startCursor}
+              endCursor={pagination?.endCursor}
+              hasPreviousPage={pagination?.hasPreviousPage}
+              hasNextPage={pagination?.hasNextPage}
+            />
+          )}
+        </>
+      ) : (
+        <>
+          <p className="mt-56 text-xl text-center text-grey-color">
+            Currently there are no posts.
+          </p>
+          <p className="mt-4 text-xl text-center text-grey-color">
+            Create and share your creative projects to the community.
+          </p>
+        </>
       )}
     </section>
   );

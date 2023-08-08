@@ -25,7 +25,7 @@ const SignInAndCreate = ({ session }: SignInAndCreateProps) => {
             }
           />
           <Link className="flex items-center" href="/create-project">
-            <span className="rounded-navbar-button">Share Work</span>
+            <span className="primary-button">Share Work</span>
           </Link>
         </div>
       ) : (

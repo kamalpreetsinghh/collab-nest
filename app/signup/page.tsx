@@ -9,6 +9,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { errors, regex } from "@/constants";
 import { capitalizeWords } from "@/lib/common";
 import { createUserWithCredentials, getUser } from "@/lib/actions";
+import Button from "@/components/Button";
 
 const SignUpPage = () => {
   const [name, setName] = useState("");
@@ -121,7 +122,7 @@ const SignUpPage = () => {
             setState={handleNameChange}
             errorMessage={nameError}
             isRequired
-            autocapitalize={true}
+            autocapitalize="words"
           />
 
           <FormField
@@ -152,19 +153,13 @@ const SignUpPage = () => {
             isRequired
             type="password"
           />
-          <button
-            className="form-button my-4"
+
+          <Button
             type="submit"
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <div className="h-6 flex items-center justify-center">
-                <span className="loader bottom-3"></span>
-              </div>
-            ) : (
-              "Create Account"
-            )}
-          </button>
+            title="Create Account"
+            isSubmitting={isLoading}
+            className="mt-2 mb-4"
+          />
         </form>
         <p className="flex justify-center">
           Already have an account?&nbsp;

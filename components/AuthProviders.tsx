@@ -8,6 +8,7 @@ import Link from "next/link";
 import FormField from "./FormField";
 import Image from "next/image";
 import GitHub from "@mui/icons-material/GitHub";
+import Button from "./Button";
 
 type Provider = {
   id: string;
@@ -153,20 +154,12 @@ const AuthProviders = () => {
               Forgot Password?
             </Link>
           </div>
-
-          <button
-            className="form-button mt-2 mb-4"
+          <Button
             type="submit"
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <div className="h-6 flex items-center justify-center">
-                <span className="loader bottom-3"></span>
-              </div>
-            ) : (
-              "Sign In"
-            )}
-          </button>
+            title="Sign In"
+            isSubmitting={isLoading}
+            className="mt-2 mb-4"
+          />
         </form>
 
         <p className="flex justify-center">

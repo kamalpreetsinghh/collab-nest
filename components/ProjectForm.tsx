@@ -2,12 +2,10 @@
 
 import Image from "next/image";
 import React, { ChangeEvent, useState } from "react";
-import { useRouter } from "next/navigation";
-
 import FormField from "./FormField";
 import CustomMenu from "./CustomMenu";
 import Button from "./Button";
-
+import { useRouter } from "next/navigation";
 import { categoryFilters } from "@/constants";
 import { FormState, ProjectInterface } from "@/common.types";
 import { createNewProject, fetchToken, updateProject } from "@/lib/actions";
@@ -20,7 +18,6 @@ type ProjectFormProps = {
 
 const ProjectForm = ({ type, userId, project }: ProjectFormProps) => {
   const router = useRouter();
-  console.log(userId);
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [form, setForm] = useState<FormState>({
@@ -107,6 +104,7 @@ const ProjectForm = ({ type, userId, project }: ProjectFormProps) => {
         state={form.title}
         placeholder="Flexibbble"
         isRequired
+        autocapitalize="words"
         setState={(value) => handleStateChange("title", value)}
       />
 
@@ -115,6 +113,7 @@ const ProjectForm = ({ type, userId, project }: ProjectFormProps) => {
         state={form.description}
         placeholder="Showcase and discover remarkable developer projects."
         isTextArea
+        autocapitalize="sentences"
         setState={(value) => handleStateChange("description", value)}
       />
 
@@ -122,7 +121,7 @@ const ProjectForm = ({ type, userId, project }: ProjectFormProps) => {
         type="url"
         title="Website URL"
         state={form.liveSiteUrl}
-        placeholder="https://mywebsite.com"
+        placeholder="https://projectwebsite.com"
         isRequired
         setState={(value) => handleStateChange("liveSiteUrl", value)}
       />
@@ -131,7 +130,7 @@ const ProjectForm = ({ type, userId, project }: ProjectFormProps) => {
         type="url"
         title="GitHub URL"
         state={form.githubUrl}
-        placeholder="https://github.com/myusername"
+        placeholder="https://github.com/username/projectname"
         isRequired
         setState={(value) => handleStateChange("githubUrl", value)}
       />
@@ -145,15 +144,8 @@ const ProjectForm = ({ type, userId, project }: ProjectFormProps) => {
 
       <div className="flexStart w-full">
         <Button
-          title={
-            isSubmitting
-              ? `${type === "create" ? "Creating" : "Editing"}`
-              : `${type === "create" ? "Create" : "Edit"}`
-          }
+          title={`${type === "create" ? "Create" : "Edit"}`}
           type="submit"
-          leftIcon={
-            isSubmitting ? "" : `${type === "create" ? "/plus.svg" : ""}`
-          }
           isSubmitting={isSubmitting}
         />
       </div>

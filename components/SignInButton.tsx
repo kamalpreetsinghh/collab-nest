@@ -14,7 +14,13 @@ const SignInButton = () => {
     router.push("/signin");
   };
 
-  return <Button title="Sign In" handleClick={handleClick} />;
+  return (
+    <Button
+      className="primary-button"
+      title="Sign In"
+      handleClick={handleClick}
+    />
+  );
 };
 
 export default SignInButton;

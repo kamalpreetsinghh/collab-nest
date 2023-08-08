@@ -8,6 +8,7 @@ import { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { errors, regex } from "@/constants";
 import { getUser } from "@/lib/actions";
+import Button from "@/components/Button";
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
@@ -76,19 +77,13 @@ const ForgotPasswordPage = () => {
               errorMessage={emailError}
               isRequired
             />
-            <button
-              className="form-button mt-4 mb-6"
+
+            <Button
               type="submit"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <div className="h-6 flex items-center justify-center">
-                  <span className="loader bottom-3"></span>
-                </div>
-              ) : (
-                "Reset Password"
-              )}
-            </button>
+              title="Reset Password"
+              isSubmitting={isLoading}
+              className="mt-2 mb-6"
+            />
           </form>
           <p className="flex justify-center">
             <Link className="text-grey-color" href="/signin">

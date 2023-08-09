@@ -37,12 +37,16 @@ export const fetchToken = async () => {
   }
 };
 
-export const uploadImage = async (image: string) => {
+export const uploadImage = async (
+  image: string,
+  type: "project" | "profile"
+) => {
   try {
     const response = await fetch(`${serverUrl}/api/upload`, {
       method: "POST",
       body: JSON.stringify({
         image,
+        type,
       }),
     });
     return response.json();
@@ -129,7 +133,7 @@ export const createNewProject = async (
   creatorId: string,
   token: string
 ) => {
-  const imageUrl = await uploadImage(form.image);
+  const imageUrl = await uploadImage(form.image, "project");
 
   if (imageUrl.url) {
     client.setHeader("Authorization", `Bearer ${token}`);
@@ -188,7 +192,7 @@ export const updateProject = async (
   const isNewImage = isBase64DataURL(form.image);
 
   if (isNewImage) {
-    const imageUrl = await uploadImage(form.image);
+    const imageUrl = await uploadImage(form.image, "project");
 
     if (imageUrl.url) {
       updatedForm = { ...updatedForm, image: imageUrl.url };
@@ -238,6 +242,8 @@ export const updateProfileImage = (
     input: { image },
   };
 
+  console.log(variables);
+
   return makeGraphQLRequest(updateUserMutation, variables);
 };
 
@@ -283,6 +289,16 @@ export const updateUserPassword = async (token: string, password: string) => {
   }
 
   return null;
+};
+
+export const uploadProfileImage = async (
+  userId: string,
+  image: string,
+  token: string
+) => {
+  const uploadedImage = await uploadImage(image, "profile");
+  const result = updateProfileImage(userId, uploadedImage.url, token);
+  return result;
 };
 
 const createUsername = (name: string, usernames: string[]): string => {

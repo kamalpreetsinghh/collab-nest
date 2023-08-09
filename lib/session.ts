@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth/next";
-import { NextAuthOptions, User } from "next-auth";
+import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -104,14 +104,6 @@ export const authOptions: NextAuthOptions = {
       }
     },
     async signIn({ account, profile, user, credentials }) {
-      console.log("ACCOUNTACCOUNTACCOUNTACCOUNTACCOUNTACCOUNTACCOUNT");
-      console.log(account);
-      console.log("PROFILEPROFILEPROFILEPROFILEPROFILEPROFILEPROFILE");
-      console.log(profile);
-      console.log("USERUSERUSERUSERUSERUSERUSERUSERUSERUSERUSERUSER");
-      console.log(user);
-      console.log("CREDENTIALSCREDENTIALSCREDENTIALSCREDENTIALSCREDENTIALS");
-      console.log(credentials);
       try {
         const data = (await getUser(user?.email as string)) as {
           user?: UserProfile;

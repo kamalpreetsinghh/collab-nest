@@ -291,6 +291,14 @@ input[type="checkbox"].toggle:checked + label::after {
   color: var(--text-grey-color);
 }
 
+.primary-color {
+  color: var(--primary-color);
+}
+
+.button-hover:hover {
+  color: var(--text-color);
+}
+
 .form-padding {
   @apply sm:px-6 xl:px-24;
 }

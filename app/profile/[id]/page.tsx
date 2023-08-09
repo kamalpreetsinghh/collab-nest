@@ -7,6 +7,7 @@ import Link from "next/link";
 import Button from "@/components/Button";
 import UserWebsites from "@/components/UserWebsites";
 import ProjectCard from "@/components/ProjectCard";
+import UploadImage from "@/components/UploadImage";
 
 type ProfilePageProps = {
   params: {
@@ -24,15 +25,12 @@ const ProfilePage = async ({ params: { id } }: ProfilePageProps) => {
     <section className="flexCenter flex-col max-w-10xl w-full mx-auto paddings">
       <section className="flexBetween max-lg:flex-col gap-10 w-full">
         <div className="flex items-start flex-col w-full">
-          {user && user.image && (
-            <Image
-              src={user.image}
-              width={100}
-              height={100}
-              className="rounded-full"
-              alt="user image"
-            />
-          )}
+          <UploadImage
+            userImage={user?.image}
+            canEdit={(session && session?.user?.id === user.id) || false}
+            name={user?.name[0]}
+            userId={user?.id}
+          />
 
           <p className="text-4xl font-bold mt-10">{user?.name}</p>
           <p className="md:text-5xl text-3xl font-extrabold md:mt-10 mt-5 max-w-lg">
@@ -46,12 +44,7 @@ const ProfilePage = async ({ params: { id } }: ProfilePageProps) => {
               </Link>
             ) : (
               <>
-                <Button
-                  title="Follow"
-                  leftIcon="/plus-round.svg"
-                  bgColor="bg-light-white-400 !w-max"
-                  textColor="text-black-100"
-                />
+                <Button title="Follow" leftIcon="/plus-round.svg" />
                 <Link href={`mailto:${user?.email}`}>
                   <Button title="Hire Me" leftIcon="/email.svg" />
                 </Link>

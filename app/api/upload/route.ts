@@ -8,7 +8,7 @@ cloudinary.config({
 });
 
 export const POST = async (request: NextRequest) => {
-  const { image } = await request.json();
+  const { image, type } = await request.json();
 
   if (!image) {
     NextResponse.json({ message: "Image is required" }, { status: 400 });

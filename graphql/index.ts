@@ -158,6 +158,7 @@ export const getProjectsOfUserQuery = `
     user(by: { id: $id }) {
       id
       name
+      username
       email
       description
       image

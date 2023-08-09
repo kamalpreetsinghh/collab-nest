@@ -3,11 +3,8 @@ import { getUserProjects } from "@/lib/actions";
 
 import { getCurrentUser } from "@/lib/session";
 import Image from "next/image";
-import Link from "next/link";
-import Button from "@/components/Button";
-import UserWebsites from "@/components/UserWebsites";
 import ProjectCard from "@/components/ProjectCard";
-import UploadImage from "@/components/UploadImage";
+import ProfileInfo from "@/components/ProfileInfo";
 
 type ProfilePageProps = {
   params: {
@@ -24,39 +21,10 @@ const ProfilePage = async ({ params: { id } }: ProfilePageProps) => {
   return (
     <section className="flexCenter flex-col max-w-10xl w-full mx-auto paddings">
       <section className="flexBetween max-lg:flex-col gap-10 w-full">
-        <div className="flex items-start flex-col w-full">
-          <UploadImage
-            userImage={user?.image}
-            canEdit={(session && session?.user?.id === user.id) || false}
-            name={user?.name[0]}
-            userId={user?.id}
-          />
-
-          <p className="text-4xl font-bold mt-10">{user?.name}</p>
-          <p className="md:text-5xl text-3xl font-extrabold md:mt-10 mt-5 max-w-lg">
-            {user.description || "Hi I’m a Software Engineer 👋"}
-          </p>
-
-          <div className="flex mt-8 gap-5 w-full flex-wrap">
-            {session?.user?.email === user?.email ? (
-              <Link href={`/edit-profile/${user.id}`}>
-                <Button title="Edit"></Button>
-              </Link>
-            ) : (
-              <>
-                <Button title="Follow" leftIcon="/plus-round.svg" />
-                <Link href={`mailto:${user?.email}`}>
-                  <Button title="Hire Me" leftIcon="/email.svg" />
-                </Link>
-              </>
-            )}
-          </div>
-          <UserWebsites
-            githubUrl={user?.githubUrl}
-            linkedInUrl={user?.linkedInUrl}
-            websiteUrl={user?.websiteUrl}
-          />
-        </div>
+        <ProfileInfo
+          user={user}
+          canEdit={(session && session?.user?.id === user.id) || false}
+        />
 
         {user?.projects?.edges?.length > 0 ? (
           <Image

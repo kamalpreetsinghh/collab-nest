@@ -1,6 +1,5 @@
 import { ProjectInterface, UserProfile } from "@/common.types";
 import { getUserProjects } from "@/lib/actions";
-
 import { getCurrentUser } from "@/lib/session";
 import Image from "next/image";
 import ProjectCard from "@/components/ProjectCard";
@@ -33,7 +32,8 @@ const ProfilePage = async ({ params: { id } }: ProfilePageProps) => {
             alt="project image"
             width={739}
             height={554}
-            className="rounded-xl object-contain"
+            style={{ objectFit: "cover" }}
+            className="rounded-xl hidden sm:flex"
           />
         ) : (
           <div className="w-full flexCenter flex-col text-5xl font-pacifico">
@@ -45,12 +45,12 @@ const ProfilePage = async ({ params: { id } }: ProfilePageProps) => {
         )}
       </section>
 
-      <section className="flexStart flex-col lg:mt-28 mt-16 w-full">
+      <section className="flexStart flex-col lg:mt-28 mt-4 w-full">
         {user?.projects?.edges?.length > 0 && (
           <p className="w-full text-left text-lg font-semibold">Recent Work</p>
         )}
 
-        <div className="profile_projects">
+        <div className="projects-grid">
           {user?.projects?.edges?.map(
             ({ node }: { node: ProjectInterface }) => (
               <ProjectCard

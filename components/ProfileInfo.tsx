@@ -16,7 +16,7 @@ const ProfileInfo = ({
   loggedInUserId,
 }: ProfileInfoProps) => {
   return (
-    <div className="flex flex-col mt-10 w-full max-w-[500px]">
+    <div className="flex flex-col items-center sm:items-start mt-10 w-full max-w-[500px]">
       <UploadImage
         userImage={user?.image}
         canEdit={isLoggedInUser}

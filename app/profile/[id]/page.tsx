@@ -36,7 +36,7 @@ const ProfilePage = async ({ params: { id } }: ProfilePageProps) => {
             className="rounded-xl hidden sm:flex"
           />
         ) : (
-          <div className="w-full flexCenter flex-col text-5xl font-pacifico">
+          <div className="w-full flexCenter flex-col text-3xl sm:text-5xl font-pacifico">
             <p className="my-8">Share your work on</p>
             <p className="text-primary-purple my-4">Flexibbble</p>
             <p className="my-4">and showcase it to a</p>

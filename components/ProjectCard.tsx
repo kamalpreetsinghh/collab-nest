@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { item } from "@/lib/motion";
 
 type ProjectCardProps = {
   id: string;
@@ -32,7 +33,11 @@ const ProjectCard = ({
   }, []);
 
   return (
-    <div className="flexCenter flex-col rounded-2xl w-full sm:w-[298px]">
+    <motion.div
+      variants={item}
+      whileHover={{ scale: 1.03 }}
+      className="flexCenter flex-col rounded-2xl w-full sm:w-[298px]"
+    >
       <Link
         href={`/project/${id}`}
         className="flexCenter group relative w-full h-60 sm:h-56"
@@ -78,7 +83,7 @@ const ProjectCard = ({
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

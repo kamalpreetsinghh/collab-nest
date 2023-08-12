@@ -1,8 +1,8 @@
 import Categories from "@/components/Categories";
-import ProjectCard from "@/components/ProjectCard";
 import { getAllProjects } from "@/lib/actions";
 import { ProjectInterface } from "@/common.types";
 import Pagination from "@/components/Pagination";
+import ProjectCardList from "@/components/ProjectCardList";
 
 type ProjectSearch = {
   projectSearch?: {
@@ -42,9 +42,12 @@ const HomePage = async ({
     endcursor || null
   )) as ProjectSearch;
 
-  const projects =
+  const projectsEdge =
     (category ? data?.projectSearch?.edges : data?.projectCollection?.edges) ||
     [];
+
+  const projects = projectsEdge.map((projectsEdge) => projectsEdge.node);
+
   const pagination = category
     ? data?.projectSearch?.pageInfo
     : data?.projectCollection?.pageInfo;
@@ -54,19 +57,8 @@ const HomePage = async ({
       <Categories />
       {projects.length > 0 ? (
         <>
-          <section className="projects-grid">
-            {projects.map(({ node }: { node: ProjectInterface }) => (
-              <ProjectCard
-                key={node?.id}
-                id={node?.id}
-                image={node?.image}
-                title={node?.title}
-                name={node?.createdBy.name}
-                userImage={node?.createdBy.image}
-                userId={node?.createdBy.id}
-              />
-            ))}
-          </section>
+          <ProjectCardList projects={projects} />
+
           {pagination && (
             <Pagination
               startCursor={pagination?.startCursor}

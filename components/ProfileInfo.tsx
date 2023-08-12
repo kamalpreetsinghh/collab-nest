@@ -24,9 +24,9 @@ const ProfileInfo = ({
         userId={user?.id}
       />
 
-      <p className="text-2xl text-grey-color mt-8">{user.username}</p>
-      <p className="text-4xl font-bold text-grey-color mt-4">{user?.name}</p>
-      <p className="desc max-w-lg">
+      <p className="text-2xl mt-8">{user.username}</p>
+      <p className="text-4xl font-bold mt-4">{user?.name}</p>
+      <p className="desc text-grey-color max-w-lg">
         {user.description || "Hi I’m a Software Engineer 👋"}
       </p>
 

@@ -26,12 +26,12 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
   return (
     <Modal>
       <section className="flexBetween gap-y-8 max-w-4xl max-xs:flex-col w-full">
-        <div className="flex-1 items-start flex gap-5 w-full max-xs:flex-col">
-          <Link href={renderLink()}>
+        <div className="flex-1 items-center flex gap-5 w-full max-xs:flex-col">
+          <Link className="flex w-14 h-14 relative" href={renderLink()}>
             <Image
               src={projectDetails?.createdBy?.image}
-              width={50}
-              height={50}
+              fill
+              style={{ objectFit: "cover" }}
               alt="profile"
               className="rounded-full"
             />
@@ -60,17 +60,18 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
         )}
       </section>
 
-      <section className="mt-14">
+      <section className="my-14">
         <Image
           src={projectDetails?.image}
           className="object-cover rounded-2xl"
           width={1064}
           height={798}
+          style={{ objectFit: "cover" }}
           alt="poster"
         />
       </section>
 
-      <section className="flexCenter flex-col mt-20">
+      <section className="flexCenter flex-col">
         <p className="max-w-5xl text-xl font-normal">
           {projectDetails?.description}
         </p>
@@ -95,18 +96,18 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
         </div>
       </section>
 
-      <section className="flexCenter w-full gap-8 mt-28">
-        <span className="w-full h-0.5 border border-nav-border" />
-        <Link href={renderLink()} className="min-w-[82px] h-[82px]">
+      <section className="flex justify-between items-center w-full gap-8 mt-16">
+        <span className="w-2/5 h-0.5 border border-nav-border" />
+        <Link className="flex w-14 h-14 relative" href={renderLink()}>
           <Image
             src={projectDetails?.createdBy?.image}
+            fill
+            style={{ objectFit: "cover" }}
+            alt="profile"
             className="rounded-full"
-            width={82}
-            height={82}
-            alt="profile image"
           />
         </Link>
-        <span className="w-full h-0.5 border border-nav-border" />
+        <span className="w-2/5 h-0.5 border border-nav-border" />
       </section>
 
       <RelatedProjects

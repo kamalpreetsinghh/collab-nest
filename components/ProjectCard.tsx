@@ -51,19 +51,19 @@ const ProjectCard = ({
         </div>
       </Link>
 
-      <div className="flexBetween w-full px-2 mt-3 font-semibold text-sm">
+      <div className="flexBetween w-full px-2 mt-3 font-semibold text-sm gap-1">
         {userImage && (
-          <Link href={`/profile/${userId}`}>
-            <div className="flexCenter gap-2">
+          <Link className="flex items-center gap-2" href={`/profile/${userId}`}>
+            <div className="flex w-8 h-8 relative">
               <Image
                 src={userImage}
-                width={24}
-                height={24}
+                fill
+                style={{ objectFit: "cover" }}
                 className="rounded-full"
                 alt="profile image"
               />
-              <p>{name}</p>
             </div>
+            <p>{name}</p>
           </Link>
         )}
 

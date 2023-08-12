@@ -24,8 +24,11 @@ const SignInAndCreate = ({ session }: SignInAndCreateProps) => {
               session && session?.user ? session.user : clientSession.data?.user
             }
           />
-          <Link className="flex items-center" href="/create-project">
-            <span className="primary-button">Share Work</span>
+          <Link href="/create-project">
+            <span className="rounded-navbar-button hidden sm:flex">
+              Share Work
+            </span>
+            <span className="rounded-icon px-3 py-1 sm:hidden">+</span>
           </Link>
         </div>
       ) : (

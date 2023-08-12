@@ -27,7 +27,7 @@ const Navbar = async () => {
         <div className="flexCenter mx-4">
           <ToggleSwitch />
           <div>
-            <Image src="/theme.svg" width={25} height={25} alt="Theme" />
+            <Image src="/moon.svg" width={25} height={25} alt="Theme" />
           </div>
         </div>
         <SignInAndCreate session={session} />

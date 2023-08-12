@@ -73,3 +73,15 @@ export type SignUp = {
   email: string;
   password: string;
 };
+
+export enum ModalType {
+  "Following",
+  "Followers",
+}
+
+export type FollowerUser = {
+  id: string;
+  username: string;
+  name: string;
+  image?: string;
+};

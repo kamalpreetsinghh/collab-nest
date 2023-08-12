@@ -211,3 +211,77 @@ export const getUserWithForgotPasswordToken = `
     }
   }
 `;
+
+export const getUserFollowers = `
+  query GetUserFollowers($userId: ID!) {
+    user(by: {id: $userId}) {
+      followers (first: 100) {
+        edges {
+          node {
+            id
+            username
+            name
+            image
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const getUserFollowing = `
+  query GetUserFollowing($userId: ID!) {
+    user(by: {id: $userId}) {
+      following (first: 100) {
+        edges {
+          node {
+            id
+            username
+            name
+            image
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const addUserFollowingMutation = `
+  mutation AddUserFollowing($id: ID!, $followingId: ID!) {
+    userUpdate(by: { id: $followingId }, input: { following: { link: $id } }) {
+      user {
+        id
+      }
+    }
+  }
+`;
+
+export const addUserFollowerMutation = `
+  mutation AddUserFollowers($id: ID!, $followingId: ID!) {
+    userUpdate(by: { id: $id }, input: { followers: { link: $followingId } }) {
+      user {
+        id
+      }
+    }
+  }
+`;
+
+export const removeUserFollowingMutation = `
+  mutation RemoveUserFollowing($id: ID!, $followingId: ID!) {
+    userUpdate(by: { id: $id }, input: { following: { unlink: $followingId } }) {
+      user {
+        id
+      }
+    }
+  }
+`;
+
+export const removeUserFollowerMutation = `
+  mutation RemoveUserFollowers($id: ID!, $followingId: ID!) {
+    userUpdate(by: { id: $followingId }, input: { followers: { unlink: $id } }) {
+      user {
+        id
+      }
+    }
+  }
+`;

@@ -64,7 +64,7 @@ const UploadImage = ({
 
   return (
     <div className="flex">
-      <div className="group relative hover:opacity-50">
+      <div className={`group relative ${canEdit ? "hover:opacity-50" : ""}`}>
         {uploadedImage || image ? (
           <div className="w-28 h-28 relative">
             <Image

@@ -316,7 +316,7 @@ input[type="checkbox"].toggle:checked + label::after {
 }
 
 .button {
-  @apply transition-all text-center font-bold flex items-center justify-center;
+  @apply transition-all text-center text-sm font-bold flex items-center justify-center;
 }
 
 .rounded-button {

@@ -23,7 +23,8 @@ const ProfilePage = async ({ params: { id } }: ProfilePageProps) => {
       <section className="flexBetween max-lg:flex-col gap-10 w-full">
         <ProfileInfo
           user={user}
-          canEdit={(session && session?.user?.id === user.id) || false}
+          isLoggedInUser={(session && session?.user?.id === user.id) || false}
+          loggedInUserId={session?.user?.id}
         />
 
         {user?.projects?.edges?.length > 0 ? (

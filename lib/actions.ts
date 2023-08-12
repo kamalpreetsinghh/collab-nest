@@ -12,6 +12,12 @@ import {
   getAllProjectsQuery,
   getUsernamesWithSameName,
   getUserWithForgotPasswordToken,
+  getUserFollowers,
+  getUserFollowing,
+  addUserFollowingMutation,
+  addUserFollowerMutation,
+  removeUserFollowingMutation,
+  removeUserFollowerMutation,
 } from "@/graphql";
 import { GraphQLClient } from "graphql-request";
 import bcryptjs from "bcryptjs";
@@ -299,6 +305,42 @@ export const uploadProfileImage = async (
   const uploadedImage = await uploadImage(image, "profile");
   const result = updateProfileImage(userId, uploadedImage.url, token);
   return result;
+};
+
+export const getUserFollowersList = (userId: string) => {
+  client.setHeader("x-api-key", apiKey);
+
+  return makeGraphQLRequest(getUserFollowers, { userId });
+};
+
+export const getUserFollowingList = (userId: string) => {
+  client.setHeader("x-api-key", apiKey);
+
+  return makeGraphQLRequest(getUserFollowing, { userId });
+};
+
+export const addUserFollowing = async (
+  id: string,
+  followingId: string,
+  token: string
+) => {
+  client.setHeader("Authorization", `Bearer ${token}`);
+
+  await makeGraphQLRequest(addUserFollowingMutation, { id, followingId });
+
+  return makeGraphQLRequest(addUserFollowerMutation, { id, followingId });
+};
+
+export const removeUserFollowing = async (
+  id: string,
+  followingId: string,
+  token: string
+) => {
+  client.setHeader("Authorization", `Bearer ${token}`);
+
+  await makeGraphQLRequest(removeUserFollowingMutation, { id, followingId });
+
+  return makeGraphQLRequest(removeUserFollowerMutation, { id, followingId });
 };
 
 const createUsername = (name: string, usernames: string[]): string => {

@@ -18,7 +18,7 @@ const RelatedProjects = async ({ userId, projectId }: RelatedProjectsProps) => {
   if (filteredProjects?.length === 0) return null;
 
   return (
-    <section className="flex flex-col mt-32 w-full">
+    <section className="flex flex-col mt-16 w-full">
       <div className="flexBetween">
         <p className="text-base font-bold">More by {result?.user?.name}</p>
         <Link

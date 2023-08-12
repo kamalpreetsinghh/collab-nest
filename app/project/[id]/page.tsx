@@ -66,7 +66,7 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
           className="object-cover rounded-2xl"
           width={1064}
           height={798}
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: "contain" }}
           alt="poster"
         />
       </section>

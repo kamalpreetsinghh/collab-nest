@@ -102,15 +102,13 @@ body {
   @apply grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10 mt-10 w-full sm:w-auto mx-auto;
 }
 
-/* Project Actions */
-.edit-action_btn {
-  @apply p-3 text-gray-100 rounded-lg text-sm font-medium;
-  color: var(--text-color);
-  background-color: var(--divider-color);
+.icon-btn {
+  @apply p-2 rounded-lg;
 }
 
-.delete-action_btn {
-  @apply p-3 text-gray-100 hover:bg-red-600 rounded-lg text-sm font-medium;
+.icon-btn:hover {
+  color: var(--background-color);
+  background-color: var(--text-color);
 }
 
 /* Related Project Card */
@@ -343,7 +341,9 @@ input[type="checkbox"].toggle:checked + label::after {
 
 .button:hover,
 .primary-button:hover,
-.rounded-button:hover {
+.rounded-button:hover,
+.rounded-icon:hover,
+.rounded-navbar-button:hover {
   color: var(--background-color);
   background-color: var(--text-color);
 }

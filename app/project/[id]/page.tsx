@@ -26,7 +26,7 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
   return (
     <Modal>
       <section className="flexBetween gap-y-8 max-w-4xl max-xs:flex-col w-full">
-        <div className="flex-1 items-center flex gap-5 w-full max-xs:flex-col">
+        <div className="flex-1 items-center flex gap-5 w-full ">
           <Link className="flex w-14 h-14 relative" href={renderLink()}>
             <Image
               src={projectDetails?.createdBy?.image}
@@ -37,7 +37,7 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
             />
           </Link>
           <div className="flex-1 flexStart flex-col gap-1">
-            <p className="self-start text-lg font-semibold">
+            <p className="self-start text-lg font-semibold max-w-[240px] sm:max-w-xl truncate">
               {projectDetails?.title}
             </p>
             <div className="user-info">
@@ -97,7 +97,7 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
       </section>
 
       <section className="flex justify-between items-center w-full gap-8 mt-16">
-        <span className="w-2/5 h-0.5 border border-nav-border" />
+        <span className="flex-1 h-0.5 border border-nav-border" />
         <Link className="flex w-14 h-14 relative" href={renderLink()}>
           <Image
             src={projectDetails?.createdBy?.image}
@@ -107,7 +107,7 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
             className="rounded-full"
           />
         </Link>
-        <span className="w-2/5 h-0.5 border border-nav-border" />
+        <span className="flex-1 h-0.5 border border-nav-border" />
       </section>
 
       <RelatedProjects

@@ -19,7 +19,7 @@ const ProfilePage = async ({ params: { id } }: ProfilePageProps) => {
 
   return (
     <section className="flexCenter flex-col max-w-10xl w-full mx-auto paddings">
-      <section className="flexBetween max-lg:flex-col gap-10 w-full">
+      <section className="flexBetween max-lg:flex-col gap-10 w-full sm:px-4">
         <ProfileInfo
           user={user}
           isLoggedInUser={(session && session?.user?.id === user.id) || false}
@@ -27,14 +27,15 @@ const ProfilePage = async ({ params: { id } }: ProfilePageProps) => {
         />
 
         {user?.projects?.edges?.length > 0 ? (
-          <Image
-            src={user?.projects?.edges[0]?.node?.image}
-            alt="project image"
-            width={739}
-            height={554}
-            style={{ objectFit: "cover" }}
-            className="rounded-xl hidden sm:flex"
-          />
+          <div className=" w-[600px] h-[400px] relative hidden lg:flex">
+            <Image
+              className="rounded-2xl"
+              src={user?.projects?.edges[0]?.node?.image}
+              alt="project image"
+              fill
+              style={{ objectFit: "cover" }}
+            />
+          </div>
         ) : (
           <div className="w-full flexCenter flex-col text-3xl sm:text-5xl font-pacifico">
             <p className="my-8">Share your work on</p>
@@ -47,10 +48,12 @@ const ProfilePage = async ({ params: { id } }: ProfilePageProps) => {
 
       <section className="flexStart flex-col lg:mt-28 mt-4 w-full">
         {user?.projects?.edges?.length > 0 && (
-          <p className="w-full text-left text-lg font-semibold">Recent Work</p>
+          <p className="w-full text-left text-lg font-semibold sm:px-4">
+            Recent Work
+          </p>
         )}
 
-        <div className="projects-grid">
+        <div className="projects-grid mb-16">
           {user?.projects?.edges?.map(
             ({ node }: { node: ProjectInterface }) => (
               <ProjectCard

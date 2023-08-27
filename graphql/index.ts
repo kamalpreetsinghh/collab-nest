@@ -188,7 +188,7 @@ export const updateUserMutation = `
 	}
 `;
 
-export const getUsernamesWithSameName = `
+export const getUsernamesWithSameNameQuery = `
   query GetUsernamesWithSameName($name: String! ) {
     userSearch(first: 10, filter: { name: { eq: $name }}) {
       edges {
@@ -200,7 +200,7 @@ export const getUsernamesWithSameName = `
   }
 `;
 
-export const getUserWithForgotPasswordToken = `
+export const getUserWithForgotPasswordTokenQuery = `
   query GetUserWithForgotPasswordToken($token: String! ) {
     userSearch(first: 10, filter: { forgotPasswordToken: { eq: $token }}) {
       edges{
@@ -212,7 +212,7 @@ export const getUserWithForgotPasswordToken = `
   }
 `;
 
-export const getUserFollowers = `
+export const getUserFollowersQuery = `
   query GetUserFollowers($userId: ID!) {
     user(by: {id: $userId}) {
       followers (first: 100) {
@@ -229,7 +229,7 @@ export const getUserFollowers = `
   }
 `;
 
-export const getUserFollowing = `
+export const getUserFollowingQuery = `
   query GetUserFollowing($userId: ID!) {
     user(by: {id: $userId}) {
       following (first: 100) {

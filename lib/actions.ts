@@ -10,10 +10,10 @@ import {
   updateUserMutation,
   updateProjectMutation,
   getAllProjectsQuery,
-  getUsernamesWithSameName,
-  getUserWithForgotPasswordToken,
-  getUserFollowers,
-  getUserFollowing,
+  getUsernamesWithSameNameQuery,
+  getUserWithForgotPasswordTokenQuery,
+  getUserFollowersQuery,
+  getUserFollowingQuery,
   addUserFollowingMutation,
   addUserFollowerMutation,
   removeUserFollowingMutation,
@@ -81,7 +81,7 @@ export const createUser = async (
 ) => {
   client.setHeader("x-api-key", apiKey);
 
-  const result: any = await makeGraphQLRequest(getUsernamesWithSameName, {
+  const result: any = await makeGraphQLRequest(getUsernamesWithSameNameQuery, {
     name,
   });
 
@@ -113,7 +113,7 @@ export const createUserWithCredentials = async (
   const salt = await bcryptjs.genSalt(10);
   const hashedPassword = await bcryptjs.hash(password, salt);
 
-  const result: any = await makeGraphQLRequest(getUsernamesWithSameName, {
+  const result: any = await makeGraphQLRequest(getUsernamesWithSameNameQuery, {
     name,
   });
 
@@ -215,8 +215,17 @@ export const updateProject = async (
   return makeGraphQLRequest(updateProjectMutation, variables);
 };
 
-export const deleteProject = (id: string, token: string) => {
+export const deleteProject = async (id: string, token: string) => {
   client.setHeader("Authorization", `Bearer ${token}`);
+
+  const variables = {
+    id,
+    input: {
+      createdBy: null,
+    },
+  };
+
+  await makeGraphQLRequest(updateProjectMutation, variables);
 
   return makeGraphQLRequest(deleteProjectMutation, { id });
 };
@@ -271,9 +280,12 @@ export const updateForgetPasswordToken = (
 export const updateUserPassword = async (token: string, password: string) => {
   client.setHeader("x-api-key", apiKey);
 
-  const result: any = await makeGraphQLRequest(getUserWithForgotPasswordToken, {
-    token,
-  });
+  const result: any = await makeGraphQLRequest(
+    getUserWithForgotPasswordTokenQuery,
+    {
+      token,
+    }
+  );
 
   const resultEdges = result.userSearch.edges;
   const user = resultEdges.map((edge: any) => edge.node.id);
@@ -310,13 +322,13 @@ export const uploadProfileImage = async (
 export const getUserFollowersList = (userId: string) => {
   client.setHeader("x-api-key", apiKey);
 
-  return makeGraphQLRequest(getUserFollowers, { userId });
+  return makeGraphQLRequest(getUserFollowersQuery, { userId });
 };
 
 export const getUserFollowingList = (userId: string) => {
   client.setHeader("x-api-key", apiKey);
 
-  return makeGraphQLRequest(getUserFollowing, { userId });
+  return makeGraphQLRequest(getUserFollowingQuery, { userId });
 };
 
 export const addUserFollowing = async (

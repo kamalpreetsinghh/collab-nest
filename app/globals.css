@@ -352,6 +352,10 @@ input[type="checkbox"].toggle:checked + label::after {
   color: var(--background-color);
 }
 
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
 /* Spinner */
 
 .dot-spin {

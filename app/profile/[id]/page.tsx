@@ -46,29 +46,29 @@ const ProfilePage = async ({ params: { id } }: ProfilePageProps) => {
         )}
       </section>
 
-      <section className="flexStart flex-col lg:mt-28 mt-4 w-full">
-        {user?.projects?.edges?.length > 0 && (
+      {user?.projects?.edges?.length > 0 && (
+        <section className="flexStart flex-col lg:mt-28 mt-4 w-full">
           <p className="w-full text-left text-lg font-semibold sm:px-4">
             Recent Work
           </p>
-        )}
 
-        <div className="projects-grid mb-16">
-          {user?.projects?.edges?.map(
-            ({ node }: { node: ProjectInterface }) => (
-              <ProjectCard
-                key={`${node?.id}`}
-                id={node?.id}
-                image={node?.image}
-                title={node?.title}
-                name={user.name}
-                userImage={user.image ? user.image : undefined}
-                userId={user.id}
-              />
-            )
-          )}
-        </div>
-      </section>
+          <div className="projects-grid mb-16">
+            {user?.projects?.edges?.map(
+              ({ node }: { node: ProjectInterface }) => (
+                <ProjectCard
+                  key={`${node?.id}`}
+                  id={node?.id}
+                  image={node?.image}
+                  title={node?.title}
+                  name={user.name}
+                  userImage={user.image ? user.image : undefined}
+                  userId={user.id}
+                />
+              )
+            )}
+          </div>
+        </section>
+      )}
     </section>
   );
 };

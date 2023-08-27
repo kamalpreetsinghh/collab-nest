@@ -139,36 +139,35 @@ const ProfileActions = ({
           </Link>
         </div>
       )}
-      <div className="w-full h-screen -z-50 fixed top-0 left-0 ">
-        <div className="flex justify-center items-center w-full h-screen">
-          <dialog className="rounded-2xl w-full max-w-md " ref={dialogRef}>
-            <div className="flex-col flexCenter">
-              <h1 className="mt-2 mb-4 font-bold flexCenter">
-                {ModalType[modalType]}
-              </h1>
-              <div
-                className="border-t border-nav-border w-full 
+      <div className="w-full h-screen -z-50 fixed top-0 left-0">
+        <dialog
+          className="rounded-2xl w-full max-w-md mx-auto my-auto"
+          ref={dialogRef}
+        >
+          <div className="flex-col flexCenter py-2 px-4">
+            <h1 className="mt-2 mb-4 font-bold flexCenter">
+              {ModalType[modalType]}
+            </h1>
+            <div
+              className="border-t border-nav-border w-full 
               h-96 overflow-y-scroll overflow-x-scroll"
-              >
-                {modalType === ModalType.Following &&
-                  following.length === 0 && (
-                    <h1 className="my-4 flexCenter">No Following</h1>
-                  )}
-                {modalType === ModalType.Followers &&
-                  followers.length === 0 && (
-                    <h1 className="my-4 flexCenter">No Followers</h1>
-                  )}
-                <FollowerList
-                  modalType={modalType}
-                  userId={userId}
-                  followers={
-                    modalType === ModalType.Following ? following : followers
-                  }
-                />
-              </div>
+            >
+              {modalType === ModalType.Following && following.length === 0 && (
+                <h1 className="my-4 flexCenter">No Following</h1>
+              )}
+              {modalType === ModalType.Followers && followers.length === 0 && (
+                <h1 className="my-4 flexCenter">No Followers</h1>
+              )}
+              <FollowerList
+                modalType={modalType}
+                userId={userId}
+                followers={
+                  modalType === ModalType.Following ? following : followers
+                }
+              />
             </div>
-          </dialog>
-        </div>
+          </div>
+        </dialog>
       </div>
     </div>
   );

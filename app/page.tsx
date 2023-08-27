@@ -74,7 +74,7 @@ const HomePage = async ({
             Currently there are no posts.
           </p>
           <p className="mt-4 text-xl text-center text-grey-color">
-            Create and share your creative projects to the community.
+            Create and share your creative projects with the community.
           </p>
         </>
       )}

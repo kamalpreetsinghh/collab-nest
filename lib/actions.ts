@@ -218,15 +218,6 @@ export const updateProject = async (
 export const deleteProject = async (id: string, token: string) => {
   client.setHeader("Authorization", `Bearer ${token}`);
 
-  const variables = {
-    id,
-    input: {
-      createdBy: null,
-    },
-  };
-
-  await makeGraphQLRequest(updateProjectMutation, variables);
-
   return makeGraphQLRequest(deleteProjectMutation, { id });
 };
 

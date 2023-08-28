@@ -19,19 +19,31 @@ const UserWebsites = ({
   websiteUrl,
 }: UserWebsitesProps) => {
   return (
-    <div className="my-6 flex gap-4">
+    <div className="flex gap-4">
       {githubUrl && (
-        <Link href={githubUrl}>
+        <Link
+          href={githubUrl}
+          target="_blank"
+          className="mt-4 mb-2 hover:text-primary-purple"
+        >
           <GitHubIcon />
         </Link>
       )}
       {linkedInUrl && (
-        <Link href={linkedInUrl}>
+        <Link
+          href={linkedInUrl}
+          target="_blank"
+          className="mt-4 mb-2 hover:text-primary-purple"
+        >
           <LinkedInIcon />
         </Link>
       )}
       {websiteUrl && (
-        <Link href={websiteUrl}>
+        <Link
+          href={websiteUrl}
+          target="_blank"
+          className="mt-4 mb-2 hover:text-primary-purple"
+        >
           <LanguageIcon />
         </Link>
       )}

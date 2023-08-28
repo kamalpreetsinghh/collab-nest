@@ -30,17 +30,17 @@ const ProfileInfo = ({
         {user.description || "Hi I’m a Software Engineer 👋"}
       </p>
 
+      <UserWebsites
+        githubUrl={user?.githubUrl}
+        linkedInUrl={user?.linkedInUrl}
+        websiteUrl={user?.websiteUrl}
+      />
+
       <ProfileActions
         isLoggedInUser={isLoggedInUser}
         email={user.email}
         userId={user.id}
         loggedInUserId={loggedInUserId}
-      />
-
-      <UserWebsites
-        githubUrl={user?.githubUrl}
-        linkedInUrl={user?.linkedInUrl}
-        websiteUrl={user?.websiteUrl}
       />
     </div>
   );

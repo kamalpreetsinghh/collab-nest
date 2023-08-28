@@ -34,36 +34,43 @@ const ProfileActions = ({
   const [modalType, setModalType] = useState(ModalType.Followers);
 
   useEffect(() => {
-    const fetchFollowing = async () => {
-      const result: any = await getUserFollowingList(loggedInUserId);
-      const followingEdges = result.user.following.edges;
-      if (followingEdges.length > 0) {
-        const followingUsers = followingEdges.map((edge: any) => edge.node);
-        setFollowing(followingUsers);
+    if (isLoggedInUser || loggedInUserId) {
+      const fetchFollowing = async () => {
+        const result: any = await getUserFollowingList(loggedInUserId);
+        const followingEdges = result.user.following.edges;
+        if (followingEdges.length > 0) {
+          const followingUsers = followingEdges.map((edge: any) => edge.node);
+          if (isLoggedInUser) {
+            setFollowing(followingUsers);
+          } else {
+            const followingUserIds: string[] = followingUsers.map(
+              (followingUser: FollowerUser) => followingUser.id
+            );
 
-        const followingUserIds: string[] = followingUsers.map(
-          (followingUser: FollowerUser) => followingUser.id
-        );
-
-        if (followingUserIds.includes(userId)) {
-          setIsFollowing(true);
+            if (followingUserIds.includes(userId)) {
+              setIsFollowing(true);
+            }
+          }
         }
-      }
-    };
+      };
 
-    fetchFollowing().catch((error) => console.log(error));
+      fetchFollowing().catch((error) => console.log(error));
+    }
   }, []);
 
   useEffect(() => {
-    const fetchFollowers = async () => {
-      const result: any = await getUserFollowersList(userId);
-      const followerEdges = result.user.followers.edges;
-      if (followerEdges.length > 0) {
-        const followerUsers = followerEdges.map((edge: any) => edge.node);
-      }
-    };
+    if (isLoggedInUser) {
+      const fetchFollowers = async () => {
+        const result: any = await getUserFollowersList(loggedInUserId);
+        const followerEdges = result.user.followers.edges;
+        if (followerEdges.length > 0) {
+          const followerUsers = followerEdges.map((edge: any) => edge.node);
+          setFollowers(followerUsers);
+        }
+      };
 
-    fetchFollowers().catch((error) => console.log(error));
+      fetchFollowers().catch((error) => console.log(error));
+    }
   }, []);
 
   const showFollowingModal = () => {
@@ -129,46 +136,53 @@ const ProfileActions = ({
           <Button title="Following" handleClick={showFollowingModal} />
         </div>
       ) : (
-        <div className="flex gap-2 mt-4">
-          <Button
-            title={isFollowing ? "Following" : "Follow"}
-            handleClick={handleOnClick}
-          />
-          <Link href={`mailto:${email}`}>
-            <Button title="Hire Me" />
-          </Link>
+        loggedInUserId && (
+          <div className="flex gap-2 mt-4">
+            <Button
+              title={isFollowing ? "Following" : "Follow"}
+              handleClick={handleOnClick}
+            />
+            <Link href={`mailto:${email}`}>
+              <Button title="Hire Me" />
+            </Link>
+          </div>
+        )
+      )}
+
+      {isLoggedInUser && (
+        <div className="w-full h-screen -z-50 fixed top-0 left-0">
+          <dialog
+            className="rounded-2xl w-full max-w-md mx-auto my-auto"
+            ref={dialogRef}
+          >
+            <div className="flex-col flexCenter py-2 px-4">
+              <h1 className="mt-2 mb-4 font-bold flexCenter">
+                {ModalType[modalType]}
+              </h1>
+              <div
+                className="border-t border-nav-border w-full 
+              h-96 overflow-y-scroll overflow-x-scroll"
+              >
+                {modalType === ModalType.Following &&
+                  following.length === 0 && (
+                    <h1 className="my-4 flexCenter">No Following</h1>
+                  )}
+                {modalType === ModalType.Followers &&
+                  followers.length === 0 && (
+                    <h1 className="my-4 flexCenter">No Followers</h1>
+                  )}
+                <FollowerList
+                  modalType={modalType}
+                  userId={userId}
+                  followers={
+                    modalType === ModalType.Following ? following : followers
+                  }
+                />
+              </div>
+            </div>
+          </dialog>
         </div>
       )}
-      <div className="w-full h-screen -z-50 fixed top-0 left-0">
-        <dialog
-          className="rounded-2xl w-full max-w-md mx-auto my-auto"
-          ref={dialogRef}
-        >
-          <div className="flex-col flexCenter py-2 px-4">
-            <h1 className="mt-2 mb-4 font-bold flexCenter">
-              {ModalType[modalType]}
-            </h1>
-            <div
-              className="border-t border-nav-border w-full 
-              h-96 overflow-y-scroll overflow-x-scroll"
-            >
-              {modalType === ModalType.Following && following.length === 0 && (
-                <h1 className="my-4 flexCenter">No Following</h1>
-              )}
-              {modalType === ModalType.Followers && followers.length === 0 && (
-                <h1 className="my-4 flexCenter">No Followers</h1>
-              )}
-              <FollowerList
-                modalType={modalType}
-                userId={userId}
-                followers={
-                  modalType === ModalType.Following ? following : followers
-                }
-              />
-            </div>
-          </div>
-        </dialog>
-      </div>
     </div>
   );
 };

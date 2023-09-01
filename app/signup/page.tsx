@@ -4,14 +4,16 @@ import FormField from "@/components/FormField";
 import FormAndImage from "@/components/FormAndImage";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { SignUp } from "@/common.types";
-import { Toaster, toast } from "react-hot-toast";
 import { errors, regex } from "@/constants";
 import { capitalizeWords } from "@/lib/common";
 import { createUserWithCredentials, getUser } from "@/lib/actions";
 import Button from "@/components/Button";
 
 const SignUpPage = () => {
+  const router = useRouter();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -63,12 +65,7 @@ const SignUpPage = () => {
           setPassword("");
           setConfirmPassword("");
 
-          toast.success(
-            "Account Created Successfully. \nPlease login to use your account.",
-            {
-              duration: 6000,
-            }
-          );
+          router.push("signin?registered=true");
         } else {
           setEmailError(errors.emailAlreadyExisis);
         }
@@ -168,7 +165,6 @@ const SignUpPage = () => {
           </Link>
         </p>
       </div>
-      <Toaster position="top-center" reverseOrder={false} />
     </FormAndImage>
   );
 };

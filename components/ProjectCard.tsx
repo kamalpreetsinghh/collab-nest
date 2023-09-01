@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { item } from "@/lib/motion";
+import UserNameIcon from "./UserNameIcon";
 
 type ProjectCardProps = {
   id: string;
@@ -57,9 +58,9 @@ const ProjectCard = ({
       </Link>
 
       <div className="flexBetween w-full px-2 mt-3 font-semibold text-sm gap-1">
-        {userImage && (
-          <Link className="flex items-center gap-2" href={`/profile/${userId}`}>
-            <div className="flex w-8 h-8 relative">
+        <Link className="flex items-center gap-2" href={`/profile/${userId}`}>
+          <div className="flex w-8 h-8 relative">
+            {userImage ? (
               <Image
                 src={userImage}
                 fill
@@ -67,10 +68,12 @@ const ProjectCard = ({
                 className="rounded-full"
                 alt="profile image"
               />
-            </div>
-            <p>{name}</p>
-          </Link>
-        )}
+            ) : (
+              <UserNameIcon name={name[0]} className="w-8 h-8 text-lg" />
+            )}
+          </div>
+          <p>{name}</p>
+        </Link>
 
         <div className="flexCenter gap-3">
           <div className="flexCenter gap-2">

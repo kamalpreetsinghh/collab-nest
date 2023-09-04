@@ -248,7 +248,7 @@ export const getUserFollowingQuery = `
 
 export const addUserFollowingMutation = `
   mutation AddUserFollowing($id: ID!, $followingId: ID!) {
-    userUpdate(by: { id: $followingId }, input: { following: { link: $id } }) {
+    userUpdate(by: { id: $id }, input: { following: { link: $followingId } }) {
       user {
         id
       }

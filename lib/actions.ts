@@ -346,6 +346,18 @@ export const removeUserFollowing = async (
   return makeGraphQLRequest(removeUserFollowerMutation, { id, followingId });
 };
 
+export const removeUserFollower = async (
+  id: string,
+  followingId: string,
+  token: string
+) => {
+  client.setHeader("Authorization", `Bearer ${token}`);
+
+  await makeGraphQLRequest(removeUserFollowingMutation, { id, followingId });
+
+  return makeGraphQLRequest(removeUserFollowerMutation, { id, followingId });
+};
+
 const createUsername = (name: string, usernames: string[]): string => {
   let username = name.trim().toLowerCase().replace(/\s/g, "");
 

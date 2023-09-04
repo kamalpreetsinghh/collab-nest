@@ -93,6 +93,7 @@ const ProfileActions = ({
     setIsFollowing((prevIsFollowing) => !prevIsFollowing);
 
     try {
+      console.log(isFollowing);
       if (isFollowing) {
         const { token } = await fetchToken();
         const response = await removeUserFollowing(

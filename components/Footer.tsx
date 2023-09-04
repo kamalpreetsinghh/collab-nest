@@ -25,7 +25,12 @@ const Footer = () => {
     <footer className="flexStart footer">
       <div className="flex flex-col gap-12 w-full ">
         <div className="flex flex-col items-start">
-          <Image src="/logo.svg" width={115} height={38} alt="Flexibbble" />
+          <Image
+            src="/assets/images/logo.png"
+            width={115}
+            height={38}
+            alt="Flexibbble"
+          />
           <p className="text-start text-sm font-normal mt-5 max-w-xs">
             Flexibbble is the world's leading community for creaters to share,
             grow and get hired.

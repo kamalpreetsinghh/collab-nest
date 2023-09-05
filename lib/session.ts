@@ -22,7 +22,7 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {},
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         const { email, password } = credentials as {
           email: string;
           password: string;
@@ -103,7 +103,7 @@ export const authOptions: NextAuthOptions = {
         return session;
       }
     },
-    async signIn({ account, profile, user, credentials }) {
+    async signIn({ user }) {
       try {
         const data = (await getUser(user?.email as string)) as {
           user?: UserProfile;

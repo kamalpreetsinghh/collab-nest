@@ -15,7 +15,6 @@ type SignInProps = {
 
 const SignInPage = ({ searchParams: { registered } }: SignInProps) => {
   useEffect(() => {
-    console.log(registered);
     if (registered === "true") {
       toast.success(
         "Account Created Successfully. \nPlease login to use your account.",

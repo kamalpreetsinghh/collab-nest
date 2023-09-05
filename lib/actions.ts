@@ -248,8 +248,6 @@ export const updateProfileImage = (
     input: { image },
   };
 
-  console.log(variables);
-
   return makeGraphQLRequest(updateUserMutation, variables);
 };
 

@@ -27,7 +27,7 @@ const Button = ({
     onClick={handleClick}
   >
     {isSubmitting ? (
-      <div className="h-6 flex items-center justify-center">
+      <div className="h-5 flex items-center justify-center">
         <span className="loader bottom-3 mx-4"></span>
       </div>
     ) : (

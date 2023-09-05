@@ -48,9 +48,6 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
         websiteUrl: form.websiteUrl ? form.websiteUrl : null,
       } as UpdateProfile;
 
-      console.log(user);
-      console.log(updatedUserProfile);
-
       await updateUserProfile(updatedUserProfile, user?.id, token);
 
       router.push(`/profile/${user?.id}`);

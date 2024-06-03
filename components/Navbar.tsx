@@ -29,12 +29,7 @@ const Navbar = async () => {
         </ul>
       </div>
       <div className="flexCenter gap-4">
-        <div className="flexCenter mx-4">
-          <ToggleSwitch />
-          <div>
-            <Image src="/moon.svg" width={25} height={25} alt="Theme" />
-          </div>
-        </div>
+        <ToggleSwitch />
         <SignInAndCreate session={session} />
       </div>
     </nav>

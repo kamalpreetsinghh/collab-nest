@@ -1,4 +1,4 @@
-import { updateUserPassword } from "@/lib/actions";
+import { updateUserPassword } from "@/lib/actions/user.action";
 import bcryptjs from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -12,11 +12,10 @@ export const POST = async (request: NextRequest) => {
     const hashedPassword = await bcryptjs.hash(password, salt);
 
     const updatedUser = await updateUserPassword(token, hashedPassword);
-    console.log(updatedUser);
 
-    if (!updatedUser) {
-      return NextResponse.json({ error: "Invalid token" }, { status: 400 });
-    }
+    // if (!updatedUser) {
+    //   return NextResponse.json({ error: "Invalid token" }, { status: 400 });
+    // }
 
     return NextResponse.json({
       message: "Password reset successfully",

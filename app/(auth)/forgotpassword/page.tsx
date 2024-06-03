@@ -7,7 +7,6 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { errors, regex } from "@/constants";
-import { getUser } from "@/lib/actions";
 import Button from "@/components/Button";
 
 const ForgotPasswordPage = () => {

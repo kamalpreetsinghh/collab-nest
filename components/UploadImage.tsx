@@ -6,7 +6,8 @@ import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
 import UserNameIcon from "./UserNameIcon";
-import { fetchToken, uploadProfileImage } from "@/lib/actions";
+import { fetchToken } from "@/lib/actions";
+import { uploadProfileImage } from "@/lib/actions/user.action";
 
 type UploadImageProps = {
   userImage: string | null;

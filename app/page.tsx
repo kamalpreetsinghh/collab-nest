@@ -1,56 +1,20 @@
 import Categories from "@/components/Categories";
-import { getAllProjects } from "@/lib/actions";
-import { ProjectInterface } from "@/common.types";
 import Pagination from "@/components/Pagination";
-import ProjectCardList from "@/components/ProjectCardList";
-
-type ProjectSearch = {
-  projectSearch?: {
-    edges: { node: ProjectInterface }[];
-    pageInfo: {
-      hasPreviousPage: boolean;
-      hasNextPage: boolean;
-      startCursor: string;
-      endCursor: string;
-    };
-  };
-  projectCollection?: {
-    edges: { node: ProjectInterface }[];
-    pageInfo: {
-      hasPreviousPage: boolean;
-      hasNextPage: boolean;
-      startCursor: string;
-      endCursor: string;
-    };
-  };
-};
-
-type SearchParams = {
-  category?: string;
-  endcursor?: string;
-};
+import ProjectCardList from "@/components/project/ProjectCardList";
+import { getProjects } from "@/lib/actions/project.action";
 
 type HomeProps = {
-  searchParams: SearchParams;
+  searchParams: {
+    category?: string;
+    endcursor?: string;
+  };
 };
 
 const HomePage = async ({
   searchParams: { category, endcursor },
 }: HomeProps) => {
-  const data = (await getAllProjects(
-    category || null,
-    endcursor || null
-  )) as ProjectSearch;
-
-  const projectsEdge =
-    (category ? data?.projectSearch?.edges : data?.projectCollection?.edges) ||
-    [];
-
-  const projects = projectsEdge.map((projectsEdge) => projectsEdge.node);
-
-  const pagination = category
-    ? data?.projectSearch?.pageInfo
-    : data?.projectCollection?.pageInfo;
+  const paginatedProjects = await getProjects(1, 8);
+  const { projects, currentPage, totalPages } = paginatedProjects;
 
   return (
     <section className="flexCenter flex-col paddings mb-16">
@@ -59,14 +23,7 @@ const HomePage = async ({
         <>
           <ProjectCardList projects={projects} />
 
-          {pagination && (
-            <Pagination
-              startCursor={pagination?.startCursor}
-              endCursor={pagination?.endCursor}
-              hasPreviousPage={pagination?.hasPreviousPage}
-              hasNextPage={pagination?.hasNextPage}
-            />
-          )}
+          <Pagination currentPage={currentPage} totalPages={totalPages} />
         </>
       ) : (
         <>
@@ -74,7 +31,7 @@ const HomePage = async ({
             Currently there are no posts.
           </p>
           <p className="mt-4 text-xl text-center text-grey-color">
-            Create and share your creative projects with the community.
+            Create and share your creative designs with the community.
           </p>
         </>
       )}

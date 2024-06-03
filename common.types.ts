@@ -10,26 +10,47 @@ export type FormState = {
   title: string;
   description: string;
   image: string;
-  liveSiteUrl: string;
+  websiteUrl: string;
   githubUrl: string;
   category: string;
 };
 
 export interface ProjectInterface {
+  id: string;
   title: string;
   description: string;
   image: string;
-  liveSiteUrl: string;
+  websiteUrl: string;
   githubUrl: string;
   category: string;
-  id: string;
   createdBy: {
+    id: string;
     name: string;
     email: string;
     image: string;
-    id: string;
   };
 }
+
+export type ProjectSearch = {
+  projectSearch?: {
+    edges: { node: ProjectInterface }[];
+    pageInfo: {
+      hasPreviousPage: boolean;
+      hasNextPage: boolean;
+      startCursor: string;
+      endCursor: string;
+    };
+  };
+  projectCollection?: {
+    edges: { node: ProjectInterface }[];
+    pageInfo: {
+      hasPreviousPage: boolean;
+      hasNextPage: boolean;
+      startCursor: string;
+      endCursor: string;
+    };
+  };
+};
 
 export interface UserProfile {
   id: string;
@@ -63,7 +84,7 @@ export interface ProjectForm {
   title: string;
   description: string;
   image: string;
-  liveSiteUrl: string;
+  websiteUrl: string;
   githubUrl: string;
   category: string;
 }
@@ -84,4 +105,21 @@ export type FollowerUser = {
   username: string;
   name: string;
   image?: string;
+};
+
+export type CreateProjectInput = {
+  title: string;
+  description: string;
+  image: string;
+  websiteUrl: string;
+  githubUrl: string;
+  category: string;
+  createdBy: string;
+};
+
+export type ProjectPagination = {
+  projects: [ProjectInterface];
+  totalProjects: number;
+  totalPages: number;
+  currentPage: number;
 };

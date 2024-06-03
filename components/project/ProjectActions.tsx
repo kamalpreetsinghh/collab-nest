@@ -1,14 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
-import { deleteProject, fetchToken } from "@/lib/actions";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { deleteProject } from "@/lib/actions/project.action";
+import { fetchToken } from "@/lib/actions";
 
 type ProjectActionsProps = {
   projectId: string;
@@ -21,10 +19,10 @@ const ProjectActions = ({ projectId }: ProjectActionsProps) => {
   const handleDeleteProject = async () => {
     setIsDeleting(true);
 
-    const { token } = await fetchToken();
+    // const { token } = await fetchToken();
 
     try {
-      await deleteProject(projectId, token);
+      await deleteProject(projectId);
 
       router.push("/");
     } catch (error) {

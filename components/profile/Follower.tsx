@@ -4,7 +4,7 @@ import { FollowerUser, ModalType } from "@/common.types";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import UserNameIcon from "./UserNameIcon";
+import UserNameIcon from "../UserNameIcon";
 
 type FollowerProps = {
   modalType: ModalType;

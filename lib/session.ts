@@ -5,9 +5,12 @@ import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import jsonwebtoken from "jsonwebtoken";
 import { JWT } from "next-auth/jwt";
-import { UserProfile } from "@/common.types";
-import { createUser, fetchToken, getUser, updateProfileImage } from "./actions";
 import bcryptjs from "bcryptjs";
+import {
+  createUser,
+  getUserByEmail,
+  updateProfileImage,
+} from "./actions/user.action";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -16,7 +19,7 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
     GithubProvider({
-      clientId: process.env.GITHUB_ID!,
+      clientId: process.env.GITHUB_CLIENT_ID!,
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
     }),
     CredentialsProvider({
@@ -28,7 +31,7 @@ export const authOptions: NextAuthOptions = {
           password: string;
         };
 
-        const data: any = await getUser(email);
+        const data: any = await getUserByEmail(email);
 
         if (!data.user) {
           throw new Error("Email does not exist.");
@@ -58,7 +61,7 @@ export const authOptions: NextAuthOptions = {
       const encodedToken = jsonwebtoken.sign(
         {
           ...token,
-          iss: "grafbase",
+          iss: "collab-nest",
           exp: Math.floor(Date.now() / 1000) + 60 * 60,
         },
         secret
@@ -71,19 +74,14 @@ export const authOptions: NextAuthOptions = {
       return decodedToken as JWT;
     },
   },
-  theme: {
-    colorScheme: "light",
-    logo: "/assets/images/logo.png",
-  },
   callbacks: {
     async session({ session }) {
       const email = session?.user?.email as string;
 
       try {
-        const data = (await getUser(email)) as { user?: UserProfile };
-
-        if (data && data.user) {
-          const user = data.user;
+        const userExists = await getUserByEmail(email);
+        if (userExists) {
+          const user = userExists;
           const newSession = {
             ...session,
             user: {
@@ -103,19 +101,20 @@ export const authOptions: NextAuthOptions = {
         return session;
       }
     },
-    async signIn({ user }) {
+    async signIn({ profile, user }) {
       try {
-        const data = (await getUser(user?.email as string)) as {
-          user?: UserProfile;
-        };
+        const userExists = await getUserByEmail(profile?.email as string);
 
-        if (data.user && !data.user.image && user?.image) {
-          const token = await fetchToken();
-          await updateProfileImage(data.user.id, user.image, token);
+        if (userExists && !userExists.image && user?.image) {
+          await updateProfileImage(userExists.id, user.image);
         }
 
-        if (!data.user) {
-          await createUser(user.name!, user.email!, user?.image || null);
+        if (!userExists) {
+          await createUser(
+            profile?.name!,
+            profile?.email!,
+            user?.image || null
+          );
         }
 
         return true;

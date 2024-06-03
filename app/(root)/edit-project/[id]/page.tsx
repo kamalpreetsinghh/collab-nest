@@ -1,8 +1,7 @@
 import { ProjectInterface } from "@/common.types";
 import Modal from "@/components/Modal";
-import ProjectForm from "@/components/ProjectForm";
-import { getProjectDetails } from "@/lib/actions";
-
+import ProjectForm from "@/components/project/ProjectForm";
+import { getProjectById } from "@/lib/actions/project.action";
 import { getCurrentUser } from "@/lib/session";
 import { redirect } from "next/navigation";
 
@@ -11,21 +10,15 @@ const EditProject = async ({ params: { id } }: { params: { id: string } }) => {
 
   if (!session?.user) redirect("/");
 
-  const result = (await getProjectDetails(id)) as {
-    project?: ProjectInterface;
-  };
+  const project = (await getProjectById(id)) as ProjectInterface | null;
 
-  if (!result?.project)
+  if (!project)
     return <p className="no-result-text">Failed to fetch project info</p>;
 
   return (
     <Modal>
       <h3 className="modal-head-text">Edit Project</h3>
-      <ProjectForm
-        type="edit"
-        userId={session?.user?.id}
-        project={result?.project}
-      />
+      <ProjectForm type="edit" userId={session?.user?.id} project={project} />
     </Modal>
   );
 };

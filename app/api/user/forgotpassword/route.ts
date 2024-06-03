@@ -1,4 +1,4 @@
-import { getUser } from "@/lib/actions";
+import { getUserByEmail } from "@/lib/actions/user.action";
 import { sendEmail } from "@/lib/mailer";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -7,7 +7,7 @@ export const POST = async (request: NextRequest) => {
     const requestBody = await request.json();
     const { email } = requestBody;
 
-    const data: any = await getUser(email);
+    const data: any = await getUserByEmail(email);
     if (!data.user) {
       return NextResponse.json(
         { error: "User does not exists" },

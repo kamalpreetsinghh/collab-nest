@@ -1,9 +1,10 @@
 import { ProjectInterface, UserProfile } from "@/common.types";
-import { getUserProjects } from "@/lib/actions";
 import { getCurrentUser } from "@/lib/session";
 import Image from "next/image";
-import ProjectCard from "@/components/ProjectCard";
-import ProfileInfo from "@/components/ProfileInfo";
+import ProjectCard from "@/components/project/ProjectCard";
+import { pacifico } from "@/app/fonts";
+import { getUserProjects } from "@/lib/actions/project.action";
+import ProfileInfo from "@/components/profile/ProfileInfo";
 
 type ProfilePageProps = {
   params: {
@@ -13,13 +14,13 @@ type ProfilePageProps = {
 
 const ProfilePage = async ({ params: { id } }: ProfilePageProps) => {
   const session = await getCurrentUser();
-  const result = (await getUserProjects(id, 100)) as { user: UserProfile };
-  const user = result?.user;
-  if (!user) return <p className="no-result-text">Failed to fetch user info</p>;
+  // const result = (await getUserProjects(id, 100)) as { user: UserProfile };
+  // const user = result?.user;
+  // if (!user) return <p className="no-result-text">Failed to fetch user info</p>;
 
   return (
     <section className="flexCenter flex-col max-w-10xl w-full mx-auto paddings">
-      <section className="flexBetween max-lg:flex-col gap-10 w-full sm:px-4">
+      {/* <section className="flexBetween max-lg:flex-col gap-10 w-full sm:px-4">
         <ProfileInfo
           user={user}
           isLoggedInUser={(session && session?.user?.id === user.id) || false}
@@ -37,7 +38,9 @@ const ProfilePage = async ({ params: { id } }: ProfilePageProps) => {
             />
           </div>
         ) : (
-          <div className="w-full flexCenter flex-col text-3xl sm:text-5xl font-pacifico">
+          <div
+            className={`${pacifico.className} w-full flexCenter flex-col text-3xl sm:text-5xl`}
+          >
             <p className="my-8">Share your work on</p>
             <p className="text-primary-purple my-4">Flexibbble</p>
             <p className="my-4">and showcase it to a</p>
@@ -68,7 +71,7 @@ const ProfilePage = async ({ params: { id } }: ProfilePageProps) => {
             )}
           </div>
         </section>
-      )}
+      )} */}
     </section>
   );
 };

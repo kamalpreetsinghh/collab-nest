@@ -1,8 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
-
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LanguageIcon from "@mui/icons-material/Language";

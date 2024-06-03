@@ -3,9 +3,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ThemeProvider from "@/components/AppThemeProvider";
 import SessionProvider from "@/components/Provider";
-import { Poppins } from "next/font/google";
-
-const poppins = Poppins({ weight: "300", subsets: ["latin"] });
+import ApolloClientProvider from "@/components/ApolloClientProvider";
+import { poppins } from "./fonts";
 
 export const metadata = {
   title: "Flexibbble",
@@ -22,11 +21,13 @@ export default function RootLayout({
       <body className={poppins.className}>
         <ThemeProvider>
           <SessionProvider>
-            <div className="min-h-screen">
-              <Navbar />
-              <main>{children}</main>
-            </div>
-            <Footer />
+            <ApolloClientProvider>
+              <div className="min-h-screen">
+                <Navbar />
+                <main>{children}</main>
+              </div>
+              <Footer />
+            </ApolloClientProvider>
           </SessionProvider>
         </ThemeProvider>
       </body>

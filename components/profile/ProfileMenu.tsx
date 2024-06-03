@@ -7,7 +7,7 @@ import { signOut } from "next-auth/react";
 import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { User } from "@/common.types";
-import UserNameIcon from "./UserNameIcon";
+import UserNameIcon from "../UserNameIcon";
 
 const ProfileMenu = ({ user }: { user: User }) => {
   const [openModal, setOpenModal] = useState(false);

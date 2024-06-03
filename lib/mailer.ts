@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 import bcryptjs from "bcryptjs";
-import { updateForgetPasswordToken } from "./actions";
+import { updateForgetPasswordToken } from "./actions/user.action";
 
 export const sendEmail = async ({
   email,

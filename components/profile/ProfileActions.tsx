@@ -1,17 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
-import Button from "./Button";
+import { useEffect, useRef, useState } from "react";
 import { FollowerUser, ModalType } from "@/common.types";
 import FollowerList from "./FollowerList";
+import { fetchToken } from "@/lib/actions";
+import Button from "../Button";
 import {
   addUserFollowing,
-  fetchToken,
   getUserFollowersList,
   getUserFollowingList,
   removeUserFollowing,
-} from "@/lib/actions";
+} from "@/lib/actions/user.action";
 
 type ProfileActionsProps = {
   isLoggedInUser: boolean;

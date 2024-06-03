@@ -1,14 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import React, { ChangeEvent, useState } from "react";
-import FormField from "./FormField";
-import CustomMenu from "./CustomMenu";
-import Button from "./Button";
+import FormField from "../FormField";
+import CustomMenu from "../CustomMenu";
+import Button from "../Button";
+import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { categoryFilters } from "@/constants";
 import { FormState, ProjectInterface } from "@/common.types";
-import { createNewProject, fetchToken, updateProject } from "@/lib/actions";
+import { createNewProject, updateProject } from "@/lib/actions/project.action";
 
 type ProjectFormProps = {
   type: "create" | "edit";
@@ -24,7 +24,7 @@ const ProjectForm = ({ type, userId, project }: ProjectFormProps) => {
     title: project?.title || "",
     description: project?.description || "",
     image: project?.image || "",
-    liveSiteUrl: project?.liveSiteUrl || "",
+    websiteUrl: project?.websiteUrl || "",
     githubUrl: project?.githubUrl || "",
     category: project?.category || "",
   });
@@ -56,15 +56,15 @@ const ProjectForm = ({ type, userId, project }: ProjectFormProps) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const { token } = await fetchToken();
-
     try {
       if (type === "create") {
-        await createNewProject(form, userId, token);
-      } else if (project?.id) {
-        await updateProject(form, project.id, token);
+        await createNewProject(form, userId);
+      } else {
+        if (project) {
+          await updateProject(form, project.id);
+        }
       }
-      router.push("/");
+      router.replace("/");
     } catch (error) {
       alert(
         `Failed to ${
@@ -120,10 +120,10 @@ const ProjectForm = ({ type, userId, project }: ProjectFormProps) => {
       <FormField
         type="url"
         title="Website URL"
-        state={form.liveSiteUrl}
+        state={form.websiteUrl}
         placeholder="https://projectwebsite.com"
         isRequired
-        setState={(value) => handleStateChange("liveSiteUrl", value)}
+        setState={(value) => handleStateChange("websiteUrl", value)}
       />
 
       <FormField

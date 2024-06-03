@@ -7,9 +7,12 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { SignUp } from "@/common.types";
 import { errors, regex } from "@/constants";
-import { capitalizeWords } from "@/lib/common";
-import { createUserWithCredentials, getUser } from "@/lib/actions";
+import { capitalizeWords } from "@/lib/utils";
 import Button from "@/components/Button";
+import {
+  createUserWithCredentials,
+  getUserByEmail,
+} from "@/lib/actions/user.action";
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -52,7 +55,7 @@ const SignUpPage = () => {
       setIsLoading(true);
       const user: SignUp = { name: capitalizeWords(name), email, password };
       try {
-        const data: any = await getUser(email);
+        const data: any = await getUserByEmail(email);
         if (!data.user) {
           await createUserWithCredentials(
             capitalizeWords(name),

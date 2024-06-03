@@ -3,24 +3,22 @@ import Link from "next/link";
 
 import { getCurrentUser } from "@/lib/session";
 import { ProjectInterface } from "@/common.types";
-import { getProjectDetails } from "@/lib/actions";
 
 import Modal from "@/components/Modal";
 import RelatedProjects from "@/components/RelatedProjects";
-import ProjectActions from "@/components/ProjectActions";
 import UserNameIcon from "@/components/UserNameIcon";
+import { getProjectById } from "@/lib/actions/project.action";
+import ProjectActions from "@/components/project/ProjectActions";
 
 const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
   const session = await getCurrentUser();
 
-  const result = (await getProjectDetails(id)) as {
-    project?: ProjectInterface;
-  };
+  const project = (await getProjectById(id)) as ProjectInterface | null;
 
-  if (!result?.project)
+  if (!project)
     return <p className="no-result-text">Failed to fetch project info</p>;
 
-  const projectDetails = result.project;
+  const projectDetails = project;
 
   const renderLink = () => `/profile/${projectDetails?.createdBy?.id}`;
 
@@ -94,7 +92,7 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
           </Link>
           <Image src="/dot.svg" width={4} height={4} alt="dot" />
           <Link
-            href={projectDetails?.liveSiteUrl}
+            href={projectDetails?.websiteUrl}
             target="_blank"
             rel="noreferrer"
             className="flexCenter gap-2 tex-sm font-medium text-primary-purple"

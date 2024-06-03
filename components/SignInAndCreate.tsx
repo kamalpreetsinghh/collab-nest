@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import ProfileMenu from "./ProfileMenu";
 import Link from "next/link";
 import SignInButton from "./SignInButton";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
+import ProfileMenu from "./profile/ProfileMenu";
 
 type SignInAndCreateProps = {
   session: Session | null;

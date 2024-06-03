@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { container } from "../lib/motion";
+import { container } from "../../lib/motion";
 import { ProjectInterface } from "@/common.types";
 import ProjectCard from "./ProjectCard";
 

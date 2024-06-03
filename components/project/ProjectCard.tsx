@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { item } from "@/lib/motion";
-import UserNameIcon from "./UserNameIcon";
+import UserNameIcon from "../UserNameIcon";
 
 type ProjectCardProps = {
   id: string;

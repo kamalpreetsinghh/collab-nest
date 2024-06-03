@@ -9,3 +9,8 @@ export const capitalizeWords = (inputString: string) => {
 
   return result;
 };
+
+export const isBase64DataURL = (value: string): boolean => {
+  const base64Regex = /^data:image\/[a-z]+;base64,/;
+  return base64Regex.test(value);
+};

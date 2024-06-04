@@ -156,8 +156,8 @@ const ProfileActions = ({
             className="rounded-2xl w-full max-w-md mx-auto my-auto"
             ref={dialogRef}
           >
-            <div className="flex-col flexCenter py-2 px-4">
-              <h1 className="mt-2 mb-4 font-bold flexCenter">
+            <div className="flex-col flex-center py-2 px-4">
+              <h1 className="mt-2 mb-4 font-bold flex-center">
                 {ModalType[modalType]}
               </h1>
               <div
@@ -166,11 +166,11 @@ const ProfileActions = ({
               >
                 {modalType === ModalType.Following &&
                   following.length === 0 && (
-                    <h1 className="my-4 flexCenter">No Following</h1>
+                    <h1 className="my-4 flex-center">No Following</h1>
                   )}
                 {modalType === ModalType.Followers &&
                   followers.length === 0 && (
-                    <h1 className="my-4 flexCenter">No Followers</h1>
+                    <h1 className="my-4 flex-center">No Followers</h1>
                   )}
                 <FollowerList
                   modalType={modalType}

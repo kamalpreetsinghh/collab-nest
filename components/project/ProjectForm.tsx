@@ -77,9 +77,9 @@ const ProjectForm = ({ type, userId, project }: ProjectFormProps) => {
   };
 
   return (
-    <form onSubmit={handleFormSubmit} className="flexStart form">
-      <div className="flexStart form_image-container">
-        <label htmlFor="poster" className="flexCenter form_image-label">
+    <form onSubmit={handleFormSubmit} className="flex-start form">
+      <div className="flex-start form_image-container">
+        <label htmlFor="poster" className="flex-center form_image-label">
           {!form?.image && "Choose a poster for your project"}
         </label>
         <input
@@ -142,7 +142,7 @@ const ProjectForm = ({ type, userId, project }: ProjectFormProps) => {
         setState={(value) => handleStateChange("category", value)}
       />
 
-      <div className="flexStart w-full">
+      <div className="flex-start w-full">
         <Button
           title={`${type === "create" ? "Create" : "Edit"}`}
           type="submit"

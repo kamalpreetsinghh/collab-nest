@@ -1,8 +1,7 @@
-import React from "react";
-import UploadImage from "./UploadImage";
-import UserWebsites from "./UserWebsites";
 import { UserProfile } from "@/common.types";
 import ProfileActions from "./ProfileActions";
+import UploadImage from "../UploadImage";
+import UserWebsites from "../UserWebsites";
 
 type ProfileInfoProps = {
   user: UserProfile;

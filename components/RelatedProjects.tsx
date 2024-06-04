@@ -19,7 +19,7 @@ const RelatedProjects = async ({ userId, projectId }: RelatedProjectsProps) => {
 
   return (
     <section className="flex flex-col mt-16 w-full">
-      <div className="flexBetween">
+      <div className="flex-between">
         <p className="text-base font-bold">More by {result?.user?.name}</p>
         <Link
           href={`/profile/${result?.user?.id}`}
@@ -30,10 +30,10 @@ const RelatedProjects = async ({ userId, projectId }: RelatedProjectsProps) => {
       </div>
       <div className="related_projects-grid">
         {filteredProjects?.map(({ node }: { node: ProjectInterface }) => (
-          <div className="flexCenter related_project-card drop-shadow-card">
+          <div className="flex-center related_project-card drop-shadow-card">
             <Link
               href={`/project/${node?.id}`}
-              className="flexCenter group relative w-full h-full"
+              className="flex-center group relative w-full h-full"
             >
               <Image
                 src={node?.image}

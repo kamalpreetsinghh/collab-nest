@@ -29,13 +29,20 @@ export const getProjects = async (
   return data.projects;
 };
 
-export const getProjectById = async (id: string) => {
-  const { data } = await client.query({
-    query: GET_PROJECT_BY_ID_QUERY,
-    variables: { id },
-  });
+export const getProjectById = async (
+  id: string
+): Promise<ProjectInterface | null> => {
+  try {
+    const { data } = await client.query({
+      query: GET_PROJECT_BY_ID_QUERY,
+      variables: { id },
+    });
 
-  return data.project;
+    return data.project;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };
 
 export const getUserProjects = async (

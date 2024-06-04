@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-import FormField from "./FormField";
-import Button from "./Button";
-import { fetchToken, updateUserProfile } from "@/lib/actions";
+import { fetchToken } from "@/lib/actions";
 import { UpdateProfile, UserProfile } from "@/common.types";
+import { updateUserProfile } from "@/lib/actions/user.action";
+import FormField from "../FormField";
+import Button from "../Button";
 
 type ProfileFormProps = {
   user: UserProfile;
@@ -59,7 +60,7 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
   };
 
   return (
-    <form onSubmit={handleFormSubmit} className="flexStart form">
+    <form onSubmit={handleFormSubmit} className="flex-start form">
       <FormField
         title="Bio"
         state={form.description}
@@ -92,7 +93,7 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
         setState={(value) => handleStateChange("linkedInUrl", value)}
       />
 
-      <div className="flexStart w-full">
+      <div className="flex-start w-full">
         <Button
           title={isSubmitting ? "Editing" : "Edit"}
           type="submit"

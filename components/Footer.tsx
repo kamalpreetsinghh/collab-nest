@@ -22,7 +22,7 @@ const FooterColumn = ({ title, links }: FooterColumnType) => (
 
 const Footer = () => {
   return (
-    <footer className="flexStart footer">
+    <footer className="flex-start footer">
       <div className="flex flex-col gap-12 w-full ">
         <div className="flex flex-col items-start">
           <Image
@@ -75,7 +75,7 @@ const Footer = () => {
           />
         </div>
       </div>
-      <div className="flexBetween footer_copyright">
+      <div className="flex-between footer_copyright">
         <p>@ 2023 Flexibbble. All rights reserved</p>
         <p>
           <span className="font-semibold">10,779</span> projects submitted

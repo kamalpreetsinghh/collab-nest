@@ -17,7 +17,7 @@ const HomePage = async ({
   const { projects, currentPage, totalPages } = paginatedProjects;
 
   return (
-    <section className="flexCenter flex-col paddings mb-16">
+    <section className="flex-center flex-col paddings mb-16">
       <Categories />
       {projects.length > 0 ? (
         <>

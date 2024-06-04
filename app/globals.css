@@ -52,15 +52,15 @@ body {
   color: var(--text-color);
 }
 
-.flexCenter {
+.flex-center {
   @apply flex justify-center items-center;
 }
 
-.flexBetween {
+.flex-between {
   @apply flex justify-between items-center;
 }
 
-.flexStart {
+.flex-start {
   @apply flex justify-start items-center;
 }
 

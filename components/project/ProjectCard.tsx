@@ -37,11 +37,11 @@ const ProjectCard = ({
     <motion.div
       variants={item}
       whileHover={{ scale: 1.03 }}
-      className="flexCenter flex-col rounded-2xl w-full sm:w-[298px]"
+      className="flex-center flex-col rounded-2xl w-full sm:w-[298px]"
     >
       <Link
         href={`/project/${id}`}
-        className="flexCenter group relative w-full h-60 sm:h-56"
+        className="flex-center group relative w-full h-60 sm:h-56"
       >
         <Image
           src={image}
@@ -57,7 +57,7 @@ const ProjectCard = ({
         </div>
       </Link>
 
-      <div className="flexBetween w-full px-2 mt-3 font-semibold text-sm gap-1">
+      <div className="flex-between w-full px-2 mt-3 font-semibold text-sm gap-1">
         <Link className="flex items-center gap-2" href={`/profile/${userId}`}>
           <div className="flex w-8 h-8 relative">
             {userImage ? (
@@ -75,12 +75,12 @@ const ProjectCard = ({
           <p>{name}</p>
         </Link>
 
-        <div className="flexCenter gap-3">
-          <div className="flexCenter gap-2">
+        <div className="flex-center gap-3">
+          <div className="flex-center gap-2">
             <Image src="/hearth.svg" width={13} height={12} alt="heart" />
             <p className="text-sm">{randomLikes}</p>
           </div>
-          <div className="flexCenter gap-2">
+          <div className="flex-center gap-2">
             <Image src="/eye.svg" width={12} height={9} alt="eye" />
             <p className="text-sm">{randomViews}</p>
           </div>

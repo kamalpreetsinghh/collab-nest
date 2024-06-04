@@ -12,13 +12,13 @@ type CustomMenuProps = {
 };
 
 const CustomMenu = ({ title, state, filters, setState }: CustomMenuProps) => (
-  <div className="flexStart flex-col w-full gap-7 relative">
+  <div className="flex-start flex-col w-full gap-7 relative">
     <label htmlFor={title} className="w-full">
       {title}
     </label>
     <Menu as="div" className="self-start relative">
       <div>
-        <Menu.Button className="flexCenter custom_menu-btn">
+        <Menu.Button className="flex-center custom_menu-btn">
           {state || "Category"}
           <Image src="/arrow-down.svg" width={10} height={5} alt="arrow down" />
         </Menu.Button>
@@ -32,7 +32,7 @@ const CustomMenu = ({ title, state, filters, setState }: CustomMenuProps) => (
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="flexStart custom_menu-items">
+        <Menu.Items className="flex-start custom_menu-items">
           {filters.map((tag) => (
             <Menu.Item key={tag}>
               <button

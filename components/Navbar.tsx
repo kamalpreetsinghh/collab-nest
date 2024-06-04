@@ -10,8 +10,8 @@ const Navbar = async () => {
   const session = await getCurrentUser();
 
   return (
-    <nav className="flexBetween navbar">
-      <div className="flex-1 flexStart gap-10">
+    <nav className="flex-between navbar">
+      <div className="flex-1 flex-start gap-10">
         <Link href="/">
           <Image
             src="/assets/images/logo.png"
@@ -28,7 +28,7 @@ const Navbar = async () => {
           ))}
         </ul>
       </div>
-      <div className="flexCenter gap-4">
+      <div className="flex-center gap-4">
         <ToggleSwitch />
         <SignInAndCreate session={session} />
       </div>

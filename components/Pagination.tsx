@@ -21,7 +21,7 @@ const Pagination = ({ currentPage, totalPages }: PaginationProps) => {
   };
 
   return (
-    <div className="w-full flexCenter gap-5 mt-10">
+    <div className="w-full flex-center gap-5 mt-10">
       <Button
         title="First Page"
         handleClick={() => handleNavigation("prev")}

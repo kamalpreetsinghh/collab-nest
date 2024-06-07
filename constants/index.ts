@@ -18,95 +18,64 @@ export const regex = {
 
 export const NavLinks = [
   { href: "/", key: "Inspiration", text: "Inspiration" },
-  { href: "/", key: "Find Projects", text: "Find Projects" },
-  { href: "/", key: "Learn Development", text: "Learn Development" },
-  { href: "/", key: "Career Advancement", text: "Career Advancement" },
-  { href: "/", key: "Hire Developers", text: "Hire Developers" },
+  { href: "/", key: "Find Designers", text: "Find Designers" },
+  { href: "/", key: "Hire Professionals", text: "Hire Professionals" },
+  { href: "/", key: "Go Pro", text: "Go Pro" },
 ];
 
 export const categoryFilters = [
-  "Frontend",
-  "Backend",
-  "Full-Stack",
+  "Discover",
+  "Animation",
+  "Branding",
+  "Illustration",
   "Mobile",
-  "UI/UX",
-  "Game Dev",
-  "DevOps",
-  "Data Science",
+  "Web Design",
+  "Game Design",
+  "Product Design",
+  "Typography",
   "Machine Learning",
-  "Cybersecurity",
-  "Blockchain",
-  "E-commerce",
-  "Chatbots",
 ];
 
 export const footerLinks = [
+  "For designers",
+  "Hire talent",
+  "Inspiration",
+  "Advertising",
+  "Blog",
+  "About",
+  "Careers",
+  "Support",
+];
+
+export const footerLeftLinks = ["Terms", "Privacy", "Cookies"];
+
+export const footerRightLinks = [
+  "Jobs",
+  "Designers",
+  "Freelancers",
+  "Resources",
+  "Places",
+];
+
+export const socialMedia = [
   {
-    title: "For developers",
-    links: [
-      "Go Pro!",
-      "Explore development work",
-      "Development blog",
-      "Code podcast",
-      "Open-source projects",
-      "Refer a Friend",
-      "Code of conduct",
-    ],
+    id: 1,
+    img: "/twitter.svg",
+    link: "https://twitter.com/",
   },
   {
-    title: "Hire developers",
-    links: [
-      "Post a job opening",
-      "Post a freelance project",
-      "Search for developers",
-    ],
+    id: 2,
+    img: "/facebook.svg",
+    link: "https://facebook.com/",
   },
   {
-    title: "Brands",
-    links: ["Advertise with us"],
+    id: 3,
+    img: "/instagram.svg",
+    link: "https://www.linkedin.com/",
   },
   {
-    title: "Company",
-    links: [
-      "About",
-      "Careers",
-      "Support",
-      "Media kit",
-      "Testimonials",
-      "API",
-      "Terms of service",
-      "Privacy policy",
-      "Cookie policy",
-    ],
-  },
-  {
-    title: "Directories",
-    links: [
-      "Development jobs",
-      "Developers for hire",
-      "Freelance developers for hire",
-      "Tags",
-      "Places",
-    ],
-  },
-  {
-    title: "Development assets",
-    links: [
-      "Code Marketplace",
-      "GitHub Marketplace",
-      "NPM Registry",
-      "Packagephobia",
-    ],
-  },
-  {
-    title: "Development Resources",
-    links: [
-      "Freelancing",
-      "Development Hiring",
-      "Development Portfolio",
-      "Development Education",
-      "Creative Process",
-      "Development Industry Trends",
-    ],
+    id: 4,
+    img: "/pinterest.svg",
+    link: "https://www.pinterest.com/",
   },
 ];

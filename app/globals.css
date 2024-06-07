@@ -151,7 +151,7 @@ body {
 }
 
 .footer_copyright {
-  @apply max-sm:flex-col w-full text-sm font-normal;
+  @apply max-sm:flex-col w-full text-sm;
 }
 
 .footer_column {
@@ -177,8 +177,7 @@ body {
 
 /* Navbar */
 .navbar {
-  @apply py-4 sm:py-5 px-5 sm:px-10 border-b gap-4;
-  border-color: var(--divider-color);
+  @apply py-4 sm:py-5 px-5 sm:px-10 gap-4;
 }
 
 /* Profile Menu */

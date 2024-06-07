@@ -9,7 +9,7 @@ const Categories = () => {
   const pathName = usePathname();
   const searchParams = useSearchParams();
 
-  const category = searchParams.get("category");
+  const category = searchParams.get("category") || "Discover";
 
   const handleTags = (item: string) => {
     router.push(`${pathName}?category=${item}`);
@@ -24,8 +24,8 @@ const Categories = () => {
             type="button"
             onClick={() => handleTags(filter)}
             className={`${
-              category === filter ? "tab-selected font-medium" : "font-normal"
-            } px-4 py-3 rounded-lg capitalize whitespace-nowrap`}
+              category === filter && "tab-selected font-black text-primary"
+            } font-bold px-4 py-3 rounded-full capitalize whitespace-nowrap hover:text-primary`}
           >
             {filter}
           </button>

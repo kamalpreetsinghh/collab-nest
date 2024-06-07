@@ -1,6 +1,9 @@
 import { Poppins, Pacifico } from "next/font/google";
 
-export const poppins = Poppins({ weight: "300", subsets: ["latin"] });
+export const poppins = Poppins({
+  weight: ["300", "400"],
+  subsets: ["latin"],
+});
 
 export const pacifico = Pacifico({
   subsets: ["latin"],

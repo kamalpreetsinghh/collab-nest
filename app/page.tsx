@@ -13,7 +13,7 @@ type HomeProps = {
 const HomePage = async ({
   searchParams: { category, endcursor },
 }: HomeProps) => {
-  const paginatedProjects = await getProjects(1, 8);
+  const paginatedProjects = await getProjects(1, 8, category || "Discover");
   const { projects, currentPage, totalPages } = paginatedProjects;
 
   return (

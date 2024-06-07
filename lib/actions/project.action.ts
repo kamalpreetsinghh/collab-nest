@@ -19,11 +19,12 @@ import { isBase64DataURL } from "../utils";
 
 export const getProjects = async (
   page: number,
-  limit: number
+  limit: number,
+  category: string
 ): Promise<ProjectPagination> => {
   const { data } = await client.query({
     query: GET_PROJECTS_QUERY,
-    variables: { page, limit },
+    variables: { page, limit, category },
   });
 
   return data.projects;

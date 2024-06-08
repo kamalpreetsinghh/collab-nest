@@ -2,8 +2,8 @@ import { getCurrentUser } from "@/lib/session";
 import Image from "next/image";
 import ProjectCard from "@/components/project/ProjectCard";
 import { pacifico } from "@/app/fonts";
-import ProfileInfo from "@/components/profile/ProfileInfo";
-import { getUserWithProjects } from "@/lib/actions/user.action";
+import { getUserProfile } from "@/lib/actions/user.action";
+import Profile from "@/components/profile/Profile";
 
 type ProfilePageProps = {
   params: {
@@ -13,19 +13,19 @@ type ProfilePageProps = {
 
 const ProfilePage = async ({ params: { id } }: ProfilePageProps) => {
   const session = await getCurrentUser();
-  const user = await getUserWithProjects(id);
+  const user = await getUserProfile(id);
   const projects = user?.projects;
-  console.log(user);
 
   if (!user) return <p className="no-result-text">Failed to fetch user info</p>;
 
   return (
     <section className="flex-center flex-col max-w-10xl w-full mx-auto paddings">
       <section className="flex-between max-lg:flex-col gap-10 w-full sm:px-4">
-        <ProfileInfo
-          user={user}
-          isLoggedInUser={(session && session?.user?.id === user.id) || false}
-          loggedInUserId={session?.user?.id}
+        <Profile
+          userProfile={user}
+          loggedInUserId={
+            session && session?.user?.id ? session?.user?.id : null
+          }
         />
 
         {projects && projects.length > 0 ? (

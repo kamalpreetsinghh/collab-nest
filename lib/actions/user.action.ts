@@ -1,27 +1,24 @@
 "use server";
 
-import { UpdateProfile, UserProfile, UserProjects } from "@/common.types";
+import { UpdateProfile, UserProfile } from "@/common.types";
 import {
   CREATE_USER_MUTATION,
+  FOLLOW_USER,
+  GET_FOLLOWERS,
+  GET_FOLLOWING,
   GET_USERNAMES_BY_NAME_QUERY,
   GET_USER_BY_EMAIL_QUERY,
   GET_USER_WITH_PROJECTS_QUERY,
+  UNFOLLOW_USER,
   UPDATE_USER_MUTATION,
-  addUserFollowerMutation,
-  addUserFollowingMutation,
-  getUserFollowersQuery,
-  getUserFollowingQuery,
-  getUserWithForgotPasswordTokenQuery,
-  removeUserFollowerMutation,
-  removeUserFollowingMutation,
 } from "../../graphql/queries";
 import bcryptjs from "bcryptjs";
 import { uploadImage } from "./image.action";
 import client from "../apolloClient";
 
-export const getUserWithProjects = async (
+export const getUserProfile = async (
   id: string
-): Promise<UserProjects | null> => {
+): Promise<UserProfile | null> => {
   const { data } = await client.query({
     query: GET_USER_WITH_PROJECTS_QUERY,
     variables: { id },
@@ -179,29 +176,31 @@ export const uploadProfileImage = async (
 };
 
 export const getUserFollowersList = async (userId: string) => {
-  // return makeGraphQLRequest(getUserFollowersQuery, { userId });
+  const { data } = await client.query({
+    query: GET_FOLLOWERS,
+    variables: { userId },
+  });
 };
 
 export const getUserFollowingList = async (userId: string) => {
-  // return makeGraphQLRequest(getUserFollowingQuery, { userId });
+  const { data } = await client.query({
+    query: GET_FOLLOWING,
+    variables: { userId },
+  });
 };
 
-export const addUserFollowing = async (
-  id: string,
-  followingId: string,
-  token: string
-) => {
-  // await makeGraphQLRequest(addUserFollowingMutation, { id, followingId });
-  // return makeGraphQLRequest(addUserFollowerMutation, { id, followingId });
+export const addFollower = async (userId: string, followId: string) => {
+  const { data } = await client.mutate({
+    mutation: FOLLOW_USER,
+    variables: { userId, followId },
+  });
 };
 
-export const removeUserFollowing = async (
-  id: string,
-  followingId: string,
-  token: string
-) => {
-  // await makeGraphQLRequest(removeUserFollowingMutation, { id, followingId });
-  // return makeGraphQLRequest(removeUserFollowerMutation, { id, followingId });
+export const removeFollower = async (userId: string, unfollowId: string) => {
+  const { data } = await client.mutate({
+    mutation: UNFOLLOW_USER,
+    variables: { userId, unfollowId },
+  });
 };
 
 export const removeUserFollower = async (

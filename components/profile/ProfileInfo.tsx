@@ -1,47 +1,41 @@
+"use client";
+
 import { UserProfile } from "@/common.types";
-import ProfileActions from "./ProfileActions";
 import UploadImage from "../UploadImage";
 import UserWebsites from "../UserWebsites";
+import { motion } from "framer-motion";
+import { fadeRight } from "@/lib/motion";
 
 type ProfileInfoProps = {
-  user: UserProfile;
-  isLoggedInUser: boolean;
-  loggedInUserId: string;
+  userProfile: UserProfile;
+  canEdit: boolean;
 };
 
-const ProfileInfo = ({
-  user,
-  isLoggedInUser,
-  loggedInUserId,
-}: ProfileInfoProps) => {
+const ProfileInfo = ({ userProfile, canEdit }: ProfileInfoProps) => {
   return (
-    <div className="flex flex-col items-center sm:items-start mt-10 w-full max-w-[500px]">
+    <motion.div
+      className="flex flex-col items-center sm:items-start mt-10 w-full max-w-[500px]"
+      {...fadeRight}
+    >
       <UploadImage
-        userImage={user?.image}
-        canEdit={isLoggedInUser}
-        name={user?.name[0]}
-        userId={user?.id}
+        userImage={userProfile.image}
+        canEdit={canEdit}
+        name={userProfile.name[0]}
+        userId={userProfile.id}
       />
 
-      <p className="text-2xl mt-8">{user.username}</p>
-      <p className="text-4xl font-bold mt-4">{user?.name}</p>
+      <p className="text-2xl text-grey-color mt-8">{userProfile.username}</p>
+      <p className="text-4xl font-bold mt-4">{userProfile.name}</p>
       <p className="desc text-grey-color max-w-lg">
-        {user.description || "Hi I’m a Software Engineer 👋"}
+        {userProfile.description || "Hi I’m a Software Engineer 👋"}
       </p>
 
       <UserWebsites
-        githubUrl={user?.githubUrl}
-        linkedInUrl={user?.linkedInUrl}
-        websiteUrl={user?.websiteUrl}
+        githubUrl={userProfile.githubUrl}
+        linkedInUrl={userProfile.linkedInUrl}
+        websiteUrl={userProfile.websiteUrl}
       />
-
-      <ProfileActions
-        isLoggedInUser={isLoggedInUser}
-        email={user.email}
-        userId={user.id}
-        loggedInUserId={loggedInUserId}
-      />
-    </div>
+    </motion.div>
   );
 };
 

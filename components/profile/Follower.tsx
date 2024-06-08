@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import NameIcon from "../NameIcon";
+import { addFollower, removeFollower } from "@/lib/actions/user.action";
 
 type FollowerProps = {
   modalType: ModalType;
@@ -15,7 +16,7 @@ type FollowerProps = {
 const Follower = ({
   modalType,
   userId,
-  follower: { id, username, name, image },
+  follower: { id: followerId, username, name, image },
 }: FollowerProps) => {
   const [isFollowing, setIsFollowing] = useState(true);
 
@@ -24,19 +25,13 @@ const Follower = ({
       setIsFollowing((prevIsFollowing) => !prevIsFollowing);
       if (modalType === ModalType.Following) {
         if (isFollowing) {
-          await fetch(`/api/user/unfollow/${userId}`, {
-            method: "PATCH",
-            body: JSON.stringify({ followingId: id }),
-          });
+          await removeFollower(userId, followerId);
         } else {
-          await fetch(`/api/user/follow/${userId}`, {
-            method: "PATCH",
-            body: JSON.stringify({ followingId: id }),
-          });
+          await addFollower(userId, followerId);
         }
       } else {
         if (isFollowing) {
-          await fetch(`/api/user/unfollow/${id}`, {
+          await fetch(`/api/user/unfollow/${followerId}`, {
             method: "PATCH",
             body: JSON.stringify({ followingId: userId }),
           });
@@ -49,7 +44,10 @@ const Follower = ({
 
   return (
     <div className="w-full my-4 flex justify-between items-center">
-      <Link href={`/profile/${id}`} className="flex gap-3 cursor-pointer">
+      <Link
+        href={`/profile/${followerId}`}
+        className="flex gap-3 cursor-pointer"
+      >
         {image ? (
           <div className="w-12 h-12 relative">
             <Image
@@ -74,7 +72,7 @@ const Follower = ({
       </Link>
 
       <button
-        className="primary-button"
+        className="rounded-button bg-primary"
         disabled={modalType === ModalType.Followers && !isFollowing}
         onClick={handleOnClick}
       >

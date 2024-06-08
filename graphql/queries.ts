@@ -116,6 +116,18 @@ export const GET_USER_WITH_PROJECTS_QUERY = gql`
         category
         githubUrl
       }
+      followers {
+        id
+        username
+        name
+        image
+      }
+      following {
+        id
+        username
+        name
+        image
+      }
     }
   }
 `;
@@ -166,6 +178,48 @@ export const GET_USERNAMES_BY_NAME_QUERY = gql`
   }
 `;
 
+export const GET_FOLLOWERS = gql`
+  query GetFollowers($userId: ID!) {
+    followers(userId: $userId) {
+      id
+      name
+    }
+  }
+`;
+
+export const GET_FOLLOWING = gql`
+  query GetFollowing($userId: ID!) {
+    following(userId: $userId) {
+      id
+      name
+    }
+  }
+`;
+
+export const FOLLOW_USER = gql`
+  mutation FollowUser($userId: ID!, $followId: ID!) {
+    followUser(userId: $userId, followId: $followId) {
+      id
+      following {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const UNFOLLOW_USER = gql`
+  mutation UnfollowUser($userId: ID!, $unfollowId: ID!) {
+    unfollowUser(userId: $userId, unfollowId: $unfollowId) {
+      id
+      following {
+        id
+        name
+      }
+    }
+  }
+`;
+
 export const getUserWithForgotPasswordTokenQuery = gql`
   query GetUserWithForgotPasswordToken($token: String!) {
     userSearch(first: 10, filter: { forgotPasswordToken: { eq: $token } }) {
@@ -173,86 +227,6 @@ export const getUserWithForgotPasswordTokenQuery = gql`
         node {
           id
         }
-      }
-    }
-  }
-`;
-
-export const getUserFollowersQuery = gql`
-  query GetUserFollowers($userId: ID!) {
-    user(by: { id: $userId }) {
-      followers(first: 100) {
-        edges {
-          node {
-            id
-            username
-            name
-            image
-          }
-        }
-      }
-    }
-  }
-`;
-
-export const getUserFollowingQuery = gql`
-  query GetUserFollowing($userId: ID!) {
-    user(by: { id: $userId }) {
-      following(first: 100) {
-        edges {
-          node {
-            id
-            username
-            name
-            image
-          }
-        }
-      }
-    }
-  }
-`;
-
-export const addUserFollowingMutation = gql`
-  mutation AddUserFollowing($id: ID!, $followingId: ID!) {
-    userUpdate(by: { id: $id }, input: { following: { link: $followingId } }) {
-      user {
-        id
-      }
-    }
-  }
-`;
-
-export const addUserFollowerMutation = gql`
-  mutation AddUserFollowers($id: ID!, $followingId: ID!) {
-    userUpdate(by: { id: $id }, input: { followers: { link: $followingId } }) {
-      user {
-        id
-      }
-    }
-  }
-`;
-
-export const removeUserFollowingMutation = gql`
-  mutation RemoveUserFollowing($id: ID!, $followingId: ID!) {
-    userUpdate(
-      by: { id: $id }
-      input: { following: { unlink: $followingId } }
-    ) {
-      user {
-        id
-      }
-    }
-  }
-`;
-
-export const removeUserFollowerMutation = gql`
-  mutation RemoveUserFollowers($id: ID!, $followingId: ID!) {
-    userUpdate(
-      by: { id: $followingId }
-      input: { followers: { unlink: $id } }
-    ) {
-      user {
-        id
       }
     }
   }

@@ -1,6 +1,6 @@
 import Modal from "@/components/Modal";
 import ProfileForm from "@/components/profile/ProfileForm";
-import { getUserWithProjects } from "@/lib/actions/user.action";
+import { getUserProfile } from "@/lib/actions/user.action";
 import { getCurrentUser } from "@/lib/session";
 import { redirect } from "next/navigation";
 
@@ -9,7 +9,7 @@ const EditProfile = async ({ params: { id } }: { params: { id: string } }) => {
 
   if (!session?.user) redirect("/");
 
-  const user = await getUserWithProjects(id);
+  const user = await getUserProfile(id);
 
   if (!user) return <p className="no-result-text">Failed to fetch user info</p>;
 

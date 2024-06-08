@@ -41,7 +41,7 @@ export interface ProjectInterface {
   };
 }
 
-export interface UserProfile {
+export interface UserDetails {
   id: string;
   name: string;
   username: string;
@@ -105,7 +105,7 @@ export type ProjectPagination = {
   currentPage: number;
 };
 
-export type UserProjects = {
+export type UserProfile = {
   id: string;
   name: string;
   username: string;
@@ -117,4 +117,6 @@ export type UserProjects = {
   linkedInUrl: string | null;
   websiteUrl: string | null;
   projects: ProjectInterface[];
+  followers: FollowerUser[];
+  following: FollowerUser[];
 };

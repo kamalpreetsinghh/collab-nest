@@ -1,13 +1,13 @@
 import Follower from "./Follower";
 import { FollowerUser, ModalType } from "@/common.types";
 
-type FollowerListProps = {
+type FollowersProps = {
   modalType: ModalType;
   userId: string;
   followers: FollowerUser[];
 };
 
-const FollowerList = ({ modalType, userId, followers }: FollowerListProps) => {
+const Followers = ({ modalType, userId, followers }: FollowersProps) => {
   return (
     <>
       {followers.map((follower) => (
@@ -22,4 +22,4 @@ const FollowerList = ({ modalType, userId, followers }: FollowerListProps) => {
   );
 };
 
-export default FollowerList;
+export default Followers;

@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { UpdateProfile, UserProjects } from "@/common.types";
+import { UpdateProfile, UserProfile } from "@/common.types";
 import { updateUserProfile } from "@/lib/actions/user.action";
 import FormField from "../FormField";
 import Button from "../Button";
 
 type ProfileFormProps = {
-  user: UserProjects;
+  user: UserProfile;
 };
 
 const ProfileForm = ({

@@ -6,6 +6,7 @@ import {
   GET_USERNAMES_BY_NAME_QUERY,
   GET_USER_BY_EMAIL_QUERY,
   GET_USER_WITH_PROJECTS_QUERY,
+  UPDATE_USER_MUTATION,
   addUserFollowerMutation,
   addUserFollowingMutation,
   getUserFollowersQuery,
@@ -103,15 +104,15 @@ export const createUserWithCredentials = async (
 
 export const updateUserProfile = async (
   userProfile: UpdateProfile,
-  userId: string,
-  token: string
+  userId: string
 ) => {
-  const variables = {
-    id: userId,
-    input: userProfile,
-  };
-
-  // return makeGraphQLRequest(updateUserMutation, variables);
+  await client.mutate({
+    mutation: UPDATE_USER_MUTATION,
+    variables: {
+      id: userId,
+      input: userProfile,
+    },
+  });
 };
 
 export const updateProfileImage = async (userId: string, image: string) => {

@@ -2,36 +2,30 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
-import { fetchToken } from "@/lib/actions";
-import { UpdateProfile, UserProfile } from "@/common.types";
+import { UpdateProfile, UserProjects } from "@/common.types";
 import { updateUserProfile } from "@/lib/actions/user.action";
 import FormField from "../FormField";
 import Button from "../Button";
 
 type ProfileFormProps = {
-  user: UserProfile;
+  user: UserProjects;
 };
 
-type FormState = {
-  description: string;
-  githubUrl: string;
-  linkedInUrl: string;
-  websiteUrl: string;
-};
-
-const ProfileForm = ({ user }: ProfileFormProps) => {
+const ProfileForm = ({
+  user: { id, description, githubUrl, linkedInUrl, websiteUrl },
+}: ProfileFormProps) => {
   const router = useRouter();
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [form, setForm] = useState<FormState>({
-    description: user?.description || "",
-    githubUrl: user?.githubUrl || "",
-    linkedInUrl: user?.linkedInUrl || "",
-    websiteUrl: user?.websiteUrl || "",
+
+  const [form, setForm] = useState<UpdateProfile>({
+    description,
+    githubUrl,
+    linkedInUrl,
+    websiteUrl,
   });
 
-  const handleStateChange = (fieldName: keyof FormState, value: string) => {
+  const handleStateChange = (fieldName: keyof UpdateProfile, value: string) => {
     setForm((prevForm) => ({ ...prevForm, [fieldName]: value }));
   };
 
@@ -39,19 +33,10 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const { token } = await fetchToken();
-
     try {
-      const updatedUserProfile = {
-        description: form.description ? form.description : null,
-        githubUrl: form.githubUrl ? form.githubUrl : null,
-        linkedInUrl: form.linkedInUrl ? form.linkedInUrl : null,
-        websiteUrl: form.websiteUrl ? form.websiteUrl : null,
-      } as UpdateProfile;
+      await updateUserProfile(form, id);
 
-      await updateUserProfile(updatedUserProfile, user?.id, token);
-
-      router.push(`/profile/${user?.id}`);
+      router.push(`/profile/${id}`);
     } catch (error) {
       alert("You have been signed out. Please log in again.");
     } finally {
@@ -63,7 +48,7 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
     <form onSubmit={handleFormSubmit} className="flex-start form">
       <FormField
         title="Bio"
-        state={form.description}
+        state={form.description || ""}
         placeholder="Hi I'm a Software Developer 👋"
         isTextArea
         setState={(value) => handleStateChange("description", value)}
@@ -72,7 +57,7 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
       <FormField
         type="url"
         title="Website URL"
-        state={form.websiteUrl}
+        state={form.websiteUrl || ""}
         placeholder="https://mywebsite.com"
         setState={(value) => handleStateChange("websiteUrl", value)}
       />
@@ -80,7 +65,7 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
       <FormField
         type="url"
         title="Github URL"
-        state={form.githubUrl}
+        state={form.githubUrl || ""}
         placeholder="https://github.com/myusername"
         setState={(value) => handleStateChange("githubUrl", value)}
       />
@@ -88,7 +73,7 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
       <FormField
         type="url"
         title="LinkedIn URL"
-        state={form.linkedInUrl}
+        state={form.linkedInUrl || ""}
         placeholder="https://linkedin.com/myusername"
         setState={(value) => handleStateChange("linkedInUrl", value)}
       />

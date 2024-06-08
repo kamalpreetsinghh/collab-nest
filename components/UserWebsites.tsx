@@ -22,7 +22,7 @@ const UserWebsites = ({
         <Link
           href={githubUrl}
           target="_blank"
-          className="mt-4 mb-2 hover:text-primary-purple"
+          className="mt-4 mb-2 hover:text-primary"
         >
           <GitHubIcon />
         </Link>
@@ -31,7 +31,7 @@ const UserWebsites = ({
         <Link
           href={linkedInUrl}
           target="_blank"
-          className="mt-4 mb-2 hover:text-primary-purple"
+          className="mt-4 mb-2 hover:text-primary"
         >
           <LinkedInIcon />
         </Link>
@@ -40,7 +40,7 @@ const UserWebsites = ({
         <Link
           href={websiteUrl}
           target="_blank"
-          className="mt-4 mb-2 hover:text-primary-purple"
+          className="mt-4 mb-2 hover:text-primary"
         >
           <LanguageIcon />
         </Link>

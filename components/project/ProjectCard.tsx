@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { item } from "@/lib/motion";
-import UserNameIcon from "../UserNameIcon";
+import NameIcon from "../NameIcon";
 
 type ProjectCardProps = {
   id: string;
@@ -69,7 +69,7 @@ const ProjectCard = ({
                 alt="profile image"
               />
             ) : (
-              <UserNameIcon name={name[0]} className="w-8 h-8 text-lg" />
+              <NameIcon name={name[0]} className="w-8 h-8 text-lg" />
             )}
           </div>
           <p>{name}</p>

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-
 import { NavLinks } from "@/constants";
 import { getCurrentUser } from "@/lib/session";
 import ToggleSwitch from "./ToggleSwitch";
@@ -17,7 +16,7 @@ const Navbar = async () => {
             src="/assets/images/logo.png"
             width={115}
             height={43}
-            alt="Flexibbble"
+            alt="Collab Nest"
           />
         </Link>
         <ul className="xl:flex text-sm text-grey-color hidden gap-7">

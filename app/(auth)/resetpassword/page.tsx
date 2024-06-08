@@ -3,11 +3,11 @@
 import FormField from "@/components/FormField";
 import Link from "next/link";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import FormAndImage from "@/components/FormAndImage";
 import { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { errors, regex } from "@/constants";
 import Button from "@/components/Button";
+import Form from "@/components/Form";
 
 const ResetPasswordPage = () => {
   const [token, setToken] = useState("");
@@ -80,7 +80,7 @@ const ResetPasswordPage = () => {
   };
 
   return (
-    <FormAndImage
+    <Form
       image="/assets/images/resetpassword.png"
       imageDesc="Reset Password Image"
     >
@@ -130,7 +130,7 @@ const ResetPasswordPage = () => {
         </div>
         <Toaster position="top-center" reverseOrder={false} />
       </>
-    </FormAndImage>
+    </Form>
   );
 };
 

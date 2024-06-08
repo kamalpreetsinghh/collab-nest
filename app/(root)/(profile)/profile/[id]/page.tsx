@@ -42,7 +42,7 @@ const ProfilePage = async ({ params: { id } }: ProfilePageProps) => {
             className={`${pacifico.className} w-full flex-center flex-col text-3xl sm:text-5xl`}
           >
             <p className="my-8">Share your work on</p>
-            <p className="text-primary-purple my-4">Flexibbble</p>
+            <p className="text-primary my-4">Collab Nest</p>
             <p className="my-4">and showcase it to a</p>
             <p>community of creators.</p>
           </div>

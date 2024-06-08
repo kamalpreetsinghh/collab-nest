@@ -43,7 +43,7 @@ const Footer = () => {
 
         <div className="flex flex-wrap gap-x-4 md:gap-x-12">
           {footerLinks.map((link) => (
-            <Link href="/" className="font-bold">
+            <Link href="/" className="font-bold" key={link}>
               {link}
             </Link>
           ))}
@@ -63,13 +63,17 @@ const Footer = () => {
         <div className="flex gap-4">
           <p>© 2024 Collab Nest</p>
           {footerLeftLinks.map((link) => (
-            <p className="cursor-pointer">{link}</p>
+            <p className="cursor-pointer" key={link}>
+              {link}
+            </p>
           ))}
         </div>
 
         <div className="flex gap-4">
           {footerRightLinks.map((link) => (
-            <p className="cursor-pointer">{link}</p>
+            <p className="cursor-pointer" key={link}>
+              {link}
+            </p>
           ))}
         </div>
       </div>

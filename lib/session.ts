@@ -3,8 +3,6 @@ import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
-import jsonwebtoken from "jsonwebtoken";
-import { JWT } from "next-auth/jwt";
 import bcryptjs from "bcryptjs";
 import {
   createUser,
@@ -31,68 +29,58 @@ export const authOptions: NextAuthOptions = {
           password: string;
         };
 
-        const data: any = await getUserByEmail(email);
+        const user = await getUserByEmail(email);
 
-        if (!data.user) {
+        if (user && user.password) {
+          const validPassword = bcryptjs.compare(password, user.password);
+
+          if (!validPassword) {
+            throw new Error("Incorrect Username or Password.");
+          }
+
+          const loggedInUser = {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+          };
+
+          return loggedInUser;
+        } else {
           throw new Error("Email does not exist.");
         }
-
-        const user = data.user;
-
-        const validPassword = await bcryptjs.compare(password, user.password);
-
-        // check if password is correct
-        if (!validPassword) {
-          throw new Error("Incorrect Username or Password.");
-        }
-
-        const loggedInUser = {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-        };
-
-        return loggedInUser;
       },
     }),
   ],
-  jwt: {
-    encode: ({ secret, token }) => {
-      const encodedToken = jsonwebtoken.sign(
-        {
-          ...token,
-          iss: "collab-nest",
-          exp: Math.floor(Date.now() / 1000) + 60 * 60,
-        },
-        secret
-      );
-
-      return encodedToken;
-    },
-    decode: async ({ secret, token }) => {
-      const decodedToken = jsonwebtoken.verify(token!, secret);
-      return decodedToken as JWT;
-    },
-  },
   callbacks: {
-    async session({ session }) {
-      const email = session?.user?.email as string;
-
+    async jwt({ token, user }) {
+      if (user) {
+        token.userId = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      const email = session?.user?.email;
       try {
-        const userExists = await getUserByEmail(email);
-        if (userExists) {
-          const user = userExists;
-          const newSession = {
-            ...session,
-            user: {
-              ...session.user,
-              id: user.id,
-              name: user.name,
-              image: user.image ? user.image : session.user.image,
-            },
-          };
+        if (email) {
+          const userExists = await getUserByEmail(email);
+          if (userExists) {
+            const user = userExists;
+            const newSession = {
+              ...session,
+              user: {
+                ...session.user,
+                id: user.id,
+                name: user.name,
+                image: user.image ? user.image : session?.user?.image,
+              },
+            };
 
-          return newSession;
+            return newSession;
+          }
+        }
+
+        if (session.user) {
+          session.user.id = token.userId as string;
         }
 
         return session;

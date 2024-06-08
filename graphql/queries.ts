@@ -32,8 +32,8 @@ export const GET_PROJECT_BY_ID_QUERY = gql`
       title
       description
       image
-      githubUrl
       websiteUrl
+      githubUrl
       category
       createdBy {
         id
@@ -46,8 +46,8 @@ export const GET_PROJECT_BY_ID_QUERY = gql`
 `;
 
 export const GET_USER_PROJECTS_QUERY = gql`
-  query getUserProjects($userId: ID!) {
-    getUserProjects(userId: $userId) {
+  query GetUserProjects($id: ID!, $limit: Int) {
+    getUserProjects(id: $id, limit: $limit) {
       id
       title
       image
@@ -101,6 +101,7 @@ export const GET_USER_BY_EMAIL_QUERY = gql`
       id
       name
       email
+      password
       image
       description
       githubUrl

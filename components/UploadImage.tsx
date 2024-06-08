@@ -5,7 +5,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
-import UserNameIcon from "./UserNameIcon";
+import NameIcon from "./NameIcon";
 import { fetchToken } from "@/lib/actions";
 import { uploadProfileImage } from "@/lib/actions/user.action";
 
@@ -83,7 +83,7 @@ const UploadImage = ({
           </div>
         ) : (
           <span>
-            <UserNameIcon name={name} className="w-28 h-28 text-7xl" />
+            <NameIcon name={name} className="w-28 h-28 text-7xl" />
           </span>
         )}
         {canEdit && !isLoading && (

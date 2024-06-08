@@ -102,7 +102,7 @@ const ProjectForm = ({ type, userId, project }: ProjectFormProps) => {
       <FormField
         title="Title"
         state={form.title}
-        placeholder="Flexibbble"
+        placeholder="Collab Nest"
         isRequired
         autocapitalize="words"
         setState={(value) => handleStateChange("title", value)}

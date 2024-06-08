@@ -1,22 +1,20 @@
 "use client";
 
 import FormField from "@/components/FormField";
-import FormAndImage from "@/components/FormAndImage";
 import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { SignUp } from "@/common.types";
+import { Toaster, toast } from "sonner";
 import { errors, regex } from "@/constants";
 import { capitalizeWords } from "@/lib/utils";
 import Button from "@/components/Button";
+
+import Form from "@/components/Form";
 import {
   createUserWithCredentials,
   getUserByEmail,
 } from "@/lib/actions/user.action";
 
 const SignUpPage = () => {
-  const router = useRouter();
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -53,10 +51,10 @@ const SignUpPage = () => {
 
     if (validateForm()) {
       setIsLoading(true);
-      const user: SignUp = { name: capitalizeWords(name), email, password };
       try {
-        const data: any = await getUserByEmail(email);
-        if (!data.user) {
+        const user = await getUserByEmail(email);
+
+        if (!user) {
           await createUserWithCredentials(
             capitalizeWords(name),
             email,
@@ -67,8 +65,9 @@ const SignUpPage = () => {
           setEmail("");
           setPassword("");
           setConfirmPassword("");
-
-          router.push("signin?registered=true");
+          toast("Your account is created successfully.", {
+            description: "Please log in to share your creative designs.",
+          });
         } else {
           setEmailError(errors.emailAlreadyExisis);
         }
@@ -107,7 +106,7 @@ const SignUpPage = () => {
   };
 
   return (
-    <FormAndImage image="/assets/images/signup.png" imageDesc="Sign Up Image">
+    <Form image="/assets/images/signup.png" imageDesc="Sign Up Image">
       <div className="w-full max-w-lg mx-auto flex flex-col items-center">
         <h1 className="head_text purple_gradient mt-8 mb-2">Hi there!</h1>
         <p className="desc max-w-md mb-6">Welcome to Prompt Wizard</p>
@@ -121,7 +120,6 @@ const SignUpPage = () => {
             placeholder="Bruce Wayne"
             setState={handleNameChange}
             errorMessage={nameError}
-            isRequired
             autocapitalize="words"
           />
 
@@ -131,7 +129,6 @@ const SignUpPage = () => {
             placeholder="explore@mountains.com"
             setState={handleEmailChange}
             errorMessage={emailError}
-            isRequired
           />
 
           <FormField
@@ -140,7 +137,6 @@ const SignUpPage = () => {
             placeholder="no0neCanGuessIt"
             setState={handlePasswordChange}
             errorMessage={passwordError}
-            isRequired
             type="password"
           />
 
@@ -150,7 +146,6 @@ const SignUpPage = () => {
             placeholder="no0neCanGuessIt"
             setState={handleConfirmPasswordChange}
             errorMessage={confirmPasswordError}
-            isRequired
             type="password"
           />
 
@@ -167,8 +162,9 @@ const SignUpPage = () => {
             Sign in
           </Link>
         </p>
+        <Toaster />
       </div>
-    </FormAndImage>
+    </Form>
   );
 };
 

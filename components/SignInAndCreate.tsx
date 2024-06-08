@@ -1,28 +1,35 @@
 "use client";
 
 import Link from "next/link";
-import SignInButton from "./SignInButton";
+import ProfileMenu from "./profile/ProfileMenu";
+import Button from "./Button";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
-import ProfileMenu from "./profile/ProfileMenu";
+import { useRouter } from "next/navigation";
 
 type SignInAndCreateProps = {
   session: Session | null;
 };
 
 const SignInAndCreate = ({ session }: SignInAndCreateProps) => {
-  const clientSession = useSession();
+  const { data: clientSession } = useSession();
+  const user = session?.user || clientSession?.user;
+
+  const router = useRouter();
+
+  const handleClick = () => {
+    const callbackUrl = window.location.pathname;
+    if (callbackUrl !== "/signin") {
+      localStorage.setItem("callbackUrl", window.location.pathname);
+    }
+    router.push("/signin");
+  };
 
   return (
     <>
-      {(session && session?.user) ||
-      clientSession.status === "authenticated" ? (
+      {user ? (
         <div className="flex gap-3 md:gap-6">
-          <ProfileMenu
-            user={
-              session && session?.user ? session.user : clientSession.data?.user
-            }
-          />
+          <ProfileMenu user={user} />
           <Link href="/create-project">
             <span className="rounded-navbar-button hidden sm:flex">
               Share Work
@@ -31,7 +38,11 @@ const SignInAndCreate = ({ session }: SignInAndCreateProps) => {
           </Link>
         </div>
       ) : (
-        <SignInButton />
+        <Button
+          className="primary-button"
+          title="Sign In"
+          handleClick={handleClick}
+        />
       )}
     </>
   );

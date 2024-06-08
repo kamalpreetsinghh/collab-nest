@@ -18,7 +18,7 @@ import {
   Transition,
 } from "@headlessui/react";
 import { User } from "@/common.types";
-import UserNameIcon from "../UserNameIcon";
+import NameIcon from "../NameIcon";
 
 const ProfileMenu = ({ user }: { user: User }) => {
   const [openModal, setOpenModal] = useState(false);
@@ -57,7 +57,7 @@ const ProfileMenu = ({ user }: { user: User }) => {
               />
             </div>
           ) : (
-            <UserNameIcon name={user.name[0]} className="w-10 h-10 text-2xl" />
+            <NameIcon name={user.name[0]} className="w-10 h-10 text-2xl" />
           )}
         </MenuButton>
 
@@ -84,10 +84,7 @@ const ProfileMenu = ({ user }: { user: User }) => {
                   />
                 </div>
               ) : (
-                <UserNameIcon
-                  name={user.name[0]}
-                  className="w-20 h-20 text-6xl"
-                />
+                <NameIcon name={user.name[0]} className="w-20 h-20 text-6xl" />
               )}
               <p className="font-semibold">{user.name}</p>
             </div>

@@ -3,8 +3,18 @@ export type User = {
   name: string;
   email: string;
   image?: string;
-  avatarUrl: string;
 };
+
+type Provider = {
+  id: string;
+  name: string;
+  type: string;
+  signinUrl: string;
+  callbackUrl: string;
+  singinUrlParams?: Record<string, string> | null;
+};
+
+export type Providers = Record<string, Provider>;
 
 export type FormState = {
   title: string;
@@ -57,6 +67,7 @@ export interface UserProfile {
   name: string;
   username: string;
   email: string;
+  password: string | null;
   description: string | null;
   image: string | null;
   githubUrl: string | null;

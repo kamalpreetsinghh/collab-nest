@@ -38,23 +38,23 @@ export const getProjectById = async (
       query: GET_PROJECT_BY_ID_QUERY,
       variables: { id },
     });
-
     return data.project;
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching project by ID:", error);
     return null;
   }
 };
 
 export const getUserProjects = async (
-  userId: string
+  id: string,
+  limit: number
 ): Promise<ProjectInterface[]> => {
   const { data } = await client.query({
     query: GET_USER_PROJECTS_QUERY,
-    variables: { userId },
+    variables: { id, limit },
   });
 
-  return data.projects;
+  return data.getUserProjects;
 };
 
 export const createNewProject = async (

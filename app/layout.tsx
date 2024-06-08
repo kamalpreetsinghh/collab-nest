@@ -1,13 +1,13 @@
-import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ThemeProvider from "@/components/AppThemeProvider";
 import SessionProvider from "@/components/Provider";
 import ApolloClientProvider from "@/components/ApolloClientProvider";
 import { poppins } from "./fonts";
+import "./globals.css";
 
 export const metadata = {
-  title: "Flexibbble",
+  title: "Collab Nest",
   description: "Showcase your amazing projects",
 };
 

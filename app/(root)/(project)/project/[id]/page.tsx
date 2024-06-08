@@ -2,16 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import Modal from "@/components/Modal";
 import RelatedProjects from "@/components/RelatedProjects";
-import UserNameIcon from "@/components/UserNameIcon";
+import NameIcon from "@/components/NameIcon";
 import ProjectActions from "@/components/project/ProjectActions";
 import { getCurrentUser } from "@/lib/session";
-import { ProjectInterface } from "@/common.types";
 import { getProjectById } from "@/lib/actions/project.action";
 
 const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
   const session = await getCurrentUser();
   const project = await getProjectById(id);
-  const projectUrl = `/profile/${project?.createdBy?.id}`;
+  const creatorId = project?.createdBy.id;
 
   return (
     <>
@@ -19,7 +18,10 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
         <Modal>
           <section className="flex-between gap-y-8 max-w-4xl max-xs:flex-col w-full">
             <div className="flex-1 items-center flex gap-5 w-full ">
-              <Link className="flex w-14 h-14 relative" href={projectUrl}>
+              <Link
+                className="flex w-14 h-14 relative"
+                href={`/profile/${creatorId}`}
+              >
                 {project.createdBy.image ? (
                   <Image
                     src={project.createdBy?.image}
@@ -29,7 +31,7 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
                     className="rounded-full"
                   />
                 ) : (
-                  <UserNameIcon
+                  <NameIcon
                     name={project.createdBy.name[0]}
                     className="w-14 h-14 text-3xl"
                   />
@@ -40,11 +42,13 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
                   {project.title}
                 </p>
                 <div className="user-info">
-                  <Link href={projectUrl}>{project.createdBy.name}</Link>
+                  <Link href={`/profile/${creatorId}`}>
+                    {project.createdBy.name}
+                  </Link>
                   <Image src="/dot.svg" width={4} height={4} alt="dot" />
                   <Link
                     href={`/?category=${project.category}`}
-                    className="text-primary-purple font-semibold"
+                    className="text-primary font-semibold"
                   >
                     {project?.category}
                   </Link>
@@ -79,7 +83,7 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
                 href={project.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex-center gap-2 tex-sm font-medium text-primary-purple"
+                className="flex-center gap-2 tex-sm font-medium text-primary"
               >
                 🖥<span>Github</span>
               </Link>
@@ -88,7 +92,7 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
                 href={project.websiteUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex-center gap-2 tex-sm font-medium text-primary-purple"
+                className="flex-center gap-2 tex-sm font-medium text-primary"
               >
                 🚀<span>Live Site</span>
               </Link>
@@ -97,7 +101,10 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
 
           <section className="flex justify-between items-center w-full gap-8 mt-16">
             <span className="flex-1 h-0.5 border border-nav-border" />
-            <Link className="flex w-14 h-14 relative" href={projectUrl}>
+            <Link
+              className="flex w-14 h-14 relative"
+              href={`/profile/${creatorId}`}
+            >
               {project.createdBy.image ? (
                 <Image
                   src={project.createdBy.image}
@@ -107,7 +114,7 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
                   className="rounded-full"
                 />
               ) : (
-                <UserNameIcon
+                <NameIcon
                   name={project.createdBy.name[0]}
                   className="w-14 h-14 text-3xl"
                 />

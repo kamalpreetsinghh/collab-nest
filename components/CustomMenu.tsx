@@ -1,7 +1,13 @@
 "use client";
 
 import { Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
+import {
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+  Transition,
+} from "@headlessui/react";
 import Image from "next/image";
 
 type CustomMenuProps = {
@@ -18,10 +24,10 @@ const CustomMenu = ({ title, state, filters, setState }: CustomMenuProps) => (
     </label>
     <Menu as="div" className="self-start relative">
       <div>
-        <Menu.Button className="flex-center custom_menu-btn">
+        <MenuButton className="flex-center custom_menu-btn">
           {state || "Category"}
           <Image src="/arrow-down.svg" width={10} height={5} alt="arrow down" />
-        </Menu.Button>
+        </MenuButton>
       </div>
       <Transition
         as={Fragment}
@@ -32,9 +38,9 @@ const CustomMenu = ({ title, state, filters, setState }: CustomMenuProps) => (
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="flex-start custom_menu-items">
+        <MenuItems className="flex-start custom_menu-items">
           {filters.map((tag) => (
-            <Menu.Item key={tag}>
+            <MenuItem key={tag}>
               <button
                 type="button"
                 value={tag}
@@ -43,9 +49,9 @@ const CustomMenu = ({ title, state, filters, setState }: CustomMenuProps) => (
               >
                 {tag}
               </button>
-            </Menu.Item>
+            </MenuItem>
           ))}
-        </Menu.Items>
+        </MenuItems>
       </Transition>
     </Menu>
   </div>

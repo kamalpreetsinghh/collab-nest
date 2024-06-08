@@ -4,7 +4,7 @@ import { FollowerUser, ModalType } from "@/common.types";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import UserNameIcon from "../UserNameIcon";
+import NameIcon from "../NameIcon";
 
 type FollowerProps = {
   modalType: ModalType;
@@ -61,7 +61,7 @@ const Follower = ({
             />
           </div>
         ) : (
-          <UserNameIcon
+          <NameIcon
             name={username[0].toUpperCase()}
             className="w-12 h-12 text-2xl"
           />

@@ -9,12 +9,11 @@ const ToggleSwitch = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Ensure component is mounted before attempting to access window object
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null; // Return null if component is not yet mounted
+  if (!mounted) return null;
 
   return (
     <button

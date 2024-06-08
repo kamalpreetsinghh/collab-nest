@@ -15,6 +15,7 @@ const ProfilePage = async ({ params: { id } }: ProfilePageProps) => {
   const session = await getCurrentUser();
   const user = await getUserWithProjects(id);
   const projects = user?.projects;
+  console.log(user);
 
   if (!user) return <p className="no-result-text">Failed to fetch user info</p>;
 

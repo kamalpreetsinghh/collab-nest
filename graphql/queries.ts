@@ -104,6 +104,9 @@ export const GET_USER_WITH_PROJECTS_QUERY = gql`
       email
       description
       image
+      linkedInUrl
+      githubUrl
+      websiteUrl
       projects {
         id
         image

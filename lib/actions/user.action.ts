@@ -1,10 +1,11 @@
 "use server";
 
-import { UpdateProfile, UserProfile } from "@/common.types";
+import { UpdateProfile, UserProfile, UserProjects } from "@/common.types";
 import {
   CREATE_USER_MUTATION,
   GET_USERNAMES_BY_NAME_QUERY,
   GET_USER_BY_EMAIL_QUERY,
+  GET_USER_WITH_PROJECTS_QUERY,
   addUserFollowerMutation,
   addUserFollowingMutation,
   getUserFollowersQuery,
@@ -16,6 +17,17 @@ import {
 import bcryptjs from "bcryptjs";
 import { uploadImage } from "./image.action";
 import client from "../apolloClient";
+
+export const getUserWithProjects = async (
+  id: string
+): Promise<UserProjects | null> => {
+  const { data } = await client.query({
+    query: GET_USER_WITH_PROJECTS_QUERY,
+    variables: { id },
+  });
+
+  return data.user;
+};
 
 export const getUserByEmail = async (
   email: string

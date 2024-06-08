@@ -1,10 +1,9 @@
-import { ProjectInterface, UserProfile } from "@/common.types";
 import { getCurrentUser } from "@/lib/session";
 import Image from "next/image";
 import ProjectCard from "@/components/project/ProjectCard";
 import { pacifico } from "@/app/fonts";
-import { getUserProjects } from "@/lib/actions/project.action";
 import ProfileInfo from "@/components/profile/ProfileInfo";
+import { getUserWithProjects } from "@/lib/actions/user.action";
 
 type ProfilePageProps = {
   params: {
@@ -14,24 +13,25 @@ type ProfilePageProps = {
 
 const ProfilePage = async ({ params: { id } }: ProfilePageProps) => {
   const session = await getCurrentUser();
-  // const result = (await getUserProjects(id, 100)) as { user: UserProfile };
-  // const user = result?.user;
-  // if (!user) return <p className="no-result-text">Failed to fetch user info</p>;
+  const user = await getUserWithProjects(id);
+  const projects = user?.projects;
+
+  if (!user) return <p className="no-result-text">Failed to fetch user info</p>;
 
   return (
     <section className="flex-center flex-col max-w-10xl w-full mx-auto paddings">
-      {/* <section className="flex-between max-lg:flex-col gap-10 w-full sm:px-4">
+      <section className="flex-between max-lg:flex-col gap-10 w-full sm:px-4">
         <ProfileInfo
           user={user}
           isLoggedInUser={(session && session?.user?.id === user.id) || false}
           loggedInUserId={session?.user?.id}
         />
 
-        {user?.projects?.edges?.length > 0 ? (
+        {projects && projects.length > 0 ? (
           <div className=" w-[600px] h-[400px] relative hidden lg:flex">
             <Image
               className="rounded-2xl"
-              src={user?.projects?.edges[0]?.node?.image}
+              src={projects[0].image}
               alt="project image"
               fill
               style={{ objectFit: "cover" }}
@@ -49,29 +49,27 @@ const ProfilePage = async ({ params: { id } }: ProfilePageProps) => {
         )}
       </section>
 
-      {user?.projects?.edges?.length > 0 && (
+      {projects && projects.length > 0 && (
         <section className="flex-start flex-col lg:mt-28 mt-4 w-full">
           <p className="w-full text-left text-lg font-semibold sm:px-4">
             Recent Work
           </p>
 
           <div className="projects-grid mb-16">
-            {user?.projects?.edges?.map(
-              ({ node }: { node: ProjectInterface }) => (
-                <ProjectCard
-                  key={`${node?.id}`}
-                  id={node?.id}
-                  image={node?.image}
-                  title={node?.title}
-                  name={user.name}
-                  userImage={user.image ? user.image : undefined}
-                  userId={user.id}
-                />
-              )
-            )}
+            {projects.map(({ id, image, title }) => (
+              <ProjectCard
+                key={`${id}`}
+                id={id}
+                image={image}
+                title={title}
+                name={user.name}
+                userImage={user.image ? user.image : undefined}
+                userId={user.id}
+              />
+            ))}
           </div>
         </section>
-      )} */}
+      )}
     </section>
   );
 };

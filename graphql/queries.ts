@@ -95,6 +95,28 @@ export const DELETE_PROJECT_MUTATION = gql`
   }
 `;
 
+export const GET_USER_WITH_PROJECTS_QUERY = gql`
+  query User($id: ID!) {
+    user(id: $id) {
+      id
+      username
+      name
+      email
+      description
+      image
+      projects {
+        id
+        image
+        title
+        websiteUrl
+        description
+        category
+        githubUrl
+      }
+    }
+  }
+`;
+
 export const GET_USER_BY_EMAIL_QUERY = gql`
   query GetUserByEmail($email: String!) {
     userByEmail(email: $email) {

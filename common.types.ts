@@ -41,27 +41,6 @@ export interface ProjectInterface {
   };
 }
 
-export type ProjectSearch = {
-  projectSearch?: {
-    edges: { node: ProjectInterface }[];
-    pageInfo: {
-      hasPreviousPage: boolean;
-      hasNextPage: boolean;
-      startCursor: string;
-      endCursor: string;
-    };
-  };
-  projectCollection?: {
-    edges: { node: ProjectInterface }[];
-    pageInfo: {
-      hasPreviousPage: boolean;
-      hasNextPage: boolean;
-      startCursor: string;
-      endCursor: string;
-    };
-  };
-};
-
 export interface UserProfile {
   id: string;
   name: string;
@@ -73,15 +52,6 @@ export interface UserProfile {
   githubUrl: string | null;
   linkedInUrl: string | null;
   websiteUrl: string | null;
-  projects: {
-    edges: { node: ProjectInterface }[];
-    pageInfo: {
-      hasPreviousPage: boolean;
-      hasNextPage: boolean;
-      startCursor: string;
-      endCursor: string;
-    };
-  };
 }
 
 export interface UpdateProfile {
@@ -133,4 +103,18 @@ export type ProjectPagination = {
   totalProjects: number;
   totalPages: number;
   currentPage: number;
+};
+
+export type UserProjects = {
+  id: string;
+  name: string;
+  username: string;
+  email: string;
+  password: string | null;
+  description: string | null;
+  image: string | null;
+  githubUrl: string | null;
+  linkedInUrl: string | null;
+  websiteUrl: string | null;
+  projects: ProjectInterface[];
 };

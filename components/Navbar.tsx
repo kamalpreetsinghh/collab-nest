@@ -17,6 +17,8 @@ const Navbar = async () => {
             width={115}
             height={43}
             alt="Collab Nest"
+            style={{ width: "auto", height: "auto" }}
+            priority
           />
         </Link>
         <ul className="xl:flex text-sm text-grey-color hidden gap-7">

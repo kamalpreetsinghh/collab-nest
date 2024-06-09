@@ -56,7 +56,7 @@ const Connections = ({ userId, followers, following }: ConnectionsProps) => {
   }
 
   return (
-    <div className="flex gap-2">
+    <div className="w-full flex gap-2">
       <Link
         href={`/edit-profile/${userId}`}
         className="rounded-button bg-primary mt-4"
@@ -75,6 +75,7 @@ const Connections = ({ userId, followers, following }: ConnectionsProps) => {
       >
         Following
       </button>
+
       <dialog className="rounded-2xl w-[90vw] max-w-md p-4" ref={dialogRef}>
         <div className="flex-col items-center justify-center">
           <div>
@@ -87,10 +88,7 @@ const Connections = ({ userId, followers, following }: ConnectionsProps) => {
             />
           </div>
 
-          <div
-            className="w-full 
-              h-96 overflow-y-scroll overflow-x-scroll"
-          >
+          <div className="w-full h-96 overflow-y-scroll overflow-x-scroll">
             <hr className="divider-color mx-4" />
             <>
               {modalType === ModalType.Following ? (

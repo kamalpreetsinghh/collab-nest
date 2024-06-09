@@ -51,6 +51,7 @@ const ProjectCard = ({
           style={{ objectFit: "cover" }}
           className="rounded-2xl"
           alt="project image"
+          priority
         />
 
         <div className="hidden group-hover:flex profile-card-title">
@@ -68,6 +69,9 @@ const ProjectCard = ({
                 style={{ objectFit: "cover" }}
                 className="rounded-full"
                 alt="profile image"
+                sizes="(max-width: 600px) 32px, 
+                  (max-width: 1200px) 32px, 
+                  32px"
               />
             ) : (
               <NameIcon name={name[0]} className="w-8 h-8 text-lg" />

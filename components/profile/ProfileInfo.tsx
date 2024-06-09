@@ -4,7 +4,7 @@ import { UserProfile } from "@/common.types";
 import UploadImage from "../UploadImage";
 import UserWebsites from "../UserWebsites";
 import { motion } from "framer-motion";
-import { fadeRight } from "@/lib/motion";
+import { fade } from "@/lib/motion";
 
 type ProfileInfoProps = {
   userProfile: UserProfile;
@@ -14,8 +14,8 @@ type ProfileInfoProps = {
 const ProfileInfo = ({ userProfile, canEdit }: ProfileInfoProps) => {
   return (
     <motion.div
-      className="flex flex-col items-center sm:items-start mt-10 w-full max-w-[500px]"
-      {...fadeRight}
+      className="flex flex-col items-center sm:items-start mt-6 w-full max-w-[600px]"
+      {...fade}
     >
       <UploadImage
         userImage={userProfile.image}

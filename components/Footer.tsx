@@ -21,6 +21,8 @@ const Footer = () => {
             width={115}
             height={38}
             alt="Collab Nest"
+            style={{ width: "auto", height: "auto" }}
+            priority
           />
         </Link>
 

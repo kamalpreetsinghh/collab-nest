@@ -54,6 +54,9 @@ const ProfileMenu = ({ user }: { user: User }) => {
                 fill
                 style={{ objectFit: "cover" }}
                 alt="user profile image"
+                sizes="(max-width: 600px) 32px, 
+                  (max-width: 1200px) 32px, 
+                  32px"
               />
             </div>
           ) : (

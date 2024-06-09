@@ -1,11 +1,11 @@
-import { Poppins, Pacifico } from "next/font/google";
+import { Poppins, Anton } from "next/font/google";
 
 export const poppins = Poppins({
   weight: ["300", "400"],
   subsets: ["latin"],
 });
 
-export const pacifico = Pacifico({
+export const anton = Anton({
   subsets: ["latin"],
   weight: "400",
   style: "normal",

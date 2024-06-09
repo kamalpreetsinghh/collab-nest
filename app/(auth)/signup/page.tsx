@@ -106,10 +106,10 @@ const SignUpPage = () => {
   };
 
   return (
-    <Form image="/assets/images/signup.png" imageDesc="Sign Up Image">
+    <Form image="/assets/icons/signup.svg" imageDesc="Sign Up Image">
       <div className="w-full max-w-lg mx-auto flex flex-col items-center">
-        <h1 className="head_text purple_gradient mt-8 mb-2">Hi there!</h1>
-        <p className="desc max-w-md mb-6">Welcome to Prompt Wizard</p>
+        <h1 className="head-text purple-gradient mt-8 mb-2">Hi there!</h1>
+        <p className="desc max-w-md mb-6">Welcome to Collab Nest</p>
         <form
           onSubmit={handleSubmit}
           className="flex flex-col w-full gap-7 glassmorphism"

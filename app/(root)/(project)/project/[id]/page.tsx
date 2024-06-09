@@ -6,6 +6,7 @@ import NameIcon from "@/components/NameIcon";
 import ProjectActions from "@/components/project/ProjectActions";
 import { getCurrentUser } from "@/lib/session";
 import { getProjectById } from "@/lib/actions/project.action";
+import { GoDotFill } from "react-icons/go";
 
 const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
   const session = await getCurrentUser();
@@ -45,7 +46,7 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
                   <Link href={`/profile/${creatorId}`}>
                     {project.createdBy.name}
                   </Link>
-                  <Image src="/dot.svg" width={4} height={4} alt="dot" />
+                  <GoDotFill className="text-gray-500" />
                   <Link
                     href={`/?category=${project.category}`}
                     className="text-primary font-semibold"
@@ -78,7 +79,7 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
             <p className="max-w-5xl text-xl font-normal">
               {project.description}
             </p>
-            <div className="flex flex-wrap gap-5 mt-5">
+            <div className="flex flex-wrap gap-5 mt-5 items-center">
               <Link
                 href={project.githubUrl}
                 target="_blank"
@@ -87,7 +88,7 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
               >
                 🖥<span>Github</span>
               </Link>
-              <Image src="/dot.svg" width={4} height={4} alt="dot" />
+              <GoDotFill className="text-gray-500" />
               <Link
                 href={project.websiteUrl}
                 target="_blank"

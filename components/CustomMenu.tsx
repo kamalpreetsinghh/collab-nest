@@ -9,6 +9,7 @@ import {
   Transition,
 } from "@headlessui/react";
 import Image from "next/image";
+import { IoIosArrowDown } from "react-icons/io";
 
 type CustomMenuProps = {
   title: string;
@@ -24,9 +25,9 @@ const CustomMenu = ({ title, state, filters, setState }: CustomMenuProps) => (
     </label>
     <Menu as="div" className="self-start relative">
       <div>
-        <MenuButton className="flex-center custom_menu-btn">
+        <MenuButton className="flex-center custom-menu-btn">
           {state || "Category"}
-          <Image src="/arrow-down.svg" width={10} height={5} alt="arrow down" />
+          <IoIosArrowDown />
         </MenuButton>
       </div>
       <Transition
@@ -38,13 +39,13 @@ const CustomMenu = ({ title, state, filters, setState }: CustomMenuProps) => (
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <MenuItems className="flex-start custom_menu-items">
+        <MenuItems className="flex-start custom-menu-items">
           {filters.map((tag) => (
             <MenuItem key={tag}>
               <button
                 type="button"
                 value={tag}
-                className="custom_menu-item"
+                className="custom-menu-item"
                 onClick={(e) => setState(e.currentTarget.value)}
               >
                 {tag}

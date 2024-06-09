@@ -81,12 +81,12 @@ const ResetPasswordPage = () => {
 
   return (
     <Form
-      image="/assets/images/resetpassword.png"
+      image="/assets/icons/resetpassword.svg"
       imageDesc="Reset Password Image"
     >
       <>
         <div className="w-full my-6 max-w-lg mx-auto flex flex-col items-center">
-          <h1 className="text-5xl purple_gradient mt-8 pb-2">Reset Password</h1>
+          <h1 className="text-5xl purple-gradient mt-8 pb-2">Reset Password</h1>
           <p className="desc max-w-md mb-6">Please enter your new password.</p>
         </div>
         <div className="flex flex-col items-center justify-center mt-2">

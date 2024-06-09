@@ -19,6 +19,7 @@ const FollowButton = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleOnClick = async () => {
+    setIsFollowing((prevIsFollowing) => !prevIsFollowing);
     try {
       setIsSubmitting(true);
       if (isFollowing) {
@@ -26,7 +27,6 @@ const FollowButton = ({
       } else {
         await addFollower(userId, followId);
       }
-      setIsFollowing((prevIsFollowing) => !prevIsFollowing);
     } catch (error) {
       console.log(error);
     } finally {

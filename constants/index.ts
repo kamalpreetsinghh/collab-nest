@@ -56,26 +56,3 @@ export const footerRightLinks = [
   "Resources",
   "Places",
 ];
-
-export const socialMedia = [
-  {
-    id: 1,
-    img: "/twitter.svg",
-    link: "https://twitter.com/",
-  },
-  {
-    id: 2,
-    img: "/facebook.svg",
-    link: "https://facebook.com/",
-  },
-  {
-    id: 3,
-    img: "/instagram.svg",
-    link: "https://www.linkedin.com/",
-  },
-  {
-    id: 4,
-    img: "/pinterest.svg",
-    link: "https://www.pinterest.com/",
-  },
-];

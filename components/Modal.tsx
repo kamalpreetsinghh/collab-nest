@@ -2,6 +2,7 @@
 
 import { useCallback, useRef, ReactNode } from "react";
 import { useRouter } from "next/navigation";
+import { IoClose } from "react-icons/io5";
 import Image from "next/image";
 
 export default function Modal({ children }: { children: ReactNode }) {
@@ -27,12 +28,12 @@ export default function Modal({ children }: { children: ReactNode }) {
       <button
         type="button"
         onClick={onDismiss}
-        className="absolute top-4 right-8"
+        className="absolute top-2 right-8"
       >
-        <Image src="/close.svg" width={17} height={17} alt="close" />
+        <IoClose className="w-10 h-10 text-white pb-2" />
       </button>
 
-      <div ref={wrapper} className="modal_wrapper">
+      <div ref={wrapper} className="modal-wrapper">
         {children}
       </div>
     </div>

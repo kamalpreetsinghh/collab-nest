@@ -88,9 +88,10 @@ const Connections = ({ userId, followers, following }: ConnectionsProps) => {
           </div>
 
           <div
-            className="border-t divider-color w-full 
+            className="w-full 
               h-96 overflow-y-scroll overflow-x-scroll"
           >
+            <hr className="divider-color mx-4" />
             <>
               {modalType === ModalType.Following ? (
                 <>

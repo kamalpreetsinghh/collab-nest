@@ -17,7 +17,7 @@ const Categories = () => {
 
   return (
     <div className="flex-between w-full gap-5 flex-wrap">
-      <ul className="flex gap-2 overflow-auto">
+      <ul className="flex gap-2 overflow-auto no-scrollbar">
         {categoryFilters.map((filter) => (
           <button
             key={filter}

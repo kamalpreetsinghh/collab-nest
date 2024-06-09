@@ -51,12 +51,12 @@ const ForgotPasswordPage = () => {
 
   return (
     <Form
-      image="/assets/images/forgotpassword.png"
+      image="/assets/icons/forgotpassword.svg"
       imageDesc="Forgot Password Image"
     >
       <>
         <div className="w-full my-6 max-w-lg mx-auto flex flex-col items-center">
-          <h1 className="text-5xl purple_gradient mt-8 pb-2">
+          <h1 className="text-5xl purple-gradient mt-8 pb-2">
             Forgot Password?
           </h1>
           <p className="desc max-w-md mb-6">

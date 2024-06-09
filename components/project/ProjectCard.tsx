@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { item } from "@/lib/motion";
 import NameIcon from "../NameIcon";
+import { FaEye, FaHeart } from "react-icons/fa6";
 
 type ProjectCardProps = {
   id: string;
@@ -37,7 +38,7 @@ const ProjectCard = ({
     <motion.div
       variants={item}
       whileHover={{ scale: 1.03 }}
-      className="flex-center flex-col rounded-2xl w-full sm:w-[298px]"
+      className="flex-center flex-col rounded-2xl w-full sm:w-[312px]"
     >
       <Link
         href={`/project/${id}`}
@@ -52,7 +53,7 @@ const ProjectCard = ({
           alt="project image"
         />
 
-        <div className="hidden group-hover:flex profile_card-title">
+        <div className="hidden group-hover:flex profile-card-title">
           <p className="w-full">{title}</p>
         </div>
       </Link>
@@ -77,11 +78,11 @@ const ProjectCard = ({
 
         <div className="flex-center gap-3">
           <div className="flex-center gap-2">
-            <Image src="/hearth.svg" width={13} height={12} alt="heart" />
+            <FaHeart />
             <p className="text-sm">{randomLikes}</p>
           </div>
           <div className="flex-center gap-2">
-            <Image src="/eye.svg" width={12} height={9} alt="eye" />
+            <FaEye />
             <p className="text-sm">{randomViews}</p>
           </div>
         </div>

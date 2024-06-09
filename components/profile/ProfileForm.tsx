@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { UpdateProfile, UserProfile } from "@/common.types";
 import { updateUserProfile } from "@/lib/actions/user.action";
 import FormField from "../FormField";
-import Button from "../Button";
 
 type ProfileFormProps = {
   user: UserProfile;
@@ -78,12 +77,23 @@ const ProfileForm = ({
         setState={(value) => handleStateChange("linkedInUrl", value)}
       />
 
-      <div className="flex-start w-full">
-        <Button
-          title={isSubmitting ? "Editing" : "Edit"}
-          type="submit"
-          isSubmitting={isSubmitting}
-        />
+      <div className="flex w-full gap-4">
+        <button type="submit" className="rounded-button bg-primary w-24">
+          {isSubmitting ? (
+            <div className="w-24 flex items-center justify-center">
+              <span className="loader bottom-2.5"></span>
+            </div>
+          ) : (
+            "Update"
+          )}
+        </button>
+        <button
+          type="button"
+          onClick={() => router.back()}
+          className="rounded-button bg-red-800 w-24"
+        >
+          Cancel
+        </button>
       </div>
     </form>
   );

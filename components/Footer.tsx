@@ -1,29 +1,12 @@
-import {
-  footerLeftLinks,
-  footerLinks,
-  footerRightLinks,
-  socialMedia,
-} from "@/constants";
+import { footerLeftLinks, footerLinks, footerRightLinks } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
-
-type FooterColumnType = {
-  title: string;
-  links: Array<string>;
-};
-
-const FooterColumn = ({ title, links }: FooterColumnType) => (
-  <div className="footer_column">
-    <h4 className="font-semibold">{title}</h4>
-    <ul className="flex flex-col gap-2 font-normal">
-      {links.map((link) => (
-        <Link href="/" key={link}>
-          {link}
-        </Link>
-      ))}
-    </ul>
-  </div>
-);
+import {
+  FaTwitter,
+  FaSquareFacebook,
+  FaPinterest,
+  FaLinkedin,
+} from "react-icons/fa6";
 
 const Footer = () => {
   return (
@@ -41,7 +24,7 @@ const Footer = () => {
           />
         </Link>
 
-        <div className="flex flex-wrap gap-x-4 md:gap-x-12">
+        <div className="flex flex-wrap gap-y-2 gap-x-4 md:gap-x-12 justify-center">
           {footerLinks.map((link) => (
             <Link href="/" className="font-bold" key={link}>
               {link}
@@ -49,17 +32,38 @@ const Footer = () => {
           ))}
         </div>
 
-        <div className="flex">
-          {socialMedia.map(({ id, img, link }) => (
-            <a href={link} target="_blank" rel="noopener noreferrer" key={id}>
-              <div className="w-10 h-10">
-                <img src={img} alt="icons" width={20} height={20} />
-              </div>
-            </a>
-          ))}
+        <div className="flex gap-4">
+          <a
+            href="https://twitter.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaTwitter className="w-5 h-5" />
+          </a>
+          <a
+            href="https://facebook.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaSquareFacebook className="w-5 h-5" />
+          </a>
+          <a
+            href="https://www.linkedin.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaLinkedin className="w-5 h-5" />
+          </a>
+          <a
+            href="https://www.pinterest.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaPinterest className="w-5 h-5" />
+          </a>
         </div>
       </div>
-      <div className="flex-between footer_copyright font-light mb-16 gap-y-4">
+      <div className="flex-between footer-copyright font-light mb-16 gap-y-4">
         <div className="flex gap-4">
           <p>© 2024 Collab Nest</p>
           {footerLeftLinks.map((link) => (

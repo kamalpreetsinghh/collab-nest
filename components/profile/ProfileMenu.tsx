@@ -71,7 +71,7 @@ const ProfileMenu = ({ user }: { user: User }) => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <MenuItems static className="flex-start profile_menu-items">
+          <MenuItems static className="flex-start profile-menu-items">
             <div className="flex flex-col items-center gap-y-4">
               {user.image ? (
                 <div className="w-20 h-20 relative">
@@ -96,7 +96,7 @@ const ProfileMenu = ({ user }: { user: User }) => {
                   className="text-sm"
                   onClick={() => setOpenModal(false)}
                 >
-                  Designs
+                  Discover
                 </Link>
               </MenuItem>
               <MenuItem>

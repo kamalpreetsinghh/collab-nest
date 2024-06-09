@@ -3,7 +3,6 @@
 import Image from "next/image";
 import FormField from "../FormField";
 import CustomMenu from "../CustomMenu";
-import Button from "../Button";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { categoryFilters } from "@/constants";
@@ -11,7 +10,7 @@ import { FormState, ProjectInterface } from "@/common.types";
 import { createNewProject, updateProject } from "@/lib/actions/project.action";
 
 type ProjectFormProps = {
-  type: "create" | "edit";
+  type: "Create" | "Update";
   userId: string;
   project?: ProjectInterface;
 };
@@ -57,7 +56,7 @@ const ProjectForm = ({ type, userId, project }: ProjectFormProps) => {
     setIsSubmitting(true);
 
     try {
-      if (type === "create") {
+      if (type === "Create") {
         await createNewProject(form, userId);
       } else {
         if (project) {
@@ -68,7 +67,7 @@ const ProjectForm = ({ type, userId, project }: ProjectFormProps) => {
     } catch (error) {
       alert(
         `Failed to ${
-          type === "create" ? "create" : "edit"
+          type === "Create" ? "create" : "edit"
         } a project. Try again!`
       );
     } finally {
@@ -78,16 +77,16 @@ const ProjectForm = ({ type, userId, project }: ProjectFormProps) => {
 
   return (
     <form onSubmit={handleFormSubmit} className="flex-start form">
-      <div className="flex-start form_image-container">
-        <label htmlFor="poster" className="flex-center form_image-label">
+      <div className="flex-start form-image-container">
+        <label htmlFor="poster" className="flex-center form-image-label">
           {!form?.image && "Choose a poster for your project"}
         </label>
         <input
           id="image"
           type="file"
           accept="image/*"
-          required={type === "create"}
-          className="form_image-input"
+          required={type === "Create"}
+          className="form-image-input"
           onChange={(e) => handleChangeImage(e)}
         />
         {form.image && (
@@ -142,12 +141,23 @@ const ProjectForm = ({ type, userId, project }: ProjectFormProps) => {
         setState={(value) => handleStateChange("category", value)}
       />
 
-      <div className="flex-start w-full">
-        <Button
-          title={`${type === "create" ? "Create" : "Edit"}`}
-          type="submit"
-          isSubmitting={isSubmitting}
-        />
+      <div className="flex w-full gap-4">
+        <button type="submit" className="rounded-button bg-primary w-24">
+          {isSubmitting ? (
+            <div className="w-24 flex items-center justify-center">
+              <span className="loader bottom-2.5"></span>
+            </div>
+          ) : (
+            type
+          )}
+        </button>
+        <button
+          type="button"
+          onClick={() => router.back()}
+          className="rounded-button bg-red-800 w-24"
+        >
+          Cancel
+        </button>
       </div>
     </form>
   );

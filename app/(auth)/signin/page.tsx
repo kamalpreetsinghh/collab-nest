@@ -85,9 +85,9 @@ const SignInPage = () => {
   };
 
   return (
-    <Form image="/assets/images/signin.png" imageDesc="Sign In Image">
+    <Form image="/assets/icons/signin.svg" imageDesc="Sign In Image">
       <div className="w-full my-2 max-w-lg mx-auto flex flex-col items-center">
-        <h1 className="head_text purple_gradient mt-8 mb-2">Hi there!</h1>
+        <h1 className="head-text purple-gradient mt-8 mb-2">Hi there!</h1>
         <p className="desc max-w-md mb-6">Welcome to Collab Nest</p>
         {providers && (
           <div className="w-full flex flex-col">

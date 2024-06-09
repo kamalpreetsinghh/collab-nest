@@ -1,9 +1,9 @@
 import { getCurrentUser } from "@/lib/session";
 import Image from "next/image";
 import ProjectCard from "@/components/project/ProjectCard";
-import { pacifico } from "@/app/fonts";
 import { getUserProfile } from "@/lib/actions/user.action";
 import Profile from "@/components/profile/Profile";
+import { anton } from "@/app/fonts";
 
 type ProfilePageProps = {
   params: {
@@ -39,12 +39,14 @@ const ProfilePage = async ({ params: { id } }: ProfilePageProps) => {
             />
           </div>
         ) : (
-          <div
-            className={`${pacifico.className} w-full flex-center flex-col text-3xl sm:text-5xl`}
-          >
-            <p className="my-8">Share your work on</p>
-            <p className="text-primary my-4">Collab Nest</p>
-            <p className="my-4">and showcase it to a</p>
+          <div className="w-full flex-center flex-col text-3xl sm:text-5xl">
+            <p className="py-8">Share your work on</p>
+            <p
+              className={`${anton.className} text-primary pb-4 font-black text-5xl sm:text-7xl`}
+            >
+              Collab Nest
+            </p>
+            <p className="py-4">and showcase it to a</p>
             <p>community of creators.</p>
           </div>
         )}

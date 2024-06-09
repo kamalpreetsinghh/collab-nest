@@ -76,7 +76,11 @@ const Connections = ({ userId, followers, following }: ConnectionsProps) => {
         Following
       </button>
 
-      <dialog className="rounded-2xl w-[90vw] max-w-md p-4" ref={dialogRef}>
+      <dialog
+        className="rounded-2xl w-[90vw] max-w-md p-4 
+        fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        ref={dialogRef}
+      >
         <div className="flex-col items-center justify-center">
           <div>
             <h1 className="mb-2 font-bold text-center">

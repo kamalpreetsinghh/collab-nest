@@ -97,7 +97,7 @@ body {
 }
 
 .icon-btn {
-  @apply p-2 rounded-lg;
+  @apply p-2 rounded-full;
 }
 
 .icon-btn:hover {

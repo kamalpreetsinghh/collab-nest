@@ -16,6 +16,7 @@ import {
 import bcryptjs from "bcryptjs";
 import { uploadImage } from "./image.action";
 import client from "../apolloClient";
+import { sendEmail } from "../mailer";
 
 export const getUserProfile = async (
   id: string
@@ -234,4 +235,33 @@ const createUsername = (name: string, usernames: string[]): string => {
     count++;
   }
   return username;
+};
+
+export const sendResetPasswordEmail = async (
+  email: string
+): Promise<boolean> => {
+  const user: any = await getUserByEmail(email);
+
+  if (user) {
+    try {
+      await sendEmail({
+        email,
+        userId: user.id,
+      });
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
+  return false;
+};
+
+export const resetPassword = async (token: string, password: string) => {
+  // hash password
+  const salt = await bcryptjs.genSalt(10);
+  const hashedPassword = await bcryptjs.hash(password, salt);
+
+  await updateUserPassword(token, hashedPassword);
 };

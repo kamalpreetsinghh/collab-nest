@@ -8,6 +8,7 @@ import { errors, regex } from "@/constants";
 import { Toaster, toast } from "sonner";
 import Button from "@/components/Button";
 import Form from "@/components/Form";
+import { resetPassword } from "@/lib/actions/user.action";
 
 const ResetPasswordPage = () => {
   const [token, setToken] = useState("");
@@ -40,22 +41,17 @@ const ResetPasswordPage = () => {
       setIsLoading(true);
 
       try {
-        const response = await fetch("/api/user/resetpassword", {
-          method: "POST",
-          body: JSON.stringify({ token, password }),
+        await resetPassword(token, password);
+
+        setPassword("");
+        setConfirmPassword("");
+        toast.success("Your password is updated", {
+          description: "You can use your new password for log in.",
         });
-
-        setIsLoading(false);
-
-        if (response.ok) {
-          setPassword("");
-          setConfirmPassword("");
-          toast.success("Your password is updated", {
-            description: "You can use your new password for log in.",
-          });
-        }
       } catch (error: any) {
         console.log(error.message);
+      } finally {
+        setIsLoading(false);
       }
     }
   };

@@ -8,6 +8,7 @@ import { errors, regex } from "@/constants";
 import { Toaster, toast } from "sonner";
 import Button from "@/components/Button";
 import Form from "@/components/Form";
+import { sendResetPasswordEmail } from "@/lib/actions/user.action";
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
@@ -29,19 +30,16 @@ const ForgotPasswordPage = () => {
 
     setIsLoading(true);
 
-    const response = await fetch("/api/user/forgotpassword", {
-      method: "POST",
-      body: JSON.stringify({ email }),
-    });
+    const emailSent = await sendResetPasswordEmail(email);
 
     setIsLoading(false);
 
-    if (response.ok) {
+    if (emailSent) {
       setEmail("");
       toast.success("Email for resetting your password sent", {
         description: "Please check your inbox for further instructions.",
       });
-    } else if (response.status === 400) {
+    } else {
       setEmailError(errors.emailNotExist);
     }
   };

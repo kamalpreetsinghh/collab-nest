@@ -7,8 +7,9 @@ export const POST = async (request: NextRequest) => {
     const requestBody = await request.json();
     const { email } = requestBody;
 
-    const data: any = await getUserByEmail(email);
-    if (!data.user) {
+    const user: any = await getUserByEmail(email);
+
+    if (!user) {
       return NextResponse.json(
         { error: "User does not exists" },
         { status: 400 }
@@ -18,7 +19,7 @@ export const POST = async (request: NextRequest) => {
     //send password reset email
     await sendEmail({
       email,
-      userId: data.user.id,
+      userId: user.id,
     });
 
     return NextResponse.json({

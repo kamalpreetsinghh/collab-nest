@@ -149,6 +149,15 @@ export const GET_USER_BY_EMAIL_QUERY = gql`
   }
 `;
 
+export const GET_USER_BY_FORGOT_EXPIRY_TOKEN_QUERY = gql`
+  query GetUserByPasswordToken($forgotPasswordToken: String!) {
+    userByPasswordToken(forgotPasswordToken: $forgotPasswordToken) {
+      id
+      password
+    }
+  }
+`;
+
 export const CREATE_USER_MUTATION = gql`
   mutation CreateUser($input: CreateUserInput!) {
     createUser(input: $input) {
@@ -215,18 +224,6 @@ export const UNFOLLOW_USER = gql`
       following {
         id
         name
-      }
-    }
-  }
-`;
-
-export const getUserWithForgotPasswordTokenQuery = gql`
-  query GetUserWithForgotPasswordToken($token: String!) {
-    userSearch(first: 10, filter: { forgotPasswordToken: { eq: $token } }) {
-      edges {
-        node {
-          id
-        }
       }
     }
   }

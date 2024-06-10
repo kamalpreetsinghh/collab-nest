@@ -65,7 +65,7 @@ const SignUpPage = () => {
           setEmail("");
           setPassword("");
           setConfirmPassword("");
-          toast("Your account is created successfully.", {
+          toast.success("Your account is created successfully.", {
             description: "Please log in to share your creative designs.",
           });
         } else {
@@ -162,7 +162,7 @@ const SignUpPage = () => {
             Sign in
           </Link>
         </p>
-        <Toaster />
+        <Toaster richColors />
       </div>
     </Form>
   );

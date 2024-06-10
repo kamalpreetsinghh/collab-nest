@@ -8,6 +8,7 @@ import {
   GET_FOLLOWING,
   GET_USERNAMES_BY_NAME_QUERY,
   GET_USER_BY_EMAIL_QUERY,
+  GET_USER_BY_FORGOT_EXPIRY_TOKEN_QUERY,
   GET_USER_WITH_PROJECTS_QUERY,
   UNFOLLOW_USER,
   UPDATE_USER_MUTATION,
@@ -113,76 +114,79 @@ export const updateUserProfile = async (
 };
 
 export const updateProfileImage = async (userId: string, image: string) => {
-  const variables = {
-    id: userId,
-    input: { image },
-  };
-
   const result = await client.mutate({
-    mutation: CREATE_USER_MUTATION,
-    variables,
+    mutation: UPDATE_USER_MUTATION,
+    variables: {
+      id: userId,
+      input: { image },
+    },
   });
 
   return result;
 };
 
 export const updateForgetPasswordToken = async (
-  userId: string,
+  id: string,
   forgotPasswordToken: string,
   forgotPasswordTokenExpiry: Date
 ) => {
-  const variables = {
-    id: userId,
-    input: { forgotPasswordToken, forgotPasswordTokenExpiry },
-  };
+  const result = await client.mutate({
+    mutation: UPDATE_USER_MUTATION,
+    variables: {
+      id,
+      input: { forgotPasswordToken, forgotPasswordTokenExpiry },
+    },
+  });
 
-  // return makeGraphQLRequest(updateUserMutation, variables);
+  return result;
 };
 
 export const updateUserPassword = async (token: string, password: string) => {
-  // const result: any = await makeGraphQLRequest(
-  //   getUserWithForgotPasswordTokenQuery,
-  //   {
-  //     token,
-  //   }
-  // );
-  // const resultEdges = result.userSearch.edges;
-  // const user = resultEdges.map((edge: any) => edge.node.id);
-  // console.log(user);
-  // if (result && user.length > 0) {
-  //   const userId = user[0];
-  //   const variables = {
-  //     id: userId,
-  //     input: {
-  //       password,
-  //       forgotPasswordToken: null,
-  //       forgotPasswordTokenExpiry: null,
-  //     },
-  //   };
-  //   await makeGraphQLRequest(updateUserMutation, variables);
-  //   return user;
-  // }
-  // return null;
+  const forgotPasswordUser = await checkForgotPasswordToken(token);
+
+  if (forgotPasswordUser) {
+    const variables = {
+      id: forgotPasswordUser.id,
+      input: {
+        password,
+        forgotPasswordToken: null,
+        forgotPasswordTokenExpiry: null,
+      },
+    };
+
+    const result = client.mutate({
+      mutation: UPDATE_USER_MUTATION,
+      variables,
+    });
+
+    return result;
+  }
+  return null;
 };
 
-export const uploadProfileImage = async (
-  userId: string,
-  image: string,
-  token: string
-) => {
+export const checkForgotPasswordToken = async (forgotPasswordToken: string) => {
+  const { data } = await client.query({
+    query: GET_USER_BY_FORGOT_EXPIRY_TOKEN_QUERY,
+    variables: { forgotPasswordToken },
+  });
+
+  return data.userByPasswordToken;
+};
+
+export const uploadProfileImage = async (userId: string, image: string) => {
   const uploadedImage = await uploadImage(image, "profile");
   const result = updateProfileImage(userId, uploadedImage);
   return result;
 };
 
-export const getUserFollowersList = async (userId: string) => {
+export const getUserFollowers = async (userId: string) => {
   const { data } = await client.query({
     query: GET_FOLLOWERS,
     variables: { userId },
   });
 };
 
-export const getUserFollowingList = async (userId: string) => {
+export const getUserFollowing = async (userId: string) => {
   const { data } = await client.query({
     query: GET_FOLLOWING,
     variables: { userId },
@@ -210,6 +214,15 @@ export const removeUserFollower = async (
 ) => {
   // await makeGraphQLRequest(removeUserFollowingMutation, { id, followingId });
   // return makeGraphQLRequest(removeUserFollowerMutation, { id, followingId });
+};
+
+export const fetchToken = async () => {
+  try {
+    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/auth/token`);
+    return response.json();
+  } catch (error) {
+    throw error;
+  }
 };
 
 const createUsername = (name: string, usernames: string[]): string => {

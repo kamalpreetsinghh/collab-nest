@@ -32,7 +32,7 @@ export const authOptions: NextAuthOptions = {
         const user = await getUserByEmail(email);
 
         if (user && user.password) {
-          const validPassword = bcryptjs.compare(password, user.password);
+          const validPassword = await bcryptjs.compare(password, user.password);
 
           if (!validPassword) {
             throw new Error("Incorrect Username or Password.");
@@ -91,7 +91,7 @@ export const authOptions: NextAuthOptions = {
     },
     async signIn({ profile, user }) {
       try {
-        const userExists = await getUserByEmail(profile?.email as string);
+        const userExists = await getUserByEmail(user?.email as string);
 
         if (userExists && !userExists.image && user?.image) {
           await updateProfileImage(userExists.id, user.image);

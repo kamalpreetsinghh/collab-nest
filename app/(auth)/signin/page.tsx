@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const SignInPage = () => {
-  const callbackUrl = localStorage.getItem("callbackUrl") || "/";
+  const [callbackUrl, setCallbackUrl] = useState("/");
   const [providers, setProviders] = useState<Providers | null>(null);
 
   const [email, setEmail] = useState("");
@@ -23,6 +23,13 @@ const SignInPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
+
+  useEffect(() => {
+    const callbackUrl = localStorage.getItem("callbackUrl");
+    if (callbackUrl) {
+      setCallbackUrl(callbackUrl);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchProviders = async () => {

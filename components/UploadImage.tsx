@@ -6,7 +6,6 @@ import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
 import NameIcon from "./NameIcon";
-import { fetchToken } from "@/lib/actions";
 import { uploadProfileImage } from "@/lib/actions/user.action";
 
 type UploadImageProps = {
@@ -56,8 +55,7 @@ const UploadImage = ({
     setShowImageActions(false);
     setIsLoading(true);
     if (userId) {
-      const { token } = await fetchToken();
-      const result = await uploadProfileImage(userId, image, token);
+      const result = await uploadProfileImage(userId, image);
     }
     setIsLoading(false);
     setUploadedImage(image);

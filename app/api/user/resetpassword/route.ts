@@ -11,11 +11,11 @@ export const POST = async (request: NextRequest) => {
     const salt = await bcryptjs.genSalt(10);
     const hashedPassword = await bcryptjs.hash(password, salt);
 
-    const updatedUser = await updateUserPassword(token, hashedPassword);
+    const result = await updateUserPassword(token, hashedPassword);
 
-    // if (!updatedUser) {
-    //   return NextResponse.json({ error: "Invalid token" }, { status: 400 });
-    // }
+    if (!result) {
+      return NextResponse.json({ error: "Invalid token" }, { status: 400 });
+    }
 
     return NextResponse.json({
       message: "Password reset successfully",

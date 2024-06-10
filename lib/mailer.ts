@@ -13,21 +13,23 @@ export const sendEmail = async ({
     const token = await bcryptjs.hash(userId.toString(), 10);
     const currentDate = new Date();
     const nextDay = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000);
-    await updateForgetPasswordToken(userId, token, nextDay);
 
-    var transport = nodemailer.createTransport({
-      host: "sandbox.smtp.mailtrap.io",
-      port: 2525,
-      auth: {
-        user: process.env.MAIL_TRAP_USER,
-        pass: process.env.MAIL_TRAP_PASSWORD,
-      },
-    });
+    await updateForgetPasswordToken(userId, token, nextDay);
 
     const url = `${process.env.NEXTAUTH_URL}/resetpassword?token=${token}`;
 
+    const transport = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false, // Use `true` for port 465, `false` for all other ports
+      auth: {
+        user: process.env.GOOGLE_APP_USER,
+        pass: process.env.GOOGLE_APP_PASSWORD,
+      },
+    });
+
     const emailOptions = {
-      from: "kamalpreetsingh025@gmail.com",
+      from: process.env.GOOGLE_APP_USER,
       to: email,
       subject: "Reset your password",
       html: `<p>Click <a href="${url}">here</a> to "reset your password"

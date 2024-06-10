@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { deleteProject } from "@/lib/actions/project.action";
-import { fetchToken } from "@/lib/actions";
 
 type ProjectActionsProps = {
   projectId: string;
@@ -18,8 +17,6 @@ const ProjectActions = ({ projectId }: ProjectActionsProps) => {
 
   const handleDeleteProject = async () => {
     setIsDeleting(true);
-
-    // const { token } = await fetchToken();
 
     try {
       await deleteProject(projectId);

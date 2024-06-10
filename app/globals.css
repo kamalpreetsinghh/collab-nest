@@ -87,11 +87,6 @@ body {
   @apply w-full text-center my-10 px-2;
 }
 
-/* Project Details */
-.user-actions_section {
-  @apply fixed max-md:hidden flex gap-4 flex-col right-10 top-20;
-}
-
 .user-info {
   @apply flex flex-wrap whitespace-nowrap text-sm font-normal gap-2 w-full items-center;
 }

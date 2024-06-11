@@ -1,42 +1,14 @@
-import Categories from "@/components/Categories";
-import Pagination from "@/components/Pagination";
-import ProjectCardList from "@/components/project/ProjectCardList";
-import { getProjects } from "@/lib/actions/project.action";
+import Feed from "@/components/project/Feed";
 
 type HomeProps = {
   searchParams: {
     category?: string;
-    endcursor?: string;
+    page?: string;
   };
 };
 
-const HomePage = async ({
-  searchParams: { category, endcursor },
-}: HomeProps) => {
-  const paginatedProjects = await getProjects(1, 8, category || "Discover");
-  const { projects, currentPage, totalPages } = paginatedProjects;
-
-  return (
-    <section className="flex-center flex-col paddings mb-16">
-      <Categories />
-      {projects.length > 0 ? (
-        <>
-          <ProjectCardList projects={projects} />
-
-          <Pagination currentPage={currentPage} totalPages={totalPages} />
-        </>
-      ) : (
-        <>
-          <p className="mt-56 text-xl text-center text-grey-color">
-            Currently there are no posts.
-          </p>
-          <p className="mt-4 text-xl text-center text-grey-color">
-            Create and share your creative designs with the community.
-          </p>
-        </>
-      )}
-    </section>
-  );
+const HomePage = ({ searchParams: { category, page } }: HomeProps) => {
+  return <Feed category={category || "Discover"} page={Number(page) || 1} />;
 };
 
 export default HomePage;

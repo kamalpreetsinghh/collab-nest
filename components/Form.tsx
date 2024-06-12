@@ -13,7 +13,7 @@ type FormProps = {
 
 const Form = ({ children, image, imageDesc }: FormProps) => {
   return (
-    <section className="w-full flex justify-center lg:justify-between items-center form-padding">
+    <section className="w-full flex justify-center lg:justify-between items-center form-padding px-6">
       <motion.div className="w-full lg:w-3/5 lg:pr-24" {...fade}>
         {children}
       </motion.div>

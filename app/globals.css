@@ -69,16 +69,6 @@ body {
   @apply lg:px-20 py-4 px-5;
 }
 
-::-webkit-scrollbar {
-  width: 5px;
-  height: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 12px;
-}
-
 .modal-head-text {
   @apply md:text-5xl text-3xl font-extrabold text-left max-w-5xl w-full;
 }
@@ -169,7 +159,7 @@ body {
 
 /* Navbar */
 .navbar {
-  @apply py-4 sm:py-5 px-5 sm:px-10 gap-4;
+  @apply py-6 px-5 md:px-20 gap-4;
 }
 
 /* Profile Menu */
@@ -271,6 +261,17 @@ body {
 .rounded-icon-name {
   @apply rounded-full text-white flex justify-center items-center;
   background-color: var(--primary-color);
+}
+
+.chip {
+  @apply button;
+  @apply rounded-full py-2 px-2 md:px-5;
+  background-color: var(--form-background-color);
+}
+
+.chip.selected {
+  background-color: var(--text-color);
+  color: var(--background-color);
 }
 
 .button:hover,

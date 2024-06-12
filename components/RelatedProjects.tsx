@@ -25,7 +25,10 @@ const RelatedProjects = async ({ userId, projectId }: RelatedProjectsProps) => {
       </div>
       <div className="related-projects-grid">
         {filteredProjects.map(({ id, image, title }) => (
-          <div className="flex-center related-project-card drop-shadow-card">
+          <div
+            className="flex-center related-project-card drop-shadow-card"
+            key={id}
+          >
             <Link
               href={`/project/${id}`}
               className="flex-center group relative w-full h-full"

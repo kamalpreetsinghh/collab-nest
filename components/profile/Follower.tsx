@@ -5,7 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import NameIcon from "../NameIcon";
-import { addFollower, removeFollower } from "@/lib/actions/user.action";
+import {
+  followUser,
+  removeFollower,
+  unfollowUser,
+} from "@/lib/actions/user.action";
 
 type FollowerProps = {
   modalType: ModalType;
@@ -25,16 +29,13 @@ const Follower = ({
       setIsFollowing((prevIsFollowing) => !prevIsFollowing);
       if (modalType === ModalType.Following) {
         if (isFollowing) {
-          await removeFollower(userId, followerId);
+          await unfollowUser(userId, followerId);
         } else {
-          await addFollower(userId, followerId);
+          await followUser(userId, followerId);
         }
       } else {
         if (isFollowing) {
-          await fetch(`/api/user/unfollow/${followerId}`, {
-            method: "PATCH",
-            body: JSON.stringify({ followingId: userId }),
-          });
+          await removeFollower(userId, followerId);
         }
       }
     } catch (error) {

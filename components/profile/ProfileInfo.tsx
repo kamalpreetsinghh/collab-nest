@@ -1,8 +1,8 @@
 "use client";
 
 import { UserProfile } from "@/common.types";
-import UploadImage from "../UploadImage";
-import UserWebsites from "../UserWebsites";
+import UploadImage from "./UploadImage";
+import UserWebsites from "./UserWebsites";
 import { motion } from "framer-motion";
 import { fade } from "@/lib/motion";
 

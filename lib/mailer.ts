@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
 import bcryptjs from "bcryptjs";
 import { updateForgetPasswordToken } from "./actions/user.action";
+import { SendRequest } from "@/common.types";
 
 export const sendEmail = async ({
   email,
@@ -39,6 +40,44 @@ export const sendEmail = async ({
     const response = await transport.sendMail(emailOptions);
     return response;
   } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
+export const sendRequestEmail = async (sendRequest: SendRequest) => {
+  const { fromEmail, toEmail, subject, description, urgency } = sendRequest;
+
+  const transport = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    auth: {
+      user: process.env.GOOGLE_APP_USER,
+      pass: process.env.GOOGLE_APP_PASSWORD,
+    },
+  });
+
+  let urgencyMsg = "";
+  if (urgency) {
+    urgencyMsg = `\nurgency: ${urgency}`;
+  }
+
+  const emailOptions = {
+    from: process.env.GOOGLE_APP_USER,
+    to: toEmail,
+    subject: `Looking for professional to design ${subject}`,
+    html: `${description}
+    \n
+    ${urgencyMsg}
+    \n\nIf you are interested then contact me at ${fromEmail}
+    `,
+  };
+
+  try {
+    const response = await transport.sendMail(emailOptions);
+    return response;
+  } catch (error: any) {
+    console.log(error);
     throw new Error(error.message);
   }
 };

@@ -120,3 +120,11 @@ export type UserProfile = {
   followers: FollowerUser[];
   following: FollowerUser[];
 };
+
+export type SendRequest = {
+  fromEmail: string;
+  toEmail: string;
+  subject: string;
+  description: string;
+  urgency: string;
+};

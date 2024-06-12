@@ -1,6 +1,6 @@
 "use server";
 
-import { UpdateProfile, UserProfile } from "@/common.types";
+import { SendRequest, UpdateProfile, UserProfile } from "@/common.types";
 import {
   CREATE_USER_MUTATION,
   FOLLOW_USER,
@@ -10,13 +10,14 @@ import {
   GET_USER_BY_EMAIL_QUERY,
   GET_USER_BY_FORGOT_EXPIRY_TOKEN_QUERY,
   GET_USER_WITH_PROJECTS_QUERY,
+  REMOVE_FOLLOWER,
   UNFOLLOW_USER,
   UPDATE_USER_MUTATION,
 } from "../../graphql/queries";
 import bcryptjs from "bcryptjs";
 import { uploadImage } from "./image.action";
 import client from "../apolloClient";
-import { sendEmail } from "../mailer";
+import { sendEmail, sendRequestEmail } from "../mailer";
 
 export const getUserProfile = async (
   id: string
@@ -194,27 +195,25 @@ export const getUserFollowing = async (userId: string) => {
   });
 };
 
-export const addFollower = async (userId: string, followId: string) => {
+export const followUser = async (userId: string, followId: string) => {
   const { data } = await client.mutate({
     mutation: FOLLOW_USER,
     variables: { userId, followId },
   });
 };
 
-export const removeFollower = async (userId: string, unfollowId: string) => {
+export const unfollowUser = async (userId: string, unfollowId: string) => {
   const { data } = await client.mutate({
     mutation: UNFOLLOW_USER,
     variables: { userId, unfollowId },
   });
 };
 
-export const removeUserFollower = async (
-  id: string,
-  followingId: string,
-  token: string
-) => {
-  // await makeGraphQLRequest(removeUserFollowingMutation, { id, followingId });
-  // return makeGraphQLRequest(removeUserFollowerMutation, { id, followingId });
+export const removeFollower = async (userId: string, followerId: string) => {
+  const { data } = await client.mutate({
+    mutation: REMOVE_FOLLOWER,
+    variables: { userId, followerId },
+  });
 };
 
 export const fetchToken = async () => {
@@ -264,4 +263,8 @@ export const resetPassword = async (token: string, password: string) => {
   const hashedPassword = await bcryptjs.hash(password, salt);
 
   await updateUserPassword(token, hashedPassword);
+};
+
+export const sendrequest = async (sendrequest: SendRequest) => {
+  await sendRequestEmail(sendrequest);
 };

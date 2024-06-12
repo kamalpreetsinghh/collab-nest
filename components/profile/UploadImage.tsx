@@ -5,7 +5,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
-import NameIcon from "./NameIcon";
+import NameIcon from "../NameIcon";
 import { uploadProfileImage } from "@/lib/actions/user.action";
 
 type UploadImageProps = {

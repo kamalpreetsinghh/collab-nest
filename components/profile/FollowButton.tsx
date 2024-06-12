@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { fadeAnimation } from "@/lib/motion";
-import { addFollower, removeFollower } from "@/lib/actions/user.action";
+import { followUser, unfollowUser } from "@/lib/actions/user.action";
 type FollowButtonProps = {
   userId: string;
   followId: string;
@@ -23,9 +23,9 @@ const FollowButton = ({
     try {
       setIsSubmitting(true);
       if (isFollowing) {
-        await removeFollower(userId, followId);
+        await unfollowUser(userId, followId);
       } else {
-        await addFollower(userId, followId);
+        await followUser(userId, followId);
       }
     } catch (error) {
       console.log(error);

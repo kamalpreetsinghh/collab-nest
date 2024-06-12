@@ -3,10 +3,11 @@ import Link from "next/link";
 import Modal from "@/components/Modal";
 import RelatedProjects from "@/components/RelatedProjects";
 import NameIcon from "@/components/NameIcon";
-import ProjectActions from "@/components/project/ProjectActions";
 import { getCurrentUser } from "@/lib/session";
 import { getProjectById } from "@/lib/actions/project.action";
 import { GoDotFill } from "react-icons/go";
+import { FaGithub } from "react-icons/fa6";
+import ProjectUser from "@/components/project/ProjectUser";
 
 const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
   const session = await getCurrentUser();
@@ -17,51 +18,17 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
     <>
       {project ? (
         <Modal>
-          <section className="flex-between gap-y-8 max-w-4xl max-xs:flex-col w-full">
-            <div className="flex-1 items-center flex gap-5 w-full ">
-              <Link
-                className="flex w-14 h-14 relative"
-                href={`/profile/${creatorId}`}
-              >
-                {project.createdBy.image ? (
-                  <Image
-                    src={project.createdBy?.image}
-                    fill
-                    style={{ objectFit: "cover" }}
-                    alt="profile"
-                    className="rounded-full"
-                  />
-                ) : (
-                  <NameIcon
-                    name={project.createdBy.name[0]}
-                    className="w-14 h-14 text-3xl"
-                  />
-                )}
-              </Link>
-              <div className="flex-1 flex-start flex-col gap-1">
-                <p className="self-start text-lg font-semibold max-w-[240px] sm:max-w-xl truncate">
-                  {project.title}
-                </p>
-                <div className="user-info">
-                  <Link href={`/profile/${creatorId}`}>
-                    {project.createdBy.name}
-                  </Link>
-                  <GoDotFill className="text-gray-500" />
-                  <Link
-                    href={`/?category=${project.category}`}
-                    className="text-primary font-semibold"
-                  >
-                    {project?.category}
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {session?.user?.email === project.createdBy.email && (
-              <div className="flex justify-end items-center gap-2">
-                <ProjectActions projectId={project.id} />
-              </div>
-            )}
+          <section className="max-w-[1064px] max-xs:flex-col w-full">
+            <h3 className="text-3xl font-bold pb-4">{project.title}</h3>
+            <ProjectUser
+              projectId={project.id}
+              category={project.category}
+              id={project.createdBy.id}
+              name={project.createdBy.name}
+              email={project.createdBy.email}
+              image={project.createdBy.image}
+              session={session}
+            />
           </section>
 
           <section className="my-14">
@@ -86,7 +53,8 @@ const ProjectPage = async ({ params: { id } }: { params: { id: string } }) => {
                 rel="noreferrer"
                 className="flex-center gap-2 tex-sm font-medium text-primary"
               >
-                🖥<span>Github</span>
+                <FaGithub className="text-black dark:text-white" />
+                <span>Github</span>
               </Link>
               <GoDotFill className="text-gray-500" />
               <Link

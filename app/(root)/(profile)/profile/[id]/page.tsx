@@ -1,9 +1,7 @@
 import { getCurrentUser } from "@/lib/session";
-import Image from "next/image";
 import ProjectCard from "@/components/project/ProjectCard";
 import { getUserProfile } from "@/lib/actions/user.action";
 import Profile from "@/components/profile/Profile";
-import { anton } from "@/app/fonts";
 
 type ProfilePageProps = {
   params: {
